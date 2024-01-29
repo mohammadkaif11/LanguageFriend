@@ -12,7 +12,7 @@ export default async function LoginPage() {
         src="/logo.png"
       /> */}
       <h1 className="mt-6 text-center font-cal text-3xl text-black">
-        Welcome to Tutor!
+        Welcome to  Language Friend!
       </h1>
       <p className="mb-8 mt-2 text-center text-sm text-stone-600 dark:text-stone-400">
         Learning Language with Fun!

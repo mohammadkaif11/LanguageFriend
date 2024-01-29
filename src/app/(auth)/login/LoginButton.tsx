@@ -1,26 +1,21 @@
 "use client";
-import { signIn, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import LoadingDots from "~/components/icons/loading-dots";
 import { BsGoogle } from "react-icons/bs";
-import { useRouter } from 'next/navigation'
+import { toast } from "sonner";
 
 export default function LoginButton() {
   const [loadingGoogleLogin, setLoadingGoogleLogin] = useState(false);
-  const router = useRouter();
-  // const { data: session, status } = useSession(); // Get the user session
 
   // Get error message added by next/auth in URL.
   const searchParams = useSearchParams();
   const error = searchParams?.get("error");
 
-  // useEffect(() => {
-  //   // Redirect if user session exists and status is "authenticated"
-  //   if (status === "authenticated" && session) {
-  //     router.push("/"); // Replace "/dashboard" with the desired destination
-  //   }
-  // }, [status, session, router]);
+  useEffect(() => {
+    error && toast.error(error);
+  }, [error]);
 
   return (
     <div>

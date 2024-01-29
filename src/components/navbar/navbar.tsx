@@ -3,38 +3,9 @@
 import { Fragment, useState } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-// import { UserSessionInterface } from "~/server/auth";
-// import { useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
 import SettingModal from "../modals/setting-modal";
-
-const user = {
-  name: "Tom Cook",
-  email: "tom@example.com",
-  imageUrl:
-    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-};
-const navigation = [
-  { name: "Home", href: "#", current: true },
-  { name: "Scene", href: "#", current: true },
-  { name: "Subscription", href: "#", current: true },
-];
-const userNavigation = [
-  {
-    name: "Settings",
-    href: "#",
-    onclick: async () => {
-      await signOut();
-    },
-  },
-  {
-    name: "Sign out",
-    href: "#",
-    onclick: async () => {
-      await signOut();
-    },
-  },
-];
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -42,7 +13,7 @@ function classNames(...classes: string[]) {
 
 export default function Navbar() {
   const [settingModalOpen, setSettingModal] = useState(false);
-  // const { data: session } = useSession();
+  const { data: session } = useSession();
 
   return (
     <>
@@ -65,17 +36,17 @@ export default function Navbar() {
                 </div>
                 <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                   <div className="flex flex-shrink-0 items-center">
-                    <img
+                    {/* <img
                       className="h-8 w-auto"
                       src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
                       alt="Your Company"
-                    />
+                    /> */}
+                    <h4 className="font-bold">Language Friend</h4>
                   </div>
                   <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-                    {/* Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" */}
                     <a
                       href="#"
-                      className="inline-flex items-center border-b-2 border-indigo-500 px-1 pt-1 text-sm font-medium text-gray-900"
+                      className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-900"
                     >
                       Dashboard
                     </a>
@@ -103,12 +74,15 @@ export default function Navbar() {
                   {/* Profile dropdown */}
                   <Menu as="div" className="relative ml-3">
                     <div>
-                      <Menu.Button className="relative flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                      <Menu.Button className="relative flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
                         <span className="absolute -inset-1.5" />
                         <span className="sr-only">Open user menu</span>
                         <img
                           className="h-8 w-8 rounded-full"
-                          src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                          src={
+                            session?.user?.image ??
+                            `https://avatar.vercel.sh/${session?.user?.image}`
+                          }
                           alt=""
                         />
                       </Menu.Button>
@@ -122,24 +96,23 @@ export default function Navbar() {
                       leaveFrom="transform opacity-100 scale-100"
                       leaveTo="transform opacity-0 scale-95"
                     >
-                      <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <Menu.Items className="absolute right-0 z-10 mt-2 w-auto origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <Menu.Item>
                           {({ active }) => (
-                            <a
-                              href="#"
+                            <button
                               className={classNames(
                                 active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700",
+                                "flex flex-col px-4 py-2 text-sm text-gray-700",
                               )}
                             >
-                              Your Profile
-                            </a>
+                              {session?.user?.name}
+                              <span className="text-gray-400 text-sm"> {session?.user?.email}</span>
+                            </button>
                           )}
                         </Menu.Item>
                         <Menu.Item>
                           {({ active }) => (
-                            <a
-                              href="#"
+                            <button
                               onClick={() => {
                                 setSettingModal(true);
                               }}
@@ -149,14 +122,14 @@ export default function Navbar() {
                               )}
                             >
                               Settings
-                            </a>
+                            </button>
                           )}
                         </Menu.Item>
                         <Menu.Item>
                           {({ active }) => (
                             <button
-                              onClick={async () => {
-                                await signOut();
+                              onClick={() => {
+                                void signOut();
                               }}
                               className={classNames(
                                 active ? "bg-gray-100" : "",
