@@ -1,5 +1,4 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { Session } from "@prisma/client";
 import {
   getServerSession,
   type DefaultSession,
