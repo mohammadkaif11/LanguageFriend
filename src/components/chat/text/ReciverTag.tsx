@@ -58,10 +58,10 @@ function ReciverTag({
     setMessages((prevMessages) => {
       const updatedMessages = [...prevMessages];
       if (index >= 0 && index < updatedMessages.length) {
-        updatedMessages[index] = {
-          ...updatedMessages[index],
-          voiceUrl: voiceUrl,
-        };
+        // updatedMessages[index] = {
+        //   ...updatedMessages[index],
+        //   voiceUrl: voiceUrl,
+        // };
       }
       return updatedMessages;
     });
