@@ -26,7 +26,6 @@ function ReciverTagV2({
   const [playing, setPlaying] = useState(false);
 
   useEffect(() => {
-    const togglePlayPause = async () => {
       try {
         if ("speechSynthesis" in window) {
           const utterance = new SpeechSynthesisUtterance(text);
@@ -68,9 +67,7 @@ function ReciverTagV2({
         }
       } catch (error) {
         console.error("error: ", error);
-      }
     };
-    void togglePlayPause()
   }, []);
 
   const togglePlayPause = async () => {
