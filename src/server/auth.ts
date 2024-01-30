@@ -16,6 +16,8 @@ declare module "next-auth" {
 }
 
 const VERCEL_DEPLOYMENT = !!process.env.VERCEL_URL;
+console.log('process.env.GOOGLE_CLIENT_ID',process.env.GOOGLE_CLIENT_ID);
+console.log('process.env.GOOGLE_CLIENT_SECERET',process.env.GOOGLE_CLIENT_SECERET);
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -39,9 +41,7 @@ export const authOptions: NextAuthOptions = {
         sameSite: "lax",
         path: "/",
         // When working on localhost, the cookie domain must be omitted entirely (https://stackoverflow.com/a/1188145)
-        domain: VERCEL_DEPLOYMENT
-          ? `.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`
-          : undefined,
+        domain: VERCEL_DEPLOYMENT? `.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`: undefined,
         secure: VERCEL_DEPLOYMENT,
       },
     },
@@ -51,6 +51,7 @@ export const authOptions: NextAuthOptions = {
       if (user) {
         token.user = user;
       }
+      console.log('token', token);
       return token;
     },
     session: async ({ session, token }) => {
@@ -64,6 +65,8 @@ export const authOptions: NextAuthOptions = {
         // @ts-expect-error
         username: token?.user?.username || token?.user?.gh_username,
       };
+      console.log('session', session);
+
       return session;
     },
   },
