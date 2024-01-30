@@ -22,7 +22,7 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID ?? "",
       clientSecret: process.env.GOOGLE_CLIENT_SECERET ?? "",
-    })
+    }),
   ],
   pages: {
     signIn: `/login`,
@@ -39,35 +39,14 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     session: async ({ session, token }) => {
-      // const userId = token.sub;
-      // const userExists =(await prisma.user.findUnique({ where: { id: userId } })) || {};
-      // const googleAdsCredentials = await prisma.userGoogleCredentials.findMany({
-      //   where: { userId: token.sub },
-      // });
+      const userId = token.sub;
+      const userExists =
+        (await db.user.findUnique({ where: { id: userId } })) ?? {};
+      session.user = {
+        ...session.user,
+        ...userExists,
+      };
 
-      // if (googleAdsCredentials.length > 0) {
-      //   session.user = {
-      //     ...session.user,
-      //     ...userExists,
-      //     // @ts-expect-error
-      //     id: token.sub,
-      //     // @ts-expect-error
-      //     username: token?.user?.username || token?.user?.gh_username,
-      //     googleRefreshToken: googleAdsCredentials[0].refreshToken,
-      //     googleEmail: googleAdsCredentials[0].userGoogleEmail,
-      //   };
-      // } else {
-      //   session.user = {
-      //     ...session.user,
-      //     ...userExists,
-      //     // @ts-expect-error
-      //     id: token.sub,
-      //     // @ts-expect-error
-      //     username: token?.user?.username || token?.user?.gh_username,
-      //     googleRefreshToken: null,
-      //     googleEmail: null,
-      //   };
-      // }
       return session;
     },
   },
@@ -80,9 +59,9 @@ export interface UserSessionInterface {
     image: string;
     id: string;
   } | null;
-  expires:string;
-
+  expires: string;
 }
 
 // Assuming `getServerAuthSession` returns a Promise of SessionInterface
-export const getServerAuthSession = (): Promise<UserSessionInterface | null> => getServerSession(authOptions);
+export const getServerAuthSession = (): Promise<UserSessionInterface | null> =>
+  getServerSession(authOptions);
