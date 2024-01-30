@@ -42,20 +42,26 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     session: async ({ session, token }) => {
-      console.log('session', session);
-      console.log('token in session', token);
-      const userId = token.sub;
-      const userExists =(await db.user.findUnique({ where: { id: userId } })) || {};
-      console.log('userExists', userExists);
-      session.user = {
-        ...session.user,
-        ...userExists,
-        // @ts-expect-error
-        id: token.sub,
-        // @ts-expect-error
-        username: token?.user?.username || token?.user?.gh_username,
-      };
+      try {
+        console.log('session', session);
+        console.log('token in session', token);
+        const userId = token.sub;
+        const userExists =(await db.user.findUnique({ where: { id: userId } })) || {};
+        console.log('userExists', userExists);
+        session.user = {
+          ...session.user,
+          ...userExists,
+          // @ts-expect-error
+          id: token.sub,
+          // @ts-expect-error
+          username: token?.user?.username || token?.user?.gh_username,
+        };
+        
+      } catch (error) {
+        console.log('error', error);
+      }
       return session;
+
     },
   },
   cookies: {
