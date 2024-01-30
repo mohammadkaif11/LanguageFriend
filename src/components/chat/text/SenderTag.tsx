@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import { PlayCircleIcon } from "@heroicons/react/16/solid";
 import { PauseCircleIcon } from "@heroicons/react/24/solid";
 
-function SenderTag({ text }: { text: string }) {
+function SenderTag({ text }: { text: string}) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const { data: session } = useSession();
   const [playing, setPlaying] = useState(false);

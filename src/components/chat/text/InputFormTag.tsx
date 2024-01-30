@@ -1,13 +1,8 @@
 import React, { useState } from "react";
 import { PaperAirplaneIcon } from "@heroicons/react/16/solid";
 import { startChart } from "~/server/chatGPT/chatgpt";
+import { type MessageInterface } from "model";
 
-interface MessageInterface {
-  role: "system" | "user" | "assistant";
-  content: string;
-  voiceUrl: string | null;
-
-}
 
 interface InputFormTagProps {
   setMessages: React.Dispatch<React.SetStateAction<MessageInterface[]>>;

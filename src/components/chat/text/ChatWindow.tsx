@@ -4,14 +4,8 @@ import SenderTag from "./SenderTag";
 import ReciverTag from "./ReciverTag";
 import InputFormTag from "./InputFormTag";
 import { feed_chat_prompt } from "~/server/chatGPT/Prompt";
-import {startChart} from "~/server/chatGPT/chatgpt";
-import { useSession } from "next-auth/react"
-
-interface MessageInterface {
-  role: "system" | "user" | "assistant";
-  content: string;
-  voiceUrl: string | null;
-}
+import { startChart } from "~/server/chatGPT/chatgpt";
+import { MessageInterface } from "model";
 
 interface ChatCompletion {
   id: string;
@@ -33,7 +27,7 @@ interface ChatChoice {
     role: string;
     content: string;
   };
-  logprobs: null
+  logprobs: null;
   finish_reason: string;
 }
 
@@ -41,39 +35,43 @@ function ChatWindow() {
   const [messages, setMessages] = useState<MessageInterface[]>([]);
 
   useEffect(() => {
-  const sendObj: MessageInterface = {
-    role: 'assistant',
-    content: 'you are ai chat bot return respnse only in one word',
-    voiceUrl:null
-  };
+    const sendObj: MessageInterface = {
+      role: "system",
+      content: "you are ai chat bot return respnse only in one word",
+      voiceUrl: null,
+    };
+    setMessages((prevMessages) => [...prevMessages, sendObj]);
+    if (messages.length===0) {
+      startChart([...messages, sendObj])
+        .then((response) => {
+          const res = response as MessageInterface;
+          res.voiceUrl = null;
+          setMessages((prevMessages) => [...prevMessages, res]);
+        })
+        .catch((errors) => {
+          console.log("error", errors);
+        });
+    }
+  }, []);
 
-  const params = messages;
-  params.push(sendObj);
-  // setData([...data, sendObj]); // No need to update data here
-  // if (messages.length === 1) {
-  //   startChart(messages)
-  //     .then((response) => {
-  //       const res = response as MessageInterface;
-  //       res.voiceUrl=null;
-  //       setMessages([...messages, res]); // Update data after receiving the response
-  //     })
-  //     .catch((errors) => {
-  //       console.log('error', errors);
-  //     });
-  // }
-}, []);
-
-useEffect(()=>{
-console.log(messages);
-},[messages])
+  useEffect(() => {
+    console.log("messages", messages);
+  }, [messages]);
 
   return (
     <div className="flex h-[90vh] w-full flex-col justify-between px-2">
       <div className="mt-5 flex flex-col overflow-y-scroll	">
         {messages?.map((data: MessageInterface, index: number) => (
           <div key={index}>
-            {data.role === "user" && <SenderTag text={data.content}  />}
-            {data.role === "assistant" && <ReciverTag text={data.content} audioUrl={data.voiceUrl} index={index} setMessages={setMessages}/>}
+            {data.role === "user" && <SenderTag text={data.content} />}
+            {data.role === "assistant" && (
+              <ReciverTag
+                text={data.content}
+                audioUrl={data.voiceUrl}
+                index={index}
+                setMessages={setMessages}
+              />
+            )}
           </div>
         ))}
       </div>

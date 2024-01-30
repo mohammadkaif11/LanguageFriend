@@ -6,6 +6,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
 import SettingModal from "../modals/setting-modal";
+import Link from "next/link";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -41,33 +42,23 @@ export default function Navbar() {
                       src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
                       alt="Your Company"
                     /> */}
-                    <h4 className="font-bold">Language Friend</h4>
+                    <Link href="/">
+                      <h4 className="font-bold">Language Friend</h4>
+                    </Link>
                   </div>
                   <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-                    <a
-                      href="#"
+                    <Link
+                      href="/scene"
                       className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-900"
                     >
-                      Dashboard
-                    </a>
-                    <a
-                      href="#"
-                      className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                      Scene
+                    </Link>
+                    <Link
+                      href="/scene"
+                      className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-900"
                     >
-                      Team
-                    </a>
-                    <a
-                      href="#"
-                      className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-                    >
-                      Projects
-                    </a>
-                    <a
-                      href="#"
-                      className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-                    >
-                      Calendar
-                    </a>
+                      Subscription
+                    </Link>
                   </div>
                 </div>
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
@@ -106,7 +97,10 @@ export default function Navbar() {
                               )}
                             >
                               {session?.user?.name}
-                              <span className="text-gray-400 text-sm"> {session?.user?.email}</span>
+                              <span className="text-sm text-gray-400">
+                                {" "}
+                                {session?.user?.email}
+                              </span>
                             </button>
                           )}
                         </Menu.Item>
@@ -150,33 +144,11 @@ export default function Navbar() {
             <Disclosure.Panel className="sm:hidden">
               <div className="space-y-1 pb-4 pt-2">
                 {/* Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" */}
-                <Disclosure.Button
-                  as="a"
-                  href="#"
-                  className="block border-l-4 border-indigo-500 bg-indigo-50 py-2 pl-3 pr-4 text-base font-medium text-indigo-700"
-                >
-                  Dashboard
+                <Disclosure.Button className="border-trasparent block border-l-4 bg-indigo-50 py-2 pl-3 pr-4 text-base font-medium text-indigo-700">
+                  <Link href="/scene">Scene</Link>
                 </Disclosure.Button>
-                <Disclosure.Button
-                  as="a"
-                  href="#"
-                  className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
-                >
-                  Team
-                </Disclosure.Button>
-                <Disclosure.Button
-                  as="a"
-                  href="#"
-                  className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
-                >
-                  Projects
-                </Disclosure.Button>
-                <Disclosure.Button
-                  as="a"
-                  href="#"
-                  className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
-                >
-                  Calendar
+                <Disclosure.Button className="border-trasparent block border-l-4 bg-indigo-50 py-2 pl-3 pr-4 text-base font-medium text-indigo-700">
+                  <Link href="/scene">Subscription</Link>
                 </Disclosure.Button>
               </div>
             </Disclosure.Panel>

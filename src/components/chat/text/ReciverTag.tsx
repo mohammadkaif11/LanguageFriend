@@ -4,12 +4,8 @@ import React, { useRef, useState } from "react";
 import { PlayCircleIcon } from "@heroicons/react/16/solid";
 import { PauseCircleIcon } from "@heroicons/react/24/solid";
 import { generateAudio } from "~/server/chatGPT/chatgpt";
-
-interface MessageInterface {
-  role: "system" | "user" | "assistant";
-  content: string;
-  voiceUrl: string | null;
-}
+import { type MessageInterface } from "model";
+import VoiceLoadSpiner from "~/components/loader/voice-load-spinner";
 
 function ReciverTag({
   text,
@@ -25,43 +21,71 @@ function ReciverTag({
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [audio, setAudio] = useState<string | null>(audioUrl);
   const [playing, setPlaying] = useState(false);
+  const [loader, setLoader] = useState(false);
 
-  const togglePlayPause = async () => {
+  const playAudio = async () => {
+    console.log('audio play');
     try {
       if (audioRef.current) {
-        if (playing) {
-          audioRef.current.pause();
-        } else {
-          await audioRef.current.play();
-        }
-        setPlaying(!playing);
-      } else {
-        // Generate audio and update the state
-        const bufferAudio = await generateAudio(text);
-        const blob = new Blob([bufferAudio], { type: "audio/mp3" });
-
-        // Create a data URL from the Blob
-        const audiourl = URL.createObjectURL(blob);
-
-        // const audio = new Audio(dataUrl);
-        // console.log("audio", audio);
-        setAudio(audiourl);
-        updateMessageVoiceUrl(index, audiourl);
-        await togglePlayPause();
+        await audioRef.current.play();
+        setPlaying(true);
       }
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error playing audio:", error);
+    }
+  };
+
+  const pauseAudio = () => {
+    console.log('audio pause');
+    if (audioRef.current) {
+      audioRef.current.pause();
+      setPlaying(false);
+    }
+  };
+
+  const loadAndPlayGeneratedAudio = async () => {
+    try {
+      setLoader(true)
+      const bufferAudio = await generateAudio(text);
+      const base64DecodedAudio = Buffer.from(bufferAudio, "base64");
+      const blob = new Blob([base64DecodedAudio], { type: "audio/mp3" });
+      const audiourl = URL.createObjectURL(blob);
+
+      setAudio(audiourl);
+      updateMessageVoiceUrl(index, audiourl);
+      setLoader(false)
+      await playAudio();
+    } catch (error) {
+      console.error("Error loading and playing generated audio:", error);
+    }
+  };
+
+  const togglePlayPause = async () => {
+    console.log('togglePlayPause');
+    try {
+      if (audioRef.current) {
+        playing ? pauseAudio() : await playAudio();
+      } else {
+        await loadAndPlayGeneratedAudio();
+      }
+    } catch (error) {
+      console.error("Error toggling play/pause:", error);
     }
   };
 
   const updateMessageVoiceUrl = (index: number, voiceUrl: string) => {
     setMessages((prevMessages) => {
       const updatedMessages = [...prevMessages];
-      if (index >= 0 && index < updatedMessages.length) {
-        // updatedMessages[index] = {
-        //   ...updatedMessages[index],
-        //   voiceUrl: voiceUrl,
-        // };
+      if (
+        index >= 0 &&
+        index < updatedMessages.length &&
+        updatedMessages[index]?.role === "assistant"
+      ) {
+        updatedMessages[index] = {
+          role: updatedMessages[index]?.role ?? "assistant",
+          voiceUrl: voiceUrl,
+          content: updatedMessages[index]?.content ?? "",
+        };
       }
       return updatedMessages;
     });
@@ -76,7 +100,9 @@ function ReciverTag({
       />
       <div className="ml-2 flex max-w-[90%] items-center justify-end rounded-3xl bg-gray-400 px-4  py-3 text-white md:max-w-[50%]">
         <span className="w-full">{text}</span>
-        {playing ? (
+        {loader ? (
+          <VoiceLoadSpiner/>
+        ) : playing ? (
           <PauseCircleIcon
             onClick={togglePlayPause}
             className="h-10 w-10 pl-1"
