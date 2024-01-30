@@ -42,6 +42,8 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     session: async ({ session, token }) => {
+      console.log('session', session);
+      console.log('token in session', token);
       const userId = token.sub;
       const userExists =(await db.user.findUnique({ where: { id: userId } })) || {};
       console.log('userExists', userExists);
@@ -53,8 +55,6 @@ export const authOptions: NextAuthOptions = {
         // @ts-expect-error
         username: token?.user?.username || token?.user?.gh_username,
       };
-      console.log('session', session);
-
       return session;
     },
   },
