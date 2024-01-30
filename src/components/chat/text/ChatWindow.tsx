@@ -37,7 +37,7 @@ function ChatWindow() {
   useEffect(() => {
     const sendObj: MessageInterface = {
       role: "system",
-      content: "you are ai chat bot return respnse only in one word",
+      content: "you are ai language ai tutor chatbot",
       voiceUrl: null,
     };
     setMessages((prevMessages) => [...prevMessages, sendObj]);

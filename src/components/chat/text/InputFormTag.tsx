@@ -52,12 +52,12 @@ function InputFormTag(props: InputFormTagProps) {
           setMessage(e.target.value);
         }}
         value={message}
-        className="w-full rounded-xl bg-gray-300 px-3 py-5"
+        className="w-full h-10 rounded-xl bg-gray-300 px-3 py-5"
         type="text"
         placeholder="type your message here..."
       />
       <MicroPhone setMessage={setMessage} />
-      <PaperAirplaneIcon onClick={onMessageSend} className="h-14 w-14" />
+      <PaperAirplaneIcon onClick={onMessageSend} className="h-8 w-8" />
     </div>
   );
 }
