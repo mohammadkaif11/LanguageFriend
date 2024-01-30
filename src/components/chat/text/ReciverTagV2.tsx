@@ -3,9 +3,8 @@
 import React, { useRef, useState } from "react";
 import { PlayCircleIcon } from "@heroicons/react/16/solid";
 import { PauseCircleIcon } from "@heroicons/react/24/solid";
-import { generateAudio } from "~/server/chatGPT/chatgpt";
 import { type MessageInterface } from "model";
-import VoiceLoadSpiner from "~/components/loader/voice-load-spinner";
+import { toast } from "sonner";
 
 function ReciverTagV2({
   text,
@@ -18,82 +17,56 @@ function ReciverTagV2({
   setMessages: React.Dispatch<React.SetStateAction<MessageInterface[]>>;
   index: number;
 }) {
-  const [selectedLanguage, setSelectedLanguage] = useState<string>('en-US');
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("en-US");
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
-  const [selectedVoice, setSelectedVoice] = useState<SpeechSynthesisVoice | null>(null);
+  const [selectedVoice, setSelectedVoice] =useState<SpeechSynthesisVoice | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [audio, setAudio] = useState<string | null>(audioUrl);
   const [playing, setPlaying] = useState(false);
-  const [loader, setLoader] = useState(false);
-
-  const playAudio = async () => {
-    console.log("audio play");
-    try {
-      if (audioRef.current) {
-        await audioRef.current.play();
-        setPlaying(true);
-      }
-    } catch (error) {
-      console.error("Error playing audio:", error);
-    }
-  };
-
-  const pauseAudio = () => {
-    console.log("audio pause");
-    if (audioRef.current) {
-      audioRef.current.pause();
-      setPlaying(false);
-    }
-  };
-
-  const loadAndPlayGeneratedAudio = async () => {
-    try {
-      setLoader(true);
-      const bufferAudio = await generateAudio(text);
-      const base64DecodedAudio = Buffer.from(bufferAudio, "base64");
-      const blob = new Blob([base64DecodedAudio], { type: "audio/mp3" });
-      const audiourl = URL.createObjectURL(blob);
-
-      setAudio(audiourl);
-      updateMessageVoiceUrl(index, audiourl);
-      setLoader(false);
-      await playAudio();
-    } catch (error) {
-      console.error("Error loading and playing generated audio:", error);
-    }
-  };
 
   const togglePlayPause = async () => {
-    setPlaying(!playing);
-    if ('speechSynthesis' in window) {
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = selectedLanguage;
-      if (selectedVoice) {
-        utterance.voice = selectedVoice;
-      }
-      speechSynthesis.speak(utterance);
-    } else {
-      console.error('SpeechSynthesis is not supported in this browser.');
-    }
+    try {
+      if ("speechSynthesis" in window) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = selectedLanguage;
 
-  };
+        if (selectedVoice) {
+          utterance.voice = selectedVoice;
+        }
 
-  const updateMessageVoiceUrl = (index: number, voiceUrl: string) => {
-    setMessages((prevMessages) => {
-      const updatedMessages = [...prevMessages];
-      if (
-        index >= 0 &&
-        index < updatedMessages.length &&
-        updatedMessages[index]?.role === "assistant"
-      ) {
-        updatedMessages[index] = {
-          role: updatedMessages[index]?.role ?? "assistant",
-          voiceUrl: voiceUrl,
-          content: updatedMessages[index]?.content ?? "",
+        // Event handler for pause
+        utterance.onpause = () => {
+          console.log("Speech paused");
         };
+
+        // Event handler for resume
+        utterance.onresume = () => {
+          speechSynthesis.cancel();
+          console.log("Speech resumed");
+        };
+
+        utterance.onend = () => {
+          console.log("Speech ended");
+          speechSynthesis.cancel();
+          setPlaying(false);
+        };
+
+        // Toggle between play and pause
+        if (playing) {
+          speechSynthesis.pause();
+        } else {
+          speechSynthesis.resume();
+        }
+
+        setPlaying(!playing);
+        speechSynthesis.speak(utterance);
+      } else {
+        toast.error("SpeechSynthesis not supported in your browser");
+        console.error("SpeechSynthesis is not supported in this browser.");
       }
-      return updatedMessages;
-    });
+    } catch (error) {
+      console.error("error: ", error);
+    }
   };
 
   return (

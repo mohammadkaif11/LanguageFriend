@@ -20,8 +20,8 @@ const VERCEL_DEPLOYMENT = !!process.env.VERCEL_URL;
 export const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
-      clientId: "471571752403-c4mpukjj4gssk7e4fcnfalq883si1s97.apps.googleusercontent.com",
-      clientSecret: "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",
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECERET as string,
     }),
   ],
   pages: {

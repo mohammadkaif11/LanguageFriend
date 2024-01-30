@@ -33,10 +33,11 @@
     ".eslintrc.cjs",
     "next-env.d.ts",
     "**/*.ts",
+    "**/*.jsx",
     "**/*.tsx",
     "**/*.cjs",
     "**/*.js",
     ".next/types/**/*.ts"
-, "src/components/speech-text-js/SpeechText.jsx", "src/components/speech-text-js/SpeechText.jsx"  ],
+, "src/components/speech-text-js/SpeechText.jsx", "src/components/speech-text-js/SpeechText.jsx", "src/components/chat/audio/Speaker.jsx"  ],
   "exclude": ["node_modules"]
 }

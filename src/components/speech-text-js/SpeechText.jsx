@@ -16,17 +16,12 @@ const Dictaphone = () => {
 
   const startListening = () => {
     console.log('Started listening in', selectedLanguage);
-    void SpeechRecognition.startListening({language: 'hi-IN'});
+    void SpeechRecognition.startListening({language: 'hi-IN',continuous:true});
   };
 
   const stopListening = () => {
     console.log('Stopped listening');
    void  SpeechRecognition.stopListening();
-  };
-
-  const handleLanguageChange = (event) => {
-    const newLanguage = event.target.value;
-    setSelectedLanguage(newLanguage);
   };
 
   return (
@@ -42,7 +37,9 @@ const Dictaphone = () => {
       {/* Language selection dropdown */}
       <label>
         Select Language:
-        <select value={selectedLanguage} onChange={handleLanguageChange}>
+        <select value={selectedLanguage} onChange={(e)=>{
+          setSelectedLanguage(e.target.value);
+        }}>
           <option value="en-US">English (US)</option>
           <option value="es-ES">Spanish (Spain)</option>
           {/* Add more language options as needed */}
