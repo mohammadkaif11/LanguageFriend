@@ -68,12 +68,6 @@ function ReciverTagV2({
       console.error("error: ", error);
     }
   };
-  useEffect(() => {
-    togglePlayPause().catch((err) => {
-      console.error(err);
-    })
-  }, []);
-
 
   return (
     <div className="mb-4 flex items-center justify-start">
