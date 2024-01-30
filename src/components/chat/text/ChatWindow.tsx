@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import SenderTag from "./SenderTag";
-import ReciverTag from "./ReciverTag";
+import ReciverTag from "./ReciverTagV2";
 import InputFormTag from "./InputFormTag";
 import { feed_chat_prompt } from "~/server/chatGPT/Prompt";
 import { startChart } from "~/server/chatGPT/chatgpt";
