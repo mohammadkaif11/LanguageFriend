@@ -31,18 +31,6 @@ export const authOptions: NextAuthOptions = {
   },
   adapter: PrismaAdapter(db),
   session: { strategy: "jwt" },
-  cookies: {
-    sessionToken: {
-      name: `${VERCEL_DEPLOYMENT ? "__Secure-" : ""}next-auth.session-token`,
-      options: {
-        httpOnly: true,
-        sameSite: "lax",
-        path: "/",
-        domain: VERCEL_DEPLOYMENT? `.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`: undefined,
-        secure: VERCEL_DEPLOYMENT,
-      },
-    },
-  },
   callbacks: {
     jwt: async ({ token, user }) => {
       if (user) {
