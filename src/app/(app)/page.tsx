@@ -5,7 +5,7 @@ import SceneCard from "~/components/scene/scene-card";
 export default async function HomePage() {
   return (
     <div className="mx-auto max-w-7xl">
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 p-4">
         <h1 className="mt-2 text-3xl text-gray-800">Scene</h1>
         <div className="flex gap-4 overflow-x-scroll " style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
           {scene.map((sceneCard, index) => {
@@ -20,7 +20,7 @@ export default async function HomePage() {
           })}
         </div>
       </div>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 p-4">
         <h1 className="mt-2 text-3xl text-gray-800">Character</h1>
         <div className="flex gap-4 overflow-x-scroll " style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
           {scene.map((sceneCard, index) => {

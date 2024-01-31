@@ -148,15 +148,15 @@ export default function Navbar() {
             </div>
 
             <Disclosure.Panel className="sm:hidden">
-              <div className="space-y-1 pb-4 pt-2">
+              <div className="space-y-1 pb-4 pt-2 flex flex-col">
                 {/* Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" */}
-                <Disclosure.Button className="border-trasparent block border-l-4 bg-indigo-50 py-2 pl-3 pr-4 text-base font-medium text-indigo-700">
+                <Disclosure.Button className="border-trasparent border-l-4 py-2 pl-3 pr-4 text-base font-medium text-gray-700">
                   <Link href="/scene">Scene</Link>
                 </Disclosure.Button>
-                <Disclosure.Button className="border-trasparent block border-l-4 bg-indigo-50 py-2 pl-3 pr-4 text-base font-medium text-indigo-700">
+                <Disclosure.Button className="border-trasparent  border-l-4  py-2 pl-3 pr-4 text-base font-medium text-gray-700">
                   <Link href="/character">Character</Link>
                 </Disclosure.Button>
-                <Disclosure.Button className="border-trasparent block border-l-4 bg-indigo-50 py-2 pl-3 pr-4 text-base font-medium text-indigo-700">
+                <Disclosure.Button className="border-trasparent  border-l-4  py-2 pl-3 pr-4 text-base font-medium text-gray-700">
                   <Link href="/subscription">Subscription</Link>
                 </Disclosure.Button>
                 
