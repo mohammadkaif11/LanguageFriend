@@ -54,10 +54,16 @@ export default function Navbar() {
                       Scene
                     </Link>
                     <Link
-                      href="/scene"
+                      href="/character"
                       className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-900"
                     >
-                      Subscription
+                      Character
+                    </Link>
+                    <Link
+                      href="/subscription"
+                      className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-900"
+                    >
+                      subscription
                     </Link>
                   </div>
                 </div>
@@ -112,7 +118,7 @@ export default function Navbar() {
                               }}
                               className={classNames(
                                 active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700",
+                                "flex flex-col px-4 py-2 text-sm text-gray-700",
                               )}
                             >
                               Settings
@@ -127,7 +133,7 @@ export default function Navbar() {
                               }}
                               className={classNames(
                                 active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700",
+                                "flex flex-col px-4 py-2 text-sm text-gray-700",
                               )}
                             >
                               Sign out
@@ -148,8 +154,12 @@ export default function Navbar() {
                   <Link href="/scene">Scene</Link>
                 </Disclosure.Button>
                 <Disclosure.Button className="border-trasparent block border-l-4 bg-indigo-50 py-2 pl-3 pr-4 text-base font-medium text-indigo-700">
-                  <Link href="/scene">Subscription</Link>
+                  <Link href="/character">Character</Link>
                 </Disclosure.Button>
+                <Disclosure.Button className="border-trasparent block border-l-4 bg-indigo-50 py-2 pl-3 pr-4 text-base font-medium text-indigo-700">
+                  <Link href="/subscription">Subscription</Link>
+                </Disclosure.Button>
+                
               </div>
             </Disclosure.Panel>
           </>
