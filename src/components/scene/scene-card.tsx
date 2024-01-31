@@ -1,12 +1,20 @@
-import React from "react";
+'use client'
+import React, { useState } from "react";
 
-function SceneCard() {
+function SceneCard({index}:{index:number}) {
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!isDropdownOpen);
+  };
   return (
     <div className="w-full lg:max-w-sm rounded-lg border border-gray-200 bg-white shadow dark:border-gray-700 dark:bg-gray-600">
-      <div className="flex justify-end px-4 pt-4">
+      <div className="flex  justify-end px-4 pt-4">
         <button
-          id="dropdownButton"
-          data-dropdown-toggle="dropdown"
+          id={"dropdownButton"+index}
+          onClick={toggleDropdown}
+
+          data-dropdown-toggle={"dropdown"+index}
           className="inline-block rounded-lg p-1.5 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-700"
           type="button"
         >
@@ -22,10 +30,9 @@ function SceneCard() {
           </svg>
         </button>
         <div
-          id="dropdown"
-          className="z-10 hidden w-44 list-none divide-y divide-gray-100 rounded-lg bg-white text-base shadow dark:bg-gray-700"
-        >
-          <ul className="py-2" aria-labelledby="dropdownButton">
+          id={"dropdown"+index}
+          className={`z-10 ${isDropdownOpen ? "" : "hidden"} w-44 list-none divide-y divide-gray-100 rounded-lg bg-white text-base shadow dark:bg-gray-700`}        >
+          <ul className="py-2" aria-labelledby={"dropdownButton"+index}>
             <li>
               <a
                 href="#"
