@@ -9,11 +9,11 @@ function page() {
         <div className="my-3">
           <CreateSceneModalButton />
         </div>
-        <div className=" grid  gap-4 sm:grid-cols-1 lg:grid-cols-4">
+        <div className=" grid  gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
           {scene.map((sceneCard,index) => {
             return (
               <div key={sceneCard.sceneTitle} className="p-[5px] lg:p-0">
-                <SceneCard index={index}/>
+                <SceneCard index={index} isDefault={true}/>
               </div>
             );
           })}

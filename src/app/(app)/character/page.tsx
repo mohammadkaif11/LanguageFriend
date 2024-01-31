@@ -1,7 +1,7 @@
-import React from 'react'
+import React from "react";
 import scene from "~/secene.json";
-import CharacterCard from '~/components/character/character-card';
-import CreateCharacterModalButton from '~/components/character/create-character-modal-button';
+import CharacterCard from "~/components/character/character-card";
+import CreateCharacterModalButton from "~/components/character/create-character-modal-button";
 function page() {
   return (
     <>
@@ -10,16 +10,17 @@ function page() {
           <CreateCharacterModalButton />
         </div>
         <div className=" grid  gap-4 sm:grid-cols-1 lg:grid-cols-4">
-          {scene.map((sceneCard,index) => {
+          {scene.map((sceneCard, index) => {
             return (
               <div key={sceneCard.sceneTitle} className="p-[5px] lg:p-0">
-                <CharacterCard index={index}/>
+                <CharacterCard index={index} isDefault={false} />
               </div>
             );
           })}
         </div>
       </div>
-    </>  )
+    </>
+  );
 }
 
-export default page
+export default page;
