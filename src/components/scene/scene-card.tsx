@@ -5,13 +5,16 @@ import { Menu, Transition } from "@headlessui/react";
 import { Bars4Icon } from "@heroicons/react/16/solid";
 import EditSceneModal from "./edit-scene-modal";
 import DeleteSceneModal from "./delete-scene-modal";
+import { Scene } from "@prisma/client";
 
 function SceneCard({
   index,
   isDefault,
+  scene
 }: {
   index: number;
   isDefault: boolean;
+  scene?:Scene
 }) {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
@@ -113,8 +116,8 @@ function SceneCard({
           </button>
         </div>
       </div>
-      <EditSceneModal open={isEditOpen} setOpen={setIsEditOpen} />
-      <DeleteSceneModal open={isDeleteOpen} setOpen={setIsDeleteOpen} />
+      <EditSceneModal open={isEditOpen} setOpen={setIsEditOpen} scene={scene} />
+      <DeleteSceneModal open={isDeleteOpen} setOpen={setIsDeleteOpen}  sceneId={scene?.id}/>
     </>
   );
 }

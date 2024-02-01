@@ -12,6 +12,7 @@ import { toast } from "sonner";
 import { ErrorInterface } from "model";
 import { useSession } from "next-auth/react";
 import { CustomSession } from "model";
+import { useRouter } from "next/navigation";
 export default function SettingModal({
   open,
   setOpen,
@@ -25,8 +26,8 @@ export default function SettingModal({
   const [nativeLanguage, setNativeLanguage] = useState("");
   const [goal, setGoal] = useState("");
   const [proficiencyLevel, setProficiencyLevel] = useState("");
-
-
+  const router = useRouter();
+  
   useEffect(() => {
     console.log(session?.data?.user);
     setTargetLanguage(session?.data?.user?.targetLanguageSetting ?? "");
@@ -56,6 +57,7 @@ export default function SettingModal({
       if (!res.data) {
         throw new Error(res.error);
       }
+      router.refresh();
       toast.success("successfully updated language setting!");
     } catch (error) {
       const Error: ErrorInterface = {

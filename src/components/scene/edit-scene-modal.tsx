@@ -1,32 +1,99 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
+import { type Scene } from "@prisma/client";
+import { toast } from "sonner";
+import VoiceLoadSpiner from "../loader/voice-load-spinner";
+import { type ErrorInterface } from "model";
+import { updateScene } from "~/server/action";
+import { useRouter } from "next/navigation";
 
 export default function EditSceneModal({
   open,
   setOpen,
+  scene,
 }: {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  scene?: Scene;
 }) {
+  const [loading, setloading] = useState(false);
+  const [sceneId, setSceneId] = useState("");
   const [sceneTitle, setSceneTitle] = useState("");
   const [sceneDescription, setSceneDescription] = useState("");
   const [botRole, setBotRole] = useState("");
   const [yourRole, setYourRole] = useState("");
   const [sceneImage, setSceneImage] = useState<File | null | undefined>(null);
-  
-  const handleCreate = () => {
-    // Do something with the state values, e.g., send to an API
-    console.log("Scene Title:", sceneTitle);
-    console.log("Scene Description:", sceneDescription);
-    console.log("Bot Role:", botRole);
-    console.log("Your Role:", yourRole);
-    console.log("Scene Image:", sceneImage);
+  const [sceneImageUrl, setSceneImageUrl] = useState<string | null>(null);
+  const router = useRouter();
 
-    // Close the modal
-    setOpen(false);
+  useEffect(() => {
+    setSceneTitle(scene?.sceneTitle ?? "");
+    setSceneDescription(scene?.sceneDescription ?? "");
+    setBotRole(scene?.botRole ?? "");
+    setYourRole(scene?.yourRole ?? "");
+    setSceneId(scene?.id ?? "");
+  }, []);
+
+  const handleEdit = async () => {
+    try {
+      setloading(true);
+      if (!sceneTitle || !sceneDescription || !botRole || !yourRole) {
+        throw new Error("Please fill in all required fields");
+      }
+      if (!sceneId) {
+        throw new Error("Scene ID must be provided");
+      }
+      const formData = new FormData();
+      formData.append("sceneTitle", sceneTitle);
+      formData.append("sceneDescription", sceneDescription);
+      formData.append("botRole", botRole);
+      formData.append("yourRole", yourRole);
+    
+      if (sceneImage) {
+        formData.append("sceneImage", sceneImage);
+      }
+
+      const res = await updateScene(formData, sceneId);
+      if (!res.data) {
+        throw new Error(res.error);
+      }
+      router.refresh();
+      toast.success("successfully updated scene!");
+    } catch (error: unknown) {
+      const Error: ErrorInterface = {
+        message: (error as Error).message || "Internal Server Error",
+      };
+      toast.error(Error.message);
+      console.error("Error while updating scene:", error);
+    } finally {
+      setloading(false);
+      setOpen(false);
+    }
+  };
+
+  const handleUpload = (file: File | null | undefined) => {
+    if (file) {
+      if (file.size / 1024 / 1024 > 50) {
+        toast.error("File size too big (max 50MB)");
+      } else if (
+        !file.type.includes("png") &&
+        !file.type.includes("jpg") &&
+        !file.type.includes("jpeg")
+      ) {
+        toast.error("Invalid file type (must be .png, .jpg, or .jpeg)");
+      } else {
+        const reader = new FileReader();
+        setSceneImage(file);
+        reader.onload = (e) => {
+          setSceneImageUrl(e.target?.result as string);
+        };
+        reader.readAsDataURL(file);
+      }
+    }
   };
 
   return (
@@ -73,6 +140,22 @@ export default function EditSceneModal({
                     Edit a scene
                   </Dialog.Title>
                   <div className="flex flex-col gap-2">
+                    <div className="mx-auto">
+                      {scene?.sceneImage && sceneImageUrl === null && (
+                        <img
+                          className="mb-3 h-24 w-24 rounded-full shadow-lg"
+                          src={scene?.sceneImage}
+                          alt="Bonnie image"
+                        />
+                      )}
+                      {sceneImageUrl && (
+                        <img
+                          className="mb-3 h-24 w-24 rounded-full shadow-lg"
+                          src={sceneImageUrl}
+                          alt="Bonnie image"
+                        />
+                      )}
+                    </div>
                     <div>
                       <label
                         htmlFor="Title"
@@ -138,7 +221,10 @@ export default function EditSceneModal({
                       </label>
                       <input
                         type="file"
-                        onChange={(e) => setSceneImage(e.target.files ? e.target.files[0] : null)}
+                        onChange={(e) => {
+                          const file = e.currentTarget.files?.[0];
+                          handleUpload(file);
+                        }}
                         className="mt-2 w-[100%] rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       />
                     </div>
@@ -148,9 +234,9 @@ export default function EditSceneModal({
                   <button
                     type="button"
                     className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                    onClick={handleCreate}
+                    onClick={handleEdit}
                   >
-                    Save Changes
+                    {loading ? <VoiceLoadSpiner /> : "Save Changes"}
                   </button>
                 </div>
               </Dialog.Panel>

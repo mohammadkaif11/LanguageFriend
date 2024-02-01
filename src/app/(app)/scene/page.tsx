@@ -4,18 +4,17 @@ import SceneCard from "~/components/scene/scene-card";
 import scene from "~/secene.json";
 import { getServerAuthSession } from "~/server/auth";
 import { db } from "~/server/db";
-import { Scene } from "@prisma/client";
-
-interface getSceneInterface {}
 
 async function page() {
-  const sessions= await getServerAuthSession();
+  const sessions = await getServerAuthSession();
 
-  if(!sessions?.user?.id){
+  if (!sessions?.user?.id) {
     return;
   }
 
-  const scenes= await db.scene.findMany({where:{userId:sessions.user.id}}) as Scene[];
+  const userScene = await db.scene.findMany({
+    where: { userId: sessions.user.id },
+  });
 
   return (
     <>
@@ -23,14 +22,31 @@ async function page() {
         <div className="my-3">
           <CreateSceneModalButton />
         </div>
+        {userScene.length > 0 && (
+          <div className="my-4">
+            <h2>Your Scenes</h2>
+            <div className=" grid  gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+              {userScene.map((sceneCard, index) => {
+                return (
+                  <div key={sceneCard.sceneTitle} className="p-[5px] lg:p-0">
+                    <SceneCard index={index} isDefault={false} scene={sceneCard} />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+        <div>
+        <h2 className="my-4">Normal Scenes</h2>
         <div className=" grid  gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-          {scene.map((sceneCard,index) => {
+          {scene.map((sceneCard, index) => {
             return (
               <div key={sceneCard.sceneTitle} className="p-[5px] lg:p-0">
-                <SceneCard index={index} isDefault={true}/>
+                <SceneCard index={index} isDefault={true} />
               </div>
             );
           })}
+        </div>
         </div>
       </div>
     </>
