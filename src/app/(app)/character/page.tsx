@@ -4,11 +4,12 @@ import CharacterCard from "~/components/character/character-card";
 import CreateCharacterModalButton from "~/components/character/create-character-modal-button";
 import { getServerAuthSession } from "~/server/auth";
 import { db } from "~/server/db";
+import { redirect } from "next/navigation";
 async function page() {
   const sessions = await getServerAuthSession();
 
   if (!sessions?.user?.id) {
-    return;
+    redirect("/login");
   }
 
   const userCharacters = await db.character.findMany({

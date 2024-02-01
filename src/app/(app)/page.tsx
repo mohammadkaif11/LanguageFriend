@@ -1,8 +1,16 @@
 import scene from "~/secene.json";
 import CharacterCard from "~/components/character/character-card";
 import SceneCard from "~/components/scene/scene-card";
+import { getServerAuthSession } from "~/server/auth";
+import { redirect } from "next/navigation";
 
 export default async function HomePage() {
+  const sessions = await getServerAuthSession();
+
+  if (!sessions?.user?.id) {
+    redirect("/login");
+  }
+
   return (
     <div className="mx-auto max-w-7xl">
       <div className="flex flex-col gap-2 p-4">

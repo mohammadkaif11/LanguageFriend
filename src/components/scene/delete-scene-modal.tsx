@@ -5,7 +5,7 @@ import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { toast } from "sonner";
 import VoiceLoadSpiner from "../loader/voice-load-spinner";
 import { deleteScene } from "~/server/action";
-import { ErrorInterface } from "model";
+import { type ErrorInterface } from "model";
 import { useRouter } from "next/navigation";
 
 export default function DeleteSceneModal({

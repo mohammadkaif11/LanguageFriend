@@ -1,15 +1,19 @@
+import { useRouter } from "next/router";
 import React from "react";
 import CreateSceneModalButton from "~/components/scene/create-scene-modal-button";
 import SceneCard from "~/components/scene/scene-card";
 import scene from "~/secene.json";
 import { getServerAuthSession } from "~/server/auth";
 import { db } from "~/server/db";
+import { notFound, redirect } from "next/navigation";
+
 
 async function page() {
+
   const sessions = await getServerAuthSession();
 
   if (!sessions?.user?.id) {
-    return;
+    redirect("/login");
   }
 
   const userScene = await db.scene.findMany({
