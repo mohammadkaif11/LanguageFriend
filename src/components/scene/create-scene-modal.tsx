@@ -9,7 +9,8 @@ import { toast } from "sonner";
 import { type ErrorInterface } from "model";
 import VoiceLoadSpiner from "../loader/voice-load-spinner";
 import { useRouter } from "next/navigation";
-const defaultImageUrl="https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/JRajRyC-PhBHEinQkupt02jqfKacBVHLWJq7Iy.png";
+const defaultImageUrl =
+  "https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/JRajRyC-PhBHEinQkupt02jqfKacBVHLWJq7Iy.png";
 
 export default function CreateSceneModal({
   open,
@@ -63,17 +64,17 @@ export default function CreateSceneModal({
       };
       toast.error(Error.message);
       console.error("Error while creating scene:", error);
-    }finally{
-      setSceneDescription('')
-      setSceneTitle('')
-      setYourRole('');
-      setBotRole('');
-      setSceneImage(null)
+    } finally {
+      setSceneDescription("");
+      setSceneTitle("");
+      setYourRole("");
+      setBotRole("");
+      setSceneImage(null);
       setloading(false);
       setOpen(false);
     }
   };
-  
+
   const handleUpload = (file: File | null | undefined) => {
     if (file) {
       if (file.size / 1024 / 1024 > 50) {
@@ -139,12 +140,12 @@ export default function CreateSceneModal({
                     Create a custom scene
                   </Dialog.Title>
                   <div className="flex flex-col gap-2">
-                  <div className="mx-auto">
-                        <img
-                          className="mb-3 h-24 w-24 rounded-full shadow-lg"
-                          src={sceneImageUrl ? sceneImageUrl: defaultImageUrl}
-                          alt="Bonnie image"
-                        />
+                    <div className="mx-auto">
+                      <img
+                        className="mb-3 h-24 w-24 rounded-full shadow-lg"
+                        src={sceneImageUrl ? sceneImageUrl : defaultImageUrl}
+                        alt="Bonnie image"
+                      />
                     </div>
                     <div>
                       <label
@@ -212,7 +213,7 @@ export default function CreateSceneModal({
                       <input
                         type="file"
                         onChange={(e) => {
-                          const file =e.currentTarget.files?.[0];
+                          const file = e.currentTarget.files?.[0];
                           handleUpload(file);
                         }}
                         className="mt-2 w-[100%] rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -226,7 +227,7 @@ export default function CreateSceneModal({
                     className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
                     onClick={handleCreate}
                   >
-                    {loading ? <VoiceLoadSpiner/> :"Create"}
+                    {loading ? <VoiceLoadSpiner /> : "Create"}
                   </button>
                 </div>
               </Dialog.Panel>

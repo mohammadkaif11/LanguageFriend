@@ -3,6 +3,12 @@ import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { createChracter } from "~/server/action";
+import VoiceLoadSpiner from "../loader/voice-load-spinner";
+import { toast } from "sonner";
+import { ErrorInterface } from "model";
+const defaultImageUrl ="https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/JRajRyC-PhBHEinQkupt02jqfKacBVHLWJq7Iy.png";
 
 export default function CreateCharacterModal({
   open,
@@ -11,22 +17,65 @@ export default function CreateCharacterModal({
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const [sceneTitle, setSceneTitle] = useState("");
-  const [sceneDescription, setSceneDescription] = useState("");
-  const [botRole, setBotRole] = useState("");
-  const [yourRole, setYourRole] = useState("");
-  const [sceneImage, setSceneImage] = useState<File | null | undefined>(null);
-  
-  const handleCreate = () => {
-    // Do something with the state values, e.g., send to an API
-    console.log("Scene Title:", sceneTitle);
-    console.log("Scene Description:", sceneDescription);
-    console.log("Bot Role:", botRole);
-    console.log("Your Role:", yourRole);
-    console.log("Scene Image:", sceneImage);
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [image, setImage] = useState<File | null | undefined>(null);
+  const [loading, setloading] = useState(false);
+  const [sceneImageUrl, setSceneImageUrl] = useState<string | null>(null);
+  const router = useRouter();
 
-    // Close the modal
-    setOpen(false);
+  const handleCreate = async () => {
+    try {
+      setloading(true);
+      if (!name || !description || !image) {
+        throw new Error("Please fill in all required fields");
+      }
+
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("description", description);
+      formData.append("image", image);
+
+      const res = await createChracter(formData);
+      if (!res.data) {
+        throw new Error(res.error);
+      }
+      router.refresh();
+      toast.success("successfully created character!");
+    } catch (error: unknown) {
+      const Error: ErrorInterface = {
+        message: (error as Error).message || "Internal Server Error",
+      };
+      toast.error(Error.message);
+      console.error("Error while creating character:", error);
+    } finally {
+      setDescription("");
+      setName("");
+      setImage(null);
+      setloading(false);
+      setOpen(false);
+    }
+  };
+
+  const handleUpload = (file: File | null | undefined) => {
+    if (file) {
+      if (file.size / 1024 / 1024 > 50) {
+        toast.error("File size too big (max 50MB)");
+      } else if (
+        !file.type.includes("png") &&
+        !file.type.includes("jpg") &&
+        !file.type.includes("jpeg")
+      ) {
+        toast.error("Invalid file type (must be .png, .jpg, or .jpeg)");
+      } else {
+        const reader = new FileReader();
+        setImage(file);
+        reader.onload = (e) => {
+          setSceneImageUrl(e.target?.result as string);
+        };
+        reader.readAsDataURL(file);
+      }
+    }
   };
 
   return (
@@ -73,17 +122,24 @@ export default function CreateCharacterModal({
                     Create a custom scene
                   </Dialog.Title>
                   <div className="flex flex-col gap-2">
+                    <div className="mx-auto">
+                      <img
+                        className="mb-3 h-24 w-24 rounded-full shadow-lg"
+                        src={sceneImageUrl ? sceneImageUrl : defaultImageUrl}
+                        alt="Bonnie image"
+                      />
+                    </div>
                     <div>
                       <label
                         htmlFor="Title"
                         className="block text-sm font-medium leading-6 text-gray-900"
                       >
-                        Scene Title
+                        Chracter Name
                       </label>
                       <input
                         type="text"
-                        value={sceneTitle}
-                        onChange={(e) => setSceneTitle(e.target.value)}
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                         className="mt-2 w-[100%] rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       />
                     </div>
@@ -92,43 +148,16 @@ export default function CreateCharacterModal({
                         htmlFor="Description"
                         className="block text-sm font-medium leading-6 text-gray-900"
                       >
-                        Scene Description
+                        Describe something about character
                       </label>
                       <input
                         type="text"
-                        value={sceneDescription}
-                        onChange={(e) => setSceneDescription(e.target.value)}
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
                         className="mt-2 w-[100%] rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       />
                     </div>
-                    <div>
-                      <label
-                        htmlFor="SceneTitle"
-                        className="block text-sm font-medium leading-6 text-gray-900"
-                      >
-                        Bot Role
-                      </label>
-                      <input
-                        type="text"
-                        value={botRole}
-                        onChange={(e) => setBotRole(e.target.value)}
-                        className="mt-2 w-[100%] rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      />
-                    </div>
-                    <div>
-                      <label
-                        htmlFor="SceneTitle"
-                        className="block text-sm font-medium leading-6 text-gray-900"
-                      >
-                        Your Role
-                      </label>
-                      <input
-                        type="text"
-                        value={yourRole}
-                        onChange={(e) => setYourRole(e.target.value)}
-                        className="mt-2 w-[100%] rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      />
-                    </div>
+
                     <div>
                       <label
                         htmlFor="Images"
@@ -138,7 +167,10 @@ export default function CreateCharacterModal({
                       </label>
                       <input
                         type="file"
-                        onChange={(e) => setSceneImage(e.target.files ? e.target.files[0] : null)}
+                        onChange={(e) => {
+                          const file = e.currentTarget.files?.[0];
+                          handleUpload(file);
+                        }}
                         className="mt-2 w-[100%] rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       />
                     </div>
@@ -150,7 +182,7 @@ export default function CreateCharacterModal({
                     className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
                     onClick={handleCreate}
                   >
-                    Create
+                    {loading ? <VoiceLoadSpiner/> :"Create"}
                   </button>
                 </div>
               </Dialog.Panel>

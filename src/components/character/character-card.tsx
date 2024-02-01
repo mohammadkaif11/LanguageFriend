@@ -88,13 +88,16 @@ import { Menu, Transition } from "@headlessui/react";
 import { Bars4Icon } from "@heroicons/react/16/solid";
 import EditCharacterModal from "./edit-character-modal";
 import DeleteCharacterModal from "./delete-character-modal";
+import { Character } from "@prisma/client";
 
 function CharacterCard({
   index,
   isDefault,
+  character,
 }: {
   index: number;
   isDefault: boolean;
+  character?: Character;
 }) {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
@@ -188,8 +191,8 @@ function CharacterCard({
           </button>
         </div>
       </div>
-      <EditCharacterModal open={isEditOpen} setOpen={setIsEditOpen} />
-      <DeleteCharacterModal open={isDeleteOpen} setOpen={setIsDeleteOpen} />
+      <EditCharacterModal open={isEditOpen} setOpen={setIsEditOpen} character={character} />
+      <DeleteCharacterModal open={isDeleteOpen} setOpen={setIsDeleteOpen} characterId={character?.id} />
     </>
   );
 }

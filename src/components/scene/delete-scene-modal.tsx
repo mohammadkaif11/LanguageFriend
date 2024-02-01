@@ -22,7 +22,7 @@ export default function DeleteSceneModal({
 
   const handleDelete = async () => {
     try {
-      confirm("Sure are you sure you want to delete?");
+      confirm("Sure are  you want to delete?");
       setloading(true);
       if (!sceneId) {
         throw new Error("Scene ID must be provided");

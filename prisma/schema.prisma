@@ -38,20 +38,21 @@ model Session {
 }
 
 model User {
-    id                      String    @id @default(cuid())
+    id                      String      @id @default(cuid())
     name                    String?
-    email                   String?   @unique
+    email                   String?     @unique
     emailVerified           DateTime?
     image                   String?
-    createdAt               DateTime  @default(now())
-    updatedAt               DateTime  @updatedAt
-    targetLanguageSetting   String    @default("en-US")
-    nativeLanguageSetting   String    @default("en-US")
-    goal                    String    @default("Study")
-    proficiencyLevelSetting String    @default("Intermediate")
+    createdAt               DateTime    @default(now())
+    updatedAt               DateTime    @updatedAt
+    targetLanguageSetting   String      @default("en-US")
+    nativeLanguageSetting   String      @default("en-US")
+    goal                    String      @default("Study")
+    proficiencyLevelSetting String      @default("Intermediate")
     accounts                Account[]
     sessions                Session[]
     scenes                  Scene[]
+    characters              Character[]
 }
 
 model Scene {
@@ -63,6 +64,15 @@ model Scene {
     sceneImage       String
     userId           String
     user             User   @relation(fields: [userId], references: [id])
+}
+
+model Character {
+    id          String @id @default(cuid())
+    name        String
+    description String
+    imageUrl    String
+    userId      String
+    user        User   @relation(fields: [userId], references: [id])
 }
 
 model VerificationToken {
