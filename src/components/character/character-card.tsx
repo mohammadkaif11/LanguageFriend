@@ -88,7 +88,9 @@ import { Menu, Transition } from "@headlessui/react";
 import { Bars4Icon } from "@heroicons/react/16/solid";
 import EditCharacterModal from "./edit-character-modal";
 import DeleteCharacterModal from "./delete-character-modal";
-import { Character } from "@prisma/client";
+import { type Character } from "@prisma/client";
+import { useRouter } from "next/navigation";
+import { uid } from 'uid';
 
 function CharacterCard({
   index,
@@ -101,6 +103,7 @@ function CharacterCard({
 }) {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const router = useRouter();
 
   const handleOpenEditModal = () => {
     setIsEditOpen(true);
@@ -110,6 +113,10 @@ function CharacterCard({
     setIsDeleteOpen(true);
   };
 
+  const handleChat=()=>{
+    const id=uid();
+    router.push(`/chat/${id}`)
+  }
   return (
     <>
       <div className="relative min-w-[300px] mt-6 flex flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md ">
@@ -170,6 +177,7 @@ function CharacterCard({
         </div>
         <div className="p-6 pt-0">
           <button
+            onClick={handleChat}
             className="flex select-none items-center gap-2 rounded-lg px-4 py-2 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
             type="button"
           >

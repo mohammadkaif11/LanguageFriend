@@ -6,7 +6,8 @@ import { Bars4Icon } from "@heroicons/react/16/solid";
 import EditSceneModal from "./edit-scene-modal";
 import DeleteSceneModal from "./delete-scene-modal";
 import { Scene } from "@prisma/client";
-
+import { useRouter } from "next/navigation";
+import { uid } from "uid";
 function SceneCard({
   index,
   isDefault,
@@ -16,6 +17,7 @@ function SceneCard({
   isDefault: boolean;
   scene?:Scene
 }) {
+  const router =  useRouter();
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
@@ -27,6 +29,11 @@ function SceneCard({
     setIsDeleteOpen(true);
   };
 
+
+  const handleChat=()=>{
+    const id=uid();
+    router.push(`/chat/${id}`)
+  }
   return (
     <>
       <div className="relative mt-6 flex min-w-[300px] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md ">
@@ -95,6 +102,7 @@ function SceneCard({
         </div>
         <div className="p-6 pt-0">
           <button
+            onClick={handleChat}
             className="flex select-none items-center gap-2 rounded-lg px-4 py-2 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
             type="button"
           >
