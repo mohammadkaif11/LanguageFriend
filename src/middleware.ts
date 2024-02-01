@@ -19,7 +19,6 @@ export default async function middleware(req: NextRequest) {
   const hostname = req.headers.get("host");
   const path = url.pathname;
   const session = await getToken({ req });
-  console.log('user session>>>>>', session);
   if (!session && path !== "/login") {
     return NextResponse.redirect(new URL("/login", req.url));
   } else if (session && path == "/login") {

@@ -2,7 +2,21 @@ import React from "react";
 import CreateSceneModalButton from "~/components/scene/create-scene-modal-button";
 import SceneCard from "~/components/scene/scene-card";
 import scene from "~/secene.json";
-function page() {
+import { getServerAuthSession } from "~/server/auth";
+import { db } from "~/server/db";
+import { Scene } from "@prisma/client";
+
+interface getSceneInterface {}
+
+async function page() {
+  const sessions= await getServerAuthSession();
+
+  if(!sessions?.user?.id){
+    return;
+  }
+
+  const scenes= await db.scene.findMany({where:{userId:sessions.user.id}}) as Scene[];
+
   return (
     <>
       <div className="mx-auto my-2  max-w-7xl">

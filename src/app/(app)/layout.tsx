@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import Script from "next/script";
 import Navbar from "~/components/navbar/navbar";
 import { Providers } from "../../components/providers/Providerts";
+import { Toaster } from "sonner";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -25,10 +26,11 @@ export default async function ApplicationLayout({
       <Script src="https://cdn.lordicon.com/lordicon.js"></Script>
       <body className={`font-sans ${inter.variable}`}>
         {" "}
-          <Providers>
+        <Providers>
           <Navbar></Navbar>
           {children}
-          </Providers>
+          <Toaster />
+        </Providers>
       </body>
     </html>
   );

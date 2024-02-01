@@ -7,13 +7,13 @@ import {
 import GoogleProvider from "next-auth/providers/google";
 import { db } from "~/server/db";
 
-declare module "next-auth" {
-  interface Session extends DefaultSession {
-    user: {
-      id: string;
-    } & DefaultSession["user"];
-  }
-}
+// declare module "next-auth" {
+//   interface Session extends DefaultSession {
+//     user: {
+//       id: string;
+//     } & DefaultSession["user"];
+//   }
+// }
 
 const VERCEL_DEPLOYMENT = !!process.env.VERCEL_URL;
 

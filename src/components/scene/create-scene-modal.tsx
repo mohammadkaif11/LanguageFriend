@@ -3,6 +3,10 @@ import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
+import { createScene } from "~/server/action";
+import { toast } from "sonner";
+import { ErrorInterface } from "model";
+import VoiceLoadSpiner from "../loader/voice-load-spinner";
 
 export default function CreateSceneModal({
   open,
@@ -11,22 +15,57 @@ export default function CreateSceneModal({
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+  const [loading, setloading] = useState(false);
   const [sceneTitle, setSceneTitle] = useState("");
   const [sceneDescription, setSceneDescription] = useState("");
   const [botRole, setBotRole] = useState("");
   const [yourRole, setYourRole] = useState("");
   const [sceneImage, setSceneImage] = useState<File | null | undefined>(null);
-  
-  const handleCreate = () => {
-    // Do something with the state values, e.g., send to an API
-    console.log("Scene Title:", sceneTitle);
-    console.log("Scene Description:", sceneDescription);
-    console.log("Bot Role:", botRole);
-    console.log("Your Role:", yourRole);
-    console.log("Scene Image:", sceneImage);
 
-    // Close the modal
-    setOpen(false);
+  const handleCreate = async () => {
+    try {
+      setloading(true);
+      if (!sceneTitle || !sceneDescription || !botRole || !yourRole) {
+        throw new Error("Please fill in all required fields");
+      }
+      if (!sceneImage) {
+        throw new Error("Please upload image for scene");
+      }
+
+      const formData = new FormData();
+      formData.append("sceneTitle", sceneTitle);
+      formData.append("sceneDescription", sceneDescription);
+      formData.append("botRole", botRole);
+      formData.append("yourRole", yourRole);
+      formData.append("sceneImage", sceneImage);
+
+      // Display the values (optional)
+      console.log("Scene Title:", sceneTitle);
+      console.log("Scene Description:", sceneDescription);
+      console.log("Bot Role:", botRole);
+      console.log("Your Role:", yourRole);
+      console.log("Scene Image:", sceneImage);
+
+      const res = await createScene(formData);
+      if (!res.data) {
+        throw new Error(res.error);
+      }
+      toast.success("successfully created scene!");
+    } catch (error: unknown) {
+      const Error: ErrorInterface = {
+        message: (error as Error).message || "Internal Server Error",
+      };
+      toast.error(Error.message);
+      console.error("Error while creating scene:", error);
+    }finally{
+      setSceneDescription('')
+      setSceneTitle('')
+      setYourRole('');
+      setBotRole('');
+      setSceneImage(null)
+      setloading(false);
+      setOpen(false);
+    }
   };
 
   return (
@@ -138,7 +177,11 @@ export default function CreateSceneModal({
                       </label>
                       <input
                         type="file"
-                        onChange={(e) => setSceneImage(e.target.files ? e.target.files[0] : null)}
+                        onChange={(e) =>
+                          setSceneImage(
+                            e.target.files ? e.target.files[0] : null,
+                          )
+                        }
                         className="mt-2 w-[100%] rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       />
                     </div>
@@ -150,7 +193,7 @@ export default function CreateSceneModal({
                     className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
                     onClick={handleCreate}
                   >
-                    Create
+                    {loading ? <VoiceLoadSpiner/> :"Create"}
                   </button>
                 </div>
               </Dialog.Panel>

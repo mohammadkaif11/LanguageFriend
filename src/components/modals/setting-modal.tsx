@@ -1,13 +1,17 @@
-'use client'
-import { Fragment } from "react";
+"use client";
+import { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { targetLanguageSetting } from "Database/langaugeSetting";
 import { nativeLanguageSetting } from "Database/langaugeSetting";
 import { proficiencyLevelSetting } from "Database/langaugeSetting";
 import { goalSetting } from "Database/langaugeSetting";
-import * as emoji from 'node-emoji'
-
+import VoiceLoadSpiner from "../loader/voice-load-spinner";
+import { updateLanguageSettings } from "~/server/action";
+import { toast } from "sonner";
+import { ErrorInterface } from "model";
+import { useSession } from "next-auth/react";
+import { CustomSession } from "model";
 export default function SettingModal({
   open,
   setOpen,
@@ -15,6 +19,56 @@ export default function SettingModal({
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+  const session =(useSession() as unknown) as CustomSession;
+  const [loading, setLoading] = useState(false);
+  const [targetLanguage, setTargetLanguage] = useState("");
+  const [nativeLanguage, setNativeLanguage] = useState("");
+  const [goal, setGoal] = useState("");
+  const [proficiencyLevel, setProficiencyLevel] = useState("");
+
+
+  useEffect(() => {
+    console.log(session?.data?.user);
+    setTargetLanguage(session?.data?.user?.targetLanguageSetting ?? "");
+    setNativeLanguage(session?.data?.user?.nativeLanguageSetting ?? "");
+    setGoal(session?.data?.user?.goal ?? "");
+    setProficiencyLevel(session?.data?.user?.proficiencyLevelSetting ?? "")
+  }, [session.status]);
+
+  const handleSubmit = async () => {
+    try {
+      setLoading(true);
+      if (
+        targetLanguage.trim() === "" ||
+        nativeLanguage.trim() == "" ||
+        goal.trim() === "" ||
+        proficiencyLevel.trim() === ""
+      ) {
+        throw new Error("Please details");
+      }
+
+      const res = await updateLanguageSettings(
+        targetLanguage,
+        nativeLanguage,
+        goal,
+        proficiencyLevel,
+      );
+      if (!res.data) {
+        throw new Error(res.error);
+      }
+      toast.success("successfully updated language setting!");
+    } catch (error) {
+      const Error: ErrorInterface = {
+        message: (error as Error).message || "Internal Server Error",
+      };
+      toast.error(Error.message);
+      console.error("Error while creating scene:", error);
+    } finally {
+      setOpen(false);
+      setLoading(false);
+    }
+  };
+
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={setOpen}>
@@ -56,14 +110,14 @@ export default function SettingModal({
                     as="h3"
                     className="text-base font-semibold leading-6 text-gray-900"
                   >
-                    Language Settings 
+                    Language Settings
                   </Dialog.Title>
                   <div className="flex flex-col gap-2">
                     <div>
                       <label
                         htmlFor="Target Language"
                         className="block text-sm font-medium leading-6 text-gray-900"
-                      > 
+                      >
                         Target Language
                       </label>
 
@@ -71,14 +125,17 @@ export default function SettingModal({
                         id="targetLanguage"
                         name="targetLanguage"
                         className="mt-2 w-[100%] rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        defaultValue="English"
+                        onChange={(e) => {
+                          setTargetLanguage(e.target.value);
+                        }}
+                        value={targetLanguage}
                       >
                         {targetLanguageSetting.map((languageOption) => (
                           <option
                             key={languageOption.language}
-                            value={languageOption.language}
+                            value={languageOption.code}
                           >
-                            {languageOption.language} 
+                            {languageOption.language}
                           </option>
                         ))}
                       </select>
@@ -90,19 +147,22 @@ export default function SettingModal({
                       >
                         Native Language
                       </label>
-
                       <select
-                        id="targetLanguage"
+                        id="native"
                         name="targetLanguage"
                         className="mt-2 w-[100%] rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        defaultValue="English"
+                        onChange={(e) => {
+                          setNativeLanguage(e.target.value);
+                        }}
+                        value={nativeLanguage}
+
                       >
                         {nativeLanguageSetting.map((languageOption) => (
                           <option
                             key={languageOption.language}
-                            value={languageOption.language}
+                            value={languageOption.code}
                           >
-                            {languageOption.language} 
+                            {languageOption.language}
                           </option>
                         ))}
                       </select>
@@ -114,12 +174,15 @@ export default function SettingModal({
                       >
                         Goal of Language Learning
                       </label>
-
                       <select
                         id="targetLanguage"
                         name="targetLanguage"
                         className="mt-2 w-[100%] rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        defaultValue="English"
+                        onChange={(e) => {
+                          setGoal(e.target.value);
+                        }}
+                        value={goal}
+
                       >
                         {goalSetting.map((languageOption) => (
                           <option
@@ -138,12 +201,14 @@ export default function SettingModal({
                       >
                         Level of Proficiency
                       </label>
-
                       <select
                         id="targetLanguage"
                         name="targetLanguage"
                         className="mt-2 w-[100%] rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        defaultValue="English"
+                        onChange={(e) => {
+                          setProficiencyLevel(e.target.value);
+                        }}
+                        value={proficiencyLevel}
                       >
                         {proficiencyLevelSetting.map((languageOption) => (
                           <option
@@ -161,9 +226,9 @@ export default function SettingModal({
                   <button
                     type="button"
                     className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                    onClick={() => setOpen(false)}
+                    onClick={handleSubmit}
                   >
-                    Save Changes
+                    {loading ? <VoiceLoadSpiner /> : "Save changes"}
                   </button>
                 </div>
               </Dialog.Panel>

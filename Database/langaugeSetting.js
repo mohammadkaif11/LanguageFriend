@@ -1,90 +1,107 @@
-
 export const targetLanguageSetting = [
   {
-    language: "English",
-    icon: "🇺🇸", // United States flag icon
+    language: "English(US)",
+    icon: "🇺🇸",
+    code: "en-US",
+  },
+  {
+    language: "English(UK)",
+    icon: "🇬🇧",
+    code: "en-GB",
+  },
+  {
+    language: "English(India)",
+    icon: "🇮🇳",
+    code: "en-IN",
   },
   {
     language: "Spanish",
-    icon: "🇪🇸", // Spain flag icon
+    icon: "🇪🇸",
+    code: "es-ES",
   },
   {
     language: "French",
-    icon: "🇫🇷", // France flag icon
+    icon: "🇫🇷",
+    code: "fr-FR",
   },
   {
-    language: "German",
-    icon: "🇩🇪", // Germany flag icon
+    language: "Portuguese (Brazil)",
+    icon: "🇧🇷",
+    code: "pt-BR",
   },
   {
     language: "Chinese",
-    icon: "🇨🇳", // China flag icon
+    icon: "🇨🇳",
+    code: "zh-CN",
   },
   {
     language: "Japanese",
-    icon: "🇯🇵", // Japan flag icon
-  },
-  {
-    language: "Russian",
-    icon: "🇷🇺", // Russia flag icon
+    icon: "🇯🇵",
+    code: "ja-JP",
   },
   {
     language: "Arabic",
-    icon: "🇦🇪", // United Arab Emirates flag icon
+    icon: "🇦🇪",
+    code: "ar-SA",
   },
   {
     language: "Hindi",
-    icon: "🇮🇳", // India flag icon
+    icon: "🇮🇳",
+    code: "hi-IN",
   },
-  {
-    language: "Portuguese",
-    icon: "🇵🇹", // Portugal flag icon
-  },
-  // Add more languages as needed
 ];
 
 export const nativeLanguageSetting = [
   {
-    language: "English",
-    icon: "🇺🇸", // United States flag icon
+    language: "English(US)",
+    icon: "🇺🇸",
+    code: "en-US",
+  },
+  {
+    language: "English(UK)",
+    icon: "🇬🇧",
+    code: "en-GB",
+  },
+  {
+    language: "English(India)",
+    icon: "🇮🇳",
+    code: "en-IN",
   },
   {
     language: "Spanish",
-    icon: "🇪🇸", // Spain flag icon
+    icon: "🇪🇸",
+    code: "es-ES",
   },
   {
     language: "French",
-    icon: "🇫🇷", // France flag icon
+    icon: "🇫🇷",
+    code: "fr-FR",
   },
   {
-    language: "German",
-    icon: "🇩🇪", // Germany flag icon
+    language: "Portuguese (Brazil)",
+    icon: "🇧🇷",
+    code: "pt-BR",
   },
   {
     language: "Chinese",
-    icon: "🇨🇳", // China flag icon
+    icon: "🇨🇳",
+    code: "zh-CN",
   },
   {
     language: "Japanese",
-    icon: "🇯🇵", // Japan flag icon
-  },
-  {
-    language: "Russian",
-    icon: "🇷🇺", // Russia flag icon
+    icon: "🇯🇵",
+    code: "ja-JP",
   },
   {
     language: "Arabic",
-    icon: "🇦🇪", // United Arab Emirates flag icon
+    icon: "🇦🇪",
+    code: "ar-SA",
   },
   {
     language: "Hindi",
-    icon: "🇮🇳", // India flag icon
+    icon: "🇮🇳",
+    code: "hi-IN",
   },
-  {
-    language: "Portuguese",
-    icon: "🇵🇹", // Portugal flag icon
-  },
-  // Add more languages as needed
 ];
 
 export const proficiencyLevelSetting = [
@@ -109,63 +126,62 @@ export const proficiencyLevelSetting = [
 export const goalSetting = [
   {
     goal: "Travel",
-    icon: "✈️", // Example travel icon
+    icon: "✈️",
   },
   {
     goal: "Work",
-    icon: "💼", // Example work icon
+    icon: "💼",
   },
   {
     goal: "Study",
-    icon: "📚", // Example study icon
+    icon: "📚",
   },
   {
     goal: "Cultural Interest",
-    icon: "🌍", // Example globe icon
+    icon: "🌍",
   },
   {
     goal: "Personal Development",
-    icon: "🧠", // Example brain icon
+    icon: "🧠",
   },
   {
     goal: "Language Certification",
-    icon: "🏆", // Example trophy icon
+    icon: "🏆",
   },
   {
     goal: "Communication with Friends and Family",
-    icon: "👥", // Example family icon
+    icon: "👥",
   },
   {
     goal: "Media Consumption",
-    icon: "🎬", // Example film icon
+    icon: "🎬",
   },
   {
     goal: "Business and Networking",
-    icon: "🤝", // Example handshake icon
+    icon: "🤝",
   },
   {
     goal: "Migration/Relocation",
-    icon: "🌐", // Example world icon
+    icon: "🌐",
   },
   {
     goal: "Hobby or Leisure",
-    icon: "🎨", // Example art palette icon
+    icon: "🎨",
   },
   {
     goal: "Social Media Engagement",
-    icon: "📱", // Example smartphone icon
+    icon: "📱",
   },
   {
     goal: "Community Involvement",
-    icon: "🤲", // Example helping hand icon
+    icon: "🤲",
   },
   {
     goal: "Research and Knowledge",
-    icon: "🔍", // Example magnifying glass icon
+    icon: "🔍",
   },
   {
     goal: "Interpersonal Relationships",
-    icon: "💑", // Example couple icon
+    icon: "💑",
   },
-  // Add more goals as needed
 ];
