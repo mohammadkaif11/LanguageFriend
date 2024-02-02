@@ -3,41 +3,28 @@ import React, { useEffect, useState } from "react";
 import SenderTag from "./SenderTag";
 import ReciverTag from "./ReciverTagV2";
 import InputFormTag from "./InputFormTag";
-import { feed_chat_prompt } from "~/server/chatGPT/Prompt";
+import { useSearchParams } from "next/navigation";
 import { startChart } from "~/server/chatGPT/chatgpt";
-import { MessageInterface } from "model";
+import { basis_propmt } from "~/server/prompt/chatPropmt";
+import { type MessageInterface } from "model";
 
-interface ChatCompletion {
-  id: string;
-  object: string;
-  created: number;
-  model: string;
-  choices: ChatChoice[];
-  usage: {
-    prompt_tokens: number;
-    completion_tokens: number;
-    total_tokens: number;
-  };
-  system_fingerprint: string;
-}
 
-interface ChatChoice {
-  index: number;
-  message: {
-    role: string;
-    content: string;
-  };
-  logprobs: null;
-  finish_reason: string;
-}
 
 function ChatWindow() {
+  const searchParams = useSearchParams();
+  let chatPropmt: string;
   const [messages, setMessages] = useState<MessageInterface[]>([]);
+  const sceneId = searchParams?.get("sceneId");
+  const characterId = searchParams?.get("characterId");
+  if(sceneId===null && characterId===null){
+    console.log('both are null');
+    chatPropmt = basis_propmt;
+  }
 
   useEffect(() => {
     const sendObj: MessageInterface = {
       role: "system",
-      content: "you are ai language ai tutor chatbot",
+      content:chatPropmt,
       voiceUrl: null,
     };
     setMessages((prevMessages) => [...prevMessages, sendObj]);

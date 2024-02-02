@@ -28,7 +28,7 @@ function ReciverTagV2({
     try {
       if ("speechSynthesis" in window) {
         const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = selectedLanguage;
+        utterance.lang = "en-US hi-IN";
 
         if (selectedVoice) {
           utterance.voice = selectedVoice;

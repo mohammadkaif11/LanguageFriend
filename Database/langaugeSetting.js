@@ -45,9 +45,39 @@ export const targetLanguageSetting = [
     code: "ar-SA",
   },
   {
-    language: "Hindi",
+    language: "Hindi(India)",
     icon: "🇮🇳",
     code: "hi-IN",
+  },
+  {
+    language: "Telugu(India)",
+    icon: "🇮🇳",
+    code: "te-IN",
+  },
+  {
+    language: "Kannada(India)",
+    icon: "🇮🇳",
+    code: "kn-IN",
+  },
+  {
+    language: "Gujrati(India)",
+    icon: "🇮🇳",
+    code: "gu-IN",
+  },
+  {
+    language: "Bengali(India)",
+    icon: "🇮🇳",
+    code: "bn-IN",
+  },
+  {
+    language: "Marthi(India)",
+    icon: "🇮🇳",
+    code: "bn-IN",
+  },
+  {
+    language: "Urdu(India)",
+    icon: "🇮🇳",
+    code: "ur-IN",
   },
 ];
 
@@ -98,9 +128,39 @@ export const nativeLanguageSetting = [
     code: "ar-SA",
   },
   {
-    language: "Hindi",
+    language: "Hindi(India)",
     icon: "🇮🇳",
     code: "hi-IN",
+  },
+  {
+    language: "Telugu(India)",
+    icon: "🇮🇳",
+    code: "te-IN",
+  },
+  {
+    language: "Kannada(India)",
+    icon: "🇮🇳",
+    code: "kn-IN",
+  },
+  {
+    language: "Gujrati(India)",
+    icon: "🇮🇳",
+    code: "gu-IN",
+  },
+  {
+    language: "Bengali(India)",
+    icon: "🇮🇳",
+    code: "bn-IN",
+  },
+  {
+    language: "Marthi(India)",
+    icon: "🇮🇳",
+    code: "bn-IN",
+  },
+  {
+    language: "Urdu(India)",
+    icon: "🇮🇳",
+    code: "ur-IN",
   },
 ];
 
@@ -185,3 +245,7 @@ export const goalSetting = [
     icon: "💑",
   },
 ];
+
+
+
+
