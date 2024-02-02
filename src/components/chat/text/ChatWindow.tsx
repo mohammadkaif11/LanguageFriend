@@ -16,9 +16,12 @@ function ChatWindow() {
   const [messages, setMessages] = useState<MessageInterface[]>([]);
   const sceneId = searchParams?.get("sceneId");
   const characterId = searchParams?.get("characterId");
+  const [loading, setLoading] = useState<boolean>(true);
+
+
   if(sceneId===null && characterId===null){
     console.log('both are null');
-    chatPropmt = basis_propmt;
+    chatPropmt = 'you are ai chatbottutor';
   }
 
   useEffect(() => {
@@ -42,8 +45,17 @@ function ChatWindow() {
   }, []);
 
   useEffect(() => {
-    console.log("messages", messages);
+    if (messages.length > 0) {
+      const lastMessage = messages[messages.length - 1];
+      if(lastMessage && lastMessage.role==="user"){
+       setLoading(true);
+      }else if(lastMessage && lastMessage.role==="assistant"){
+        setLoading(false);
+      }
+      console.log("Last message:", lastMessage);
+    }
   }, [messages]);
+
 
   return (
     <div className="flex h-[90vh] w-full flex-col justify-between px-2">
@@ -61,6 +73,7 @@ function ChatWindow() {
             )}
           </div>
         ))}
+        {loading && (<span className="text-black w-8 h-8 border-gray-500" >Loading.......</span>)}
       </div>
       <InputFormTag setMessages={setMessages} chatHistory={messages} />
     </div>

@@ -18,6 +18,7 @@ function InputFormTag(props: InputFormTagProps) {
     if (!message) {
       return;
     }
+    setMessage("");
 
     const userMessage: MessageInterface = {
       content: message,
@@ -36,7 +37,6 @@ function InputFormTag(props: InputFormTagProps) {
         ...updatedChatHistory,
         assistantMessage,
       ];
-      setMessage("");
       props.setMessages(updatedChatHistoryWithResponse);
     } catch (errors) {
       console.log("error", errors);
