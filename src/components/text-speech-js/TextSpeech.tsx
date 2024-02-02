@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 
 const TextToSpeech = () => {
   const [text, setText] = useState<string>('Hello, this is a sample text.');
-  const [selectedLanguage, setSelectedLanguage] = useState<string>('en-US');
+  const [selectedLanguage, setSelectedLanguage] = useState<string>('bn-IN');
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
   const [selectedVoice, setSelectedVoice] = useState<SpeechSynthesisVoice | null>(null);
 
@@ -18,16 +18,20 @@ const TextToSpeech = () => {
   }, []);
 
   const speakText = () => {
-    if ('speechSynthesis' in window) {
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = selectedLanguage;
-      if (selectedVoice) {
-        utterance.voice = selectedVoice;
+    try {
+      if ('speechSynthesis' in window) {
+        const synth = window.speechSynthesis;
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = selectedLanguage;
+        console.log(selectedLanguage);
+        speechSynthesis.speak(utterance);
+      } else {
+        console.error('SpeechSynthesis is not supported in this browser.');
       }
-      speechSynthesis.speak(utterance);
-    } else {
-      console.error('SpeechSynthesis is not supported in this browser.');
+    } catch (error) {
+      console.log(error);
     }
+  
   };
 
   return (
@@ -39,6 +43,9 @@ const TextToSpeech = () => {
           <option value="en-US">English (US)</option>
           <option value="es-ES">Spanish (Spain)</option>
           <option value="hi-IN">Hindi (India)</option>
+          <option value="mr-IN">Marathi (India)</option>
+          <option value="kn-IN">kananda (India)</option>
+          <option value="ur-IN">urdu (India)</option>
           {/* Add more language options as needed */}
         </select>
       </label>

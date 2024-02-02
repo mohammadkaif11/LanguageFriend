@@ -3,6 +3,7 @@ import { PaperAirplaneIcon } from "@heroicons/react/16/solid";
 import { startChart } from "~/server/chatGPT/chatgpt";
 import { type MessageInterface } from "model";
 import MicroPhone from "~/components/speech-text-js/MicroPhone";
+import { useSession } from "next-auth/react";
 
 interface InputFormTagProps {
   setMessages: React.Dispatch<React.SetStateAction<MessageInterface[]>>;
@@ -11,6 +12,7 @@ interface InputFormTagProps {
 
 function InputFormTag(props: InputFormTagProps) {
   const [message, setMessage] = useState<string>("");
+  const session =useSession();
 
   async function onMessageSend() {
     if (!message) {
@@ -34,13 +36,13 @@ function InputFormTag(props: InputFormTagProps) {
         ...updatedChatHistory,
         assistantMessage,
       ];
+      setMessage("");
       props.setMessages(updatedChatHistoryWithResponse);
     } catch (errors) {
       console.log("error", errors);
-    } finally {
-      setMessage("");
     }
   }
+
   useEffect(() => {
     console.log("message changed", message);
   }, [message]);

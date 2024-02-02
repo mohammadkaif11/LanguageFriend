@@ -8,10 +8,14 @@ import { PauseIcon } from "@heroicons/react/16/solid";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
+import { useSession } from "next-auth/react";
 
+const defaultLangauge="en-US";
 function MicroPhone(props) {
   const [recordingstart, setRecordingStart] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState("en-US");
+  const session=useSession();
+  const userNativeLanguage = session?.data?.user?.nativeLanguageSetting? session?.data?.user?.nativeLanguageSetting : defaultLangauge;
+
   const {
     transcript,
     listening,
@@ -22,26 +26,29 @@ function MicroPhone(props) {
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     props.setMessage(transcript);
-    console.log(transcript);
   }, [transcript, listening]);
 
+  useEffect(()=>{
+    console.log('session changed',session);
+  },[session])
+  
   const startListening = () => {
     if (!browserSupportsSpeechRecognition) {
       console.error("browserSupportsSpeechRecognition");
     }
     setRecordingStart(!recordingstart);
-    console.log("Started listening in", selectedLanguage);
+    console.log("Started listening in", userNativeLanguage);
     void SpeechRecognition.startListening({
-      language: "en-US",
+      language: userNativeLanguage,
       continuous: true,
     });
   };
 
   const stopListening = () => {
     setRecordingStart(!recordingstart);
-
     console.log("Stopped listening");
     void SpeechRecognition.stopListening();
+    //  resetTranscription();
   };
 
   return (

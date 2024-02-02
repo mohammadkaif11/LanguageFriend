@@ -5,7 +5,7 @@ import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognitio
 
 
 const Dictaphone = () => {
-  const [selectedLanguage, setSelectedLanguage] = useState('hi-IN'); // Default language is English
+  const [selectedLanguage, setSelectedLanguage] = useState("");
 
   const {
     transcript,
@@ -16,7 +16,7 @@ const Dictaphone = () => {
 
   const startListening = () => {
     console.log('Started listening in', selectedLanguage);
-    void SpeechRecognition.startListening({language: 'hi-IN',continuous:true});
+    void SpeechRecognition.startListening({language:selectedLanguage,continuous:true});
   };
 
   const stopListening = () => {
