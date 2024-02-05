@@ -76,7 +76,7 @@ function ReciverTagV2({
         className="h-8 w-8 rounded-full object-cover"
         alt=""
       />
-      <div className="ml-2 flex max-w-[90%] items-center justify-end rounded-3xl bg-gray-400 px-4  py-3 text-white md:max-w-[50%]">
+      <div className="ml-2 flex max-w-[90%] items-center justify-end rounded-3xl bg-gray-400 px-4  py-3 text-white md:max-w-[80%]">
         <span className="w-full">{text}</span>
         {playing ? (
           <PauseCircleIcon

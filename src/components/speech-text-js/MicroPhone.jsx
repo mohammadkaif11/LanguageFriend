@@ -52,13 +52,13 @@ function MicroPhone(props) {
   };
 
   return (
-    <div>
+    <div className="bg-white rounded-full p-2">
       {recordingstart && (
         <PauseIcon
           onClick={() => {
             stopListening();
           }}
-          className="h-8 w-8 text-black"
+          className="h-16 w-16 text-black"
         ></PauseIcon>
       )}
       {!recordingstart && (
@@ -66,7 +66,7 @@ function MicroPhone(props) {
           onClick={() => {
             startListening();
           }}
-          className="h-8 w-8 text-black"
+          className="h-16 w-16 text-black"
         ></MicrophoneIcon>
       )}
     </div>

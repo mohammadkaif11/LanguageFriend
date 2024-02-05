@@ -21,25 +21,25 @@ function ChatWindow() {
   const targetLanguageCode = session?.data?.user?.targetLanguageSetting? session?.data?.user?.targetLanguageSetting: "en-US";
   const chatPropmt=getFeedPrompt(sceneId,nativeLanguageCode,targetLanguageCode,isLearningMode);
 
-  useEffect(() => {
-    const sendObj: MessageInterface = {
-      role: "system",
-      content: chatPropmt,
-      voiceUrl: null,
-    };
-    setMessages((prevMessages) => [...prevMessages, sendObj]);
-    if (messages.length === 0) {
-      startChart([...messages, sendObj])
-        .then((response) => {
-          const res = response as MessageInterface;
-          res.voiceUrl = null;
-          setMessages((prevMessages) => [...prevMessages, res]);
-        })
-        .catch((errors) => {
-          console.log("error", errors);
-        });
-    }
-  }, []);
+  // useEffect(() => {
+  //   const sendObj: MessageInterface = {
+  //     role: "system",
+  //     content: chatPropmt,
+  //     voiceUrl: null,
+  //   };
+  //   setMessages((prevMessages) => [...prevMessages, sendObj]);
+  //   if (messages.length === 0) {
+  //     startChart([...messages, sendObj])
+  //       .then((response) => {
+  //         const res = response as MessageInterface;
+  //         res.voiceUrl = null;
+  //         setMessages((prevMessages) => [...prevMessages, res]);
+  //       })
+  //       .catch((errors) => {
+  //         console.log("error", errors);
+  //       });
+  //   }
+  // }, []);
 
   useEffect(() => {
     if (messages.length > 0) {
@@ -51,13 +51,13 @@ function ChatWindow() {
       }
       console.log("Last message:", lastMessage);
     }
-  }, [messages]);
+  }, [messages]); 
 
   return (
-    <div className="flex flex-row justify-between bg-white">
-      <div className="flex h-[90vh] w-full flex-col justify-between px-2">
+    <div className="flex h-screen flex-row justify-between bg-white">
+      <div className="flex w-full mx-auto md:w-[550px] flex-col justify-between bg-gray-600 rounded-2xl">
         <div
-          className="mt-5 flex flex-col overflow-y-scroll"
+          className="mt-5 flex flex-col overflow-y-scroll px-2"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
           {messages?.map((data: MessageInterface, index: number) => (
