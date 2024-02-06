@@ -34,25 +34,25 @@ function ChatWindow() {
     isLearningMode,
   );
 
-  // useEffect(() => {
-  //   const sendObj: MessageInterface = {
-  //     role: "system",
-  //     content: chatPropmt,
-  //     voiceUrl: null,
-  //   };
-  //   setMessages((prevMessages) => [...prevMessages, sendObj]);
-  //   if (messages.length === 0) {
-  //     startChart([...messages, sendObj])
-  //       .then((response) => {
-  //         const res = response as MessageInterface;
-  //         res.voiceUrl = null;
-  //         setMessages((prevMessages) => [...prevMessages, res]);
-  //       })
-  //       .catch((errors) => {
-  //         console.log("error", errors);
-  //       });
-  //   }
-  // }, []);
+  useEffect(() => {
+    const sendObj: MessageInterface = {
+      role: "system",
+      content: chatPropmt,
+      voiceUrl: null,
+    };
+    setMessages((prevMessages) => [...prevMessages, sendObj]);
+    if (messages.length === 0) {
+      startChart([...messages, sendObj])
+        .then((response) => {
+          const res = response as MessageInterface;
+          res.voiceUrl = null;
+          setMessages((prevMessages) => [...prevMessages, res]);
+        })
+        .catch((errors) => {
+          console.log("error", errors);
+        });
+    }
+  }, []);
 
   useEffect(() => {
     if (messages.length > 0) {
