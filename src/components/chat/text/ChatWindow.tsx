@@ -67,7 +67,7 @@ function ChatWindow() {
   }, [messages]);
 
   return (
-    <div className="flex h-screen flex-row justify-center bg-white">
+    <div className="flex h-screen flex-row justify-center bg-green-400">
       <div className="flex w-full flex-col justify-between  bg-gray-600 md:w-[550px]">
         <div
           className="mt-5 flex flex-col overflow-y-scroll px-2"
