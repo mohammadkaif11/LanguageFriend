@@ -73,12 +73,11 @@ function ChatWindow() {
           className="mt-5 flex flex-col overflow-y-scroll px-2"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
-          <Menu as="div" className="relative inline-block text-left md:hidden">
-            <div>
+          <Menu as="div" className="inline-block text-left md:hidden">
               <Menu.Button>
                 {open ? (
                   <XMarkIcon
-                    className="block h-6 w-6"
+                    className="block h-8 w-8"
                     aria-hidden="true"
                     onClick={() => {
                       setOpen(!open);
@@ -86,7 +85,7 @@ function ChatWindow() {
                   />
                 ) : (
                   <Bars3Icon
-                    className="block h-6 w-6"
+                    className="block h-8 w-8"
                     aria-hidden="true"
                     onClick={() => {
                       setOpen(!open);
@@ -94,7 +93,6 @@ function ChatWindow() {
                   />
                 )}
               </Menu.Button>
-            </div>
             <Transition
               as={Fragment}
               enter="transition ease-out duration-100"
@@ -104,16 +102,11 @@ function ChatWindow() {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute right-0  z-10  w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <Menu.Items className="absolute left-2 z-10 w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <div className="py-1">
                   <Menu.Item>
                     <button className="block px-4 py-2 text-sm text-gray-700">
-                      Edit
-                    </button>
-                  </Menu.Item>
-                  <Menu.Item>
-                    <button className="block px-4 py-2 text-sm text-gray-700">
-                      Delete
+                      Back
                     </button>
                   </Menu.Item>
                 </div>
@@ -134,19 +127,17 @@ function ChatWindow() {
             </div>
           ))}
           {loading && (
-            <span className="h-8 w-8 border-gray-500 text-black">
-              Loading.......
+            <span className="h-10 w-24 border-gray-500 text-black chatLoader">
             </span>
           )}
         </div>
         <InputFormTag setMessages={setMessages} chatHistory={messages} />
       </div>
       <Menu as="div" className="relative hidden text-left md:inline-block">
-        <div>
-          <Menu.Button>
+          <Menu.Button className="ml-2 mt-2">
             {open ? (
               <XMarkIcon
-                className="block h-6 w-6"
+                className="block h-8 w-8"
                 aria-hidden="true"
                 onClick={() => {
                   setOpen(!open);
@@ -154,7 +145,7 @@ function ChatWindow() {
               />
             ) : (
               <Bars3Icon
-                className="block h-6 w-6"
+                className="block h-8 w-8"
                 aria-hidden="true"
                 onClick={() => {
                   setOpen(!open);
@@ -162,7 +153,6 @@ function ChatWindow() {
               />
             )}
           </Menu.Button>
-        </div>
         <Transition
           as={Fragment}
           enter="transition ease-out duration-100"
@@ -176,14 +166,10 @@ function ChatWindow() {
             <div className="py-1">
               <Menu.Item>
                 <button className="block px-4 py-2 text-sm text-gray-700">
-                  Edit
+                  Back
                 </button>
               </Menu.Item>
-              <Menu.Item>
-                <button className="block px-4 py-2 text-sm text-gray-700">
-                  Delete
-                </button>
-              </Menu.Item>
+              
             </div>
           </Menu.Items>
         </Transition>
