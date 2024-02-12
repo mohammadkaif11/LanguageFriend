@@ -8,10 +8,14 @@ import { toast } from "sonner";
 
 function ReciverTagV2({
   text,
+  nativeText,
+  targetText,
   audioUrl,
   setMessages,
   index,
 }: {
+  nativeText: string | null;
+  targetText: string | null;
   text: string;
   audioUrl: string | null;
   setMessages: React.Dispatch<React.SetStateAction<MessageLearningModelInterface[]>>;
@@ -79,8 +83,8 @@ function ReciverTagV2({
       />
       <div className="ml-2 flex max-w-[90%] items-center justify-end rounded-3xl bg-gray-400 px-4  py-3  md:max-w-[80%]">
         <div className="flex flex-col">
-          <span className="w-full text-white">{text}</span>
-          <span className="w-full text-red-800 ">{text}</span>
+          <span className="w-full text-white">{targetText}</span>
+          <span className="w-full text-red-800 ">{nativeText}</span>
         </div>
         {playing ? (
           <PauseCircleIcon

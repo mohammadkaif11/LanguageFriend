@@ -7,7 +7,7 @@ import { useSearchParams } from "next/navigation";
 import { startChart } from "~/server/chatGPT/chatgpt";
 import { type MessageInterface } from "model";
 import { useSession } from "next-auth/react";
-import { getFeedPrompt } from "~/server/chatGPT/PromptHelper";
+import { getFeedPrompt } from "~/server/prompt/prompt";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";

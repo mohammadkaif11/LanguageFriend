@@ -1,20 +1,24 @@
-import { type Session } from 'next-auth';
-import { User } from '@prisma/client';
+import { type Session } from "next-auth";
+import { User } from "@prisma/client";
 
 export interface MessageInterface {
   role: "system" | "user" | "assistant";
   content: string;
-  voiceUrl: string | null ;
+  voiceUrl: string | null;
 }
 
-export interface MessageLearningModelInterface{
+export interface MessageLearningModelInterface {
   role: "system" | "user" | "assistant";
   content: string;
   nativeLanguage: string | null;
   targetLanguage: string | null;
-  voiceUrl: string | null ;
+  voiceUrl: string | null;
 }
 
+export interface LearningObjectResponseInterface {
+  inNativeLanguage: string | null;
+  inTargetLanguage: string | null;
+}
 
 export interface ErrorInterface {
   message: string;
@@ -23,9 +27,10 @@ export interface ErrorInterface {
 export interface CustomSession extends Session {
   data: {
     user?: User;
-  }
+  };
   expires: string;
-  status: string;}
+  status: string;
+}
 
 interface CustomUser {
   id: string;
@@ -40,7 +45,3 @@ interface CustomUser {
   targetLanguageSetting?: string | null | undefined;
   updatedAt?: string | null | undefined;
 }
-
-
-
-

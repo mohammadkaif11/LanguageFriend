@@ -2,9 +2,9 @@
 import OpenAI from "openai";
 import { extractContentAndRole } from "../utils/helper";
 import { type MessageInterface } from "model";
-const openai = new OpenAI();
 
 export const startChart = async (data: MessageInterface[]) => {
+  const openai = new OpenAI();
   console.log('startChart>>>>>', data);
   const inputParams = extractContentAndRole(data);
   const completion = await openai.chat.completions.create({
@@ -15,6 +15,9 @@ export const startChart = async (data: MessageInterface[]) => {
 };
 
 export const generateAudio = async (text: string) => {
+
+  const openai = new OpenAI();
+
   console.log('generateAudio>>>>>', text);
   const mp3 = await openai.audio.speech.create({
     model: "tts-1",

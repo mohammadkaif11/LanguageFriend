@@ -58,6 +58,8 @@ export interface UserSessionInterface {
     email: string;
     image: string;
     id: string;
+    targetLanguageSetting: string;
+    nativeLanguageSetting: string;
   } | null;
   expires: string;
 }

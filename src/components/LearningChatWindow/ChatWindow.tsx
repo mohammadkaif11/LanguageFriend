@@ -5,41 +5,29 @@ import ReciverTag from "./ReciverTag";
 import InputFormTag from "./InputFormTag";
 import { useSearchParams } from "next/navigation";
 import { startChart } from "~/server/chatGPT/chatgpt";
-import { type MessageLearningModelInterface } from "model";
-import { useSession } from "next-auth/react";
-import { getFeedPrompt } from "~/server/chatGPT/PromptHelper";
+import {
+  type MessageLearningModelInterface,
+  type LearningObjectResponseInterface,
+} from "model";
+import {  getNormalConversationFeedPrompt } from "~/server/prompt/prompt";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 
-function ChatWindow() {
+function ChatWindow({nativeLanguage,targetLanguage}:{nativeLanguage:string,targetLanguage:string}) {
   const searchParams = useSearchParams();
-  const session = useSession();
   const [open, setOpen] = useState(false);
-  const [isLearningMode, setIsLearningMode] = useState(false);
   const [messages, setMessages] = useState<MessageLearningModelInterface[]>([]);
   const sceneId = searchParams?.get("sceneId");
-  const characterId = searchParams?.get("characterId");
   const [loading, setLoading] = useState<boolean>(true);
-  const nativeLanguageCode = session?.data?.user?.nativeLanguageSetting
-    ? session?.data?.user?.nativeLanguageSetting
-    : "en-US";
-  const targetLanguageCode = session?.data?.user?.targetLanguageSetting
-    ? session?.data?.user?.targetLanguageSetting
-    : "en-US";
-  const chatPropmt = getFeedPrompt(
-    sceneId,
-    nativeLanguageCode,
-    targetLanguageCode,
-    isLearningMode,
-  );
+  const chatPropmt = getNormalConversationFeedPrompt(sceneId,nativeLanguage,targetLanguage);
 
   useEffect(() => {
     const sendObj: MessageLearningModelInterface = {
       role: "system",
       content: chatPropmt,
-      nativeLanguage:null,
-      targetLanguage:null,
+      nativeLanguage: null,
+      targetLanguage: null,
       voiceUrl: null,
     };
     setMessages((prevMessages) => [...prevMessages, sendObj]);
@@ -47,6 +35,9 @@ function ChatWindow() {
       startChart([...messages, sendObj])
         .then((response) => {
           const res = response as MessageLearningModelInterface;
+          const obj = JSON.parse(res.content,) as LearningObjectResponseInterface;
+          res.nativeLanguage = obj.inNativeLanguage ?? "";
+          res.targetLanguage = obj.inTargetLanguage ?? "";
           res.voiceUrl = null;
           setMessages((prevMessages) => [...prevMessages, res]);
         })
@@ -76,25 +67,25 @@ function ChatWindow() {
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
           <Menu as="div" className="inline-block text-left md:hidden">
-              <Menu.Button>
-                {open ? (
-                  <XMarkIcon
-                    className="block h-8 w-8"
-                    aria-hidden="true"
-                    onClick={() => {
-                      setOpen(!open);
-                    }}
-                  />
-                ) : (
-                  <Bars3Icon
-                    className="block h-8 w-8"
-                    aria-hidden="true"
-                    onClick={() => {
-                      setOpen(!open);
-                    }}
-                  />
-                )}
-              </Menu.Button>
+            <Menu.Button>
+              {open ? (
+                <XMarkIcon
+                  className="block h-8 w-8"
+                  aria-hidden="true"
+                  onClick={() => {
+                    setOpen(!open);
+                  }}
+                />
+              ) : (
+                <Bars3Icon
+                  className="block h-8 w-8"
+                  aria-hidden="true"
+                  onClick={() => {
+                    setOpen(!open);
+                  }}
+                />
+              )}
+            </Menu.Button>
             <Transition
               as={Fragment}
               enter="transition ease-out duration-100"
@@ -115,46 +106,49 @@ function ChatWindow() {
               </Menu.Items>
             </Transition>
           </Menu>
-          {messages?.map((data: MessageLearningModelInterface, index: number) => (
-            <div key={index}>
-              {data.role === "user" && <SenderTag text={data.content} />}
-              {data.role === "assistant" && (
-                <ReciverTag
-                  text={data.content}
-                  audioUrl={data.voiceUrl}
-                  index={index}
-                  setMessages={setMessages}
-                />
-              )}
-            </div>
-          ))}
+          {messages?.map(
+            (data: MessageLearningModelInterface, index: number) => (
+              <div key={index}>
+                {data.role === "user" && <SenderTag text={data.content} />}
+                {data.role === "assistant" && (
+                  <ReciverTag
+                    text={data.content}
+                    audioUrl={data.voiceUrl}
+                    index={index}
+                    nativeText={data.nativeLanguage}
+                    targetText={data.targetLanguage}
+                    setMessages={setMessages}
+                  />
+                )}
+              </div>
+            ),
+          )}
           {loading && (
-            <span className="h-10 w-24 border-gray-500 text-black chatLoader">
-            </span>
+            <span className="chatLoader h-10 w-24 border-gray-500 text-black"></span>
           )}
         </div>
         <InputFormTag setMessages={setMessages} chatHistory={messages} />
       </div>
       <Menu as="div" className="relative hidden text-left md:inline-block">
-          <Menu.Button className="ml-2 mt-2">
-            {open ? (
-              <XMarkIcon
-                className="block h-8 w-8"
-                aria-hidden="true"
-                onClick={() => {
-                  setOpen(!open);
-                }}
-              />
-            ) : (
-              <Bars3Icon
-                className="block h-8 w-8"
-                aria-hidden="true"
-                onClick={() => {
-                  setOpen(!open);
-                }}
-              />
-            )}
-          </Menu.Button>
+        <Menu.Button className="ml-2 mt-2">
+          {open ? (
+            <XMarkIcon
+              className="block h-8 w-8"
+              aria-hidden="true"
+              onClick={() => {
+                setOpen(!open);
+              }}
+            />
+          ) : (
+            <Bars3Icon
+              className="block h-8 w-8"
+              aria-hidden="true"
+              onClick={() => {
+                setOpen(!open);
+              }}
+            />
+          )}
+        </Menu.Button>
         <Transition
           as={Fragment}
           enter="transition ease-out duration-100"
@@ -171,7 +165,6 @@ function ChatWindow() {
                   Back
                 </button>
               </Menu.Item>
-              
             </div>
           </Menu.Items>
         </Transition>
