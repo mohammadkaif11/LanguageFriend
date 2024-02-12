@@ -11,6 +11,15 @@ function StartChat() {
     router.push(`/chat/${id}`);
   };
 
+  const handleLearningChat=()=>{
+    const id = uid();
+    router.push(`/learning-chat/${id}`);
+  }
+  const handlePracticeChat=()=>{
+    const id = uid();
+    router.push(`/learning-chat/${id}`);
+  }
+
   return (
     <>
       <div className="relative mt-6 flex max-w-[500px] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md ">
@@ -43,7 +52,7 @@ function StartChat() {
             className="flex select-none items-center gap-2 rounded-lg px-4 py-2 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
             type="button"
           >
-            Start Conversation
+            Practice Language
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -60,7 +69,7 @@ function StartChat() {
             </svg>
           </button>
           <button
-            onClick={handleChat}
+            onClick={handleLearningChat}
             className="flex select-none items-center gap-2 rounded-lg px-4 py-2 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
             type="button"
           >
