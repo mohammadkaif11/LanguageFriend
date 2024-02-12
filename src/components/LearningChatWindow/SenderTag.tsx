@@ -72,7 +72,10 @@ function SenderTag({ text }: { text: string }) {
             className="h-10 w-10 pr-1"
           />
         )}
-        <span className="w-full">{text}</span>
+        <div className="flex flex-col">
+          <span className="w-full text-white">{text}</span>
+          <span className="w-full text-red-800 ">{text}</span>
+        </div>{" "}
       </div>
       <img
         src={

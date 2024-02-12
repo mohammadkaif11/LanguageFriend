@@ -7,6 +7,15 @@ export interface MessageInterface {
   voiceUrl: string | null ;
 }
 
+export interface MessageLearningModelInterface{
+  role: "system" | "user" | "assistant";
+  content: string;
+  nativeLanguage: string | null;
+  targetLanguage: string | null;
+  voiceUrl: string | null ;
+}
+
+
 export interface ErrorInterface {
   message: string;
 }

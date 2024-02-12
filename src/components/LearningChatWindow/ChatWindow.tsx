@@ -5,7 +5,7 @@ import ReciverTag from "./ReciverTag";
 import InputFormTag from "./InputFormTag";
 import { useSearchParams } from "next/navigation";
 import { startChart } from "~/server/chatGPT/chatgpt";
-import { type MessageInterface } from "model";
+import { type MessageLearningModelInterface } from "model";
 import { useSession } from "next-auth/react";
 import { getFeedPrompt } from "~/server/chatGPT/PromptHelper";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
@@ -17,7 +17,7 @@ function ChatWindow() {
   const session = useSession();
   const [open, setOpen] = useState(false);
   const [isLearningMode, setIsLearningMode] = useState(false);
-  const [messages, setMessages] = useState<MessageInterface[]>([]);
+  const [messages, setMessages] = useState<MessageLearningModelInterface[]>([]);
   const sceneId = searchParams?.get("sceneId");
   const characterId = searchParams?.get("characterId");
   const [loading, setLoading] = useState<boolean>(true);
@@ -35,16 +35,18 @@ function ChatWindow() {
   );
 
   useEffect(() => {
-    const sendObj: MessageInterface = {
+    const sendObj: MessageLearningModelInterface = {
       role: "system",
       content: chatPropmt,
+      nativeLanguage:null,
+      targetLanguage:null,
       voiceUrl: null,
     };
     setMessages((prevMessages) => [...prevMessages, sendObj]);
     if (messages.length === 0) {
       startChart([...messages, sendObj])
         .then((response) => {
-          const res = response as MessageInterface;
+          const res = response as MessageLearningModelInterface;
           res.voiceUrl = null;
           setMessages((prevMessages) => [...prevMessages, res]);
         })
@@ -113,7 +115,7 @@ function ChatWindow() {
               </Menu.Items>
             </Transition>
           </Menu>
-          {messages?.map((data: MessageInterface, index: number) => (
+          {messages?.map((data: MessageLearningModelInterface, index: number) => (
             <div key={index}>
               {data.role === "user" && <SenderTag text={data.content} />}
               {data.role === "assistant" && (
