@@ -9,18 +9,28 @@ import {
   type MessageLearningModelInterface,
   type LearningObjectResponseInterface,
 } from "model";
-import {  getNormalConversationFeedPrompt } from "~/server/prompt/prompt";
+import { getNormalConversationFeedPrompt } from "~/server/prompt/prompt";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 
-function ChatWindow({nativeLanguage,targetLanguage}:{nativeLanguage:string,targetLanguage:string}) {
+function ChatWindow({
+  nativeLanguage,
+  targetLanguage,
+}: {
+  nativeLanguage: string;
+  targetLanguage: string;
+}) {
   const searchParams = useSearchParams();
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<MessageLearningModelInterface[]>([]);
   const sceneId = searchParams?.get("sceneId");
   const [loading, setLoading] = useState<boolean>(true);
-  const chatPropmt = getNormalConversationFeedPrompt(sceneId,nativeLanguage,targetLanguage);
+  const chatPropmt = getNormalConversationFeedPrompt(
+    sceneId,
+    nativeLanguage,
+    targetLanguage,
+  );
 
   useEffect(() => {
     const sendObj: MessageLearningModelInterface = {
@@ -35,7 +45,10 @@ function ChatWindow({nativeLanguage,targetLanguage}:{nativeLanguage:string,targe
       startChart([...messages, sendObj])
         .then((response) => {
           const res = response as MessageLearningModelInterface;
-          const obj = JSON.parse(res.content,) as LearningObjectResponseInterface;
+          console.log("res.content>>>>>>>", res.content);
+          const obj = JSON.parse(
+            res.content,
+          ) as LearningObjectResponseInterface;
           res.nativeLanguage = obj.inNativeLanguage ?? "";
           res.targetLanguage = obj.inTargetLanguage ?? "";
           res.voiceUrl = null;
@@ -109,7 +122,16 @@ function ChatWindow({nativeLanguage,targetLanguage}:{nativeLanguage:string,targe
           {messages?.map(
             (data: MessageLearningModelInterface, index: number) => (
               <div key={index}>
-                {data.role === "user" && <SenderTag text={data.content} />}
+                {data.role === "user" && (
+                  <SenderTag
+                    text={data.content}
+                    audioUrl={data.voiceUrl}
+                    index={index}
+                    nativeText={data.nativeLanguage}
+                    targetText={data.targetLanguage}
+                    setMessages={setMessages}
+                  />
+                )}
                 {data.role === "assistant" && (
                   <ReciverTag
                     text={data.content}

@@ -31,3 +31,4 @@ export const generateAudio = async (text: string) => {
 
   return base64Audio;
 };
+

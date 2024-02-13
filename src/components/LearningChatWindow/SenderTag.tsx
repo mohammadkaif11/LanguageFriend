@@ -4,8 +4,25 @@ import { useSession } from "next-auth/react";
 import { PlayCircleIcon } from "@heroicons/react/16/solid";
 import { PauseCircleIcon } from "@heroicons/react/24/solid";
 import { toast } from "sonner";
+import { MessageLearningModelInterface } from "model";
 
-function SenderTag({ text }: { text: string }) {
+function SenderTag({
+  text,
+  nativeText,
+  targetText,
+  audioUrl,
+  setMessages,
+  index,
+}: {
+  nativeText: string | null;
+  targetText: string | null;
+  text: string;
+  audioUrl: string | null;
+  setMessages: React.Dispatch<
+    React.SetStateAction<MessageLearningModelInterface[]>
+  >;
+  index: number;
+}) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const { data: session } = useSession();
   const [playing, setPlaying] = useState(false);
@@ -73,9 +90,9 @@ function SenderTag({ text }: { text: string }) {
           />
         )}
         <div className="flex flex-col">
-          <span className="w-full text-white">{text}</span>
-          <span className="w-full text-red-800 ">{text}</span>
-        </div>{" "}
+          <span className="w-full text-white">{nativeText}</span>
+          <span className="w-full text-red-800 ">{targetText}</span>
+        </div>
       </div>
       <img
         src={

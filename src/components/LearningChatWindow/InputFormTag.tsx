@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { PaperAirplaneIcon } from "@heroicons/react/16/solid";
 import ContentEditable from "react-contenteditable";
-
 import { startChart } from "~/server/chatGPT/chatgpt";
-import { LearningObjectResponseInterface, type MessageLearningModelInterface } from "model";
+import { type LearningObjectResponseInterface, type MessageLearningModelInterface } from "model";
 import MicroPhone from "~/components/speech-text-js/MicroPhone";
 import { useSession } from "next-auth/react";
+import { traslateText } from "~/server/chatGPT/gptHelper";
+interface GPTResponseInterface{
+  text: string;
+}
 
 interface InputFormTagProps {
   setMessages: React.Dispatch<React.SetStateAction<MessageLearningModelInterface[]>>;
@@ -22,12 +25,14 @@ function InputFormTag(props: InputFormTagProps) {
     }
     setMessage("");
 
+
+    const targetLanguageText=await traslateText(message);
     const userMessage: MessageLearningModelInterface = {
       content: message,
       role: "user",
       voiceUrl: null,
-      nativeLanguage:null,
-      targetLanguage: null,
+      nativeLanguage:message,
+      targetLanguage: targetLanguageText,
     };
 
     const updatedChatHistory = [...props.chatHistory, userMessage];
@@ -53,6 +58,7 @@ function InputFormTag(props: InputFormTagProps) {
   useEffect(() => {
     console.log("message changed", message);
   }, [message]);
+  
 
   return (
     <div className="relative flex h-[30%] w-full items-center justify-center rounded-t-[25%] bg-slate-400">
