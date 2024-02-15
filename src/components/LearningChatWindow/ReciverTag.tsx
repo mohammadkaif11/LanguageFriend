@@ -5,6 +5,7 @@ import { PlayCircleIcon } from "@heroicons/react/16/solid";
 import { PauseCircleIcon } from "@heroicons/react/24/solid";
 import { type MessageLearningModelInterface } from "model";
 import { toast } from "sonner";
+import ExplainModalButton from "../explainModal/explain-modal-button";
 
 function ReciverTagV2({
   text,
@@ -18,7 +19,9 @@ function ReciverTagV2({
   targetText: string | null;
   text: string;
   audioUrl: string | null;
-  setMessages: React.Dispatch<React.SetStateAction<MessageLearningModelInterface[]>>;
+  setMessages: React.Dispatch<
+    React.SetStateAction<MessageLearningModelInterface[]>
+  >;
   index: number;
 }) {
   const [selectedLanguage, setSelectedLanguage] = useState<string>("en-US");
@@ -98,6 +101,7 @@ function ReciverTagV2({
           />
         )}
       </div>
+      <ExplainModalButton  text={nativeText}/>
       {audio !== null && (
         <audio ref={audioRef} className="hidden" src={audio}></audio>
       )}
