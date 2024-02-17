@@ -52,9 +52,6 @@ function InputFormTag(props: InputFormTagProps) {
     }
   }
 
-  useEffect(() => {
-    console.log("message changed", message);
-  }, [message]);
   
 
   return (

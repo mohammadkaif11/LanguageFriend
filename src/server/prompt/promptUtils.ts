@@ -14,11 +14,7 @@ export const getBasisPrompt=(target_languageCode:string,native_languageCode:stri
 export const getBasisPromptForLearning=(target_languageCode:string,native_languageCode:string)=>{
     const target_language=targetLanguageSetting.find(language => language.code===target_languageCode)?.language ?? "English";
     const native_language=nativeLanguageSetting.find(language => language.code===native_languageCode)?.language ?? "English";
-    console.log('target_language>>>>>>>>',target_language);
-    console.log('native_language>>>>>>>>',native_language);
-
     const base_prompt_refactor=feed_basis_learning_chat_prompt;
     const replace_base_prompt_refactor= base_prompt_refactor.replace("(target_language)",target_language).replace("(native_language)",native_language);
-    console.log('replace_base_prompt_refactor',replace_base_prompt_refactor);
     return replace_base_prompt_refactor;
 }

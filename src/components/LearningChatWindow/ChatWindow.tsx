@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import SenderTag from "./SenderTag";
 import ReciverTag from "./ReciverTag";
 import InputFormTag from "./InputFormTag";
@@ -21,13 +21,16 @@ function ChatWindow({
   nativeLanguage: string;
   targetLanguage: string;
 }) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const senderLoadingRef = useRef<HTMLDivElement>(null);
+  const loaderRef = useRef<HTMLDivElement>(null);
+
   const searchParams = useSearchParams();
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<MessageLearningModelInterface[]>([]);
   const sceneId = searchParams?.get("sceneId");
-  const [loading, setLoading] = useState<boolean>(true);
+  const [reciverloading, setReciverLoading] = useState<boolean>(true);
   const [senderLoading, setSenderLoading] = useState<boolean>(false);
-
   const chatPropmt = getNormalConversationFeedPrompt(
     sceneId,
     nativeLanguage,
@@ -65,19 +68,30 @@ function ChatWindow({
     if (messages.length > 0) {
       const lastMessage = messages[messages.length - 1];
       if (lastMessage && lastMessage.role === "user") {
-        setLoading(true);
+        alert("user send");
+        setReciverLoading(true);
       } else if (lastMessage && lastMessage.role === "assistant") {
-        setLoading(false);
+        setReciverLoading(false);
       }
-      console.log("Last message:", lastMessage);
+    }
+    if (scrollRef.current) {
+      scrollRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages]);
 
+  useEffect(() => {
+    if (reciverloading && loaderRef.current) {
+      loaderRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+    if (senderLoading && senderLoadingRef.current) {
+      senderLoadingRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [reciverloading, senderLoading]);
   return (
     <div className="flex h-screen flex-row justify-center bg-green-400">
       <div className="flex w-full flex-col justify-between gap-12  bg-gray-600 md:w-[550px]">
         <div
-          className="mt-5 flex flex-col overflow-y-scroll px-2"
+          className="mt-5 flex h-[70%] flex-col overflow-y-scroll px-2"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
           <Menu as="div" className="inline-block text-left md:hidden">
@@ -122,7 +136,10 @@ function ChatWindow({
           </Menu>
           {messages?.map(
             (data: MessageLearningModelInterface, index: number) => (
-              <div key={index}>
+              <div
+                key={index}
+                ref={index === messages.length - 1 ? scrollRef : null}
+              >
                 {data.role === "user" && (
                   <SenderTag
                     text={data.content}
@@ -146,16 +163,22 @@ function ChatWindow({
               </div>
             ),
           )}
-          {loading && (
-            <span className="chatLoader h-10 w-24 border-gray-500 text-black"></span>
+          {reciverloading && (
+            <div ref={loaderRef} className="flex justify-start">
+              <span className="chatLoader h-10 w-24 border-gray-500 text-black"></span>
+            </div>
           )}
           {senderLoading && (
-            <div className="flex justify-end">
+            <div ref={senderLoadingRef} className="flex justify-end">
               <span className="chatLoader h-10 w-24 border-gray-500 text-black"></span>
             </div>
           )}
         </div>
-        <InputFormTag setMessages={setMessages} chatHistory={messages} setSenderLoading={setSenderLoading}/>
+        <InputFormTag
+          setMessages={setMessages}
+          chatHistory={messages}
+          setSenderLoading={setSenderLoading}
+        />
       </div>
       <Menu as="div" className="relative hidden text-left md:inline-block">
         <Menu.Button className="ml-2 mt-2">
