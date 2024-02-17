@@ -78,30 +78,27 @@ function ReciverTagV2({
   };
 
   return (
-    <div className="mb-4 flex items-center justify-start">
+    <div className="group mb-4 flex items-center justify-start">
       <img
         src="https://static.vecteezy.com/system/resources/previews/004/996/790/original/robot-chatbot-icon-sign-free-vector.jpg"
         className="h-8 w-8 rounded-full object-cover"
         alt=""
       />
-      <div className="ml-2 flex max-w-[90%] items-center justify-end rounded-3xl bg-gray-400 px-4  py-3  md:max-w-[80%]">
+      <div className="ml-2 flex max-w-[90%] flex-col items-end justify-end rounded-3xl bg-gray-400 px-4  py-3 md:max-w-[80%]">
         <div className="flex flex-col">
           <span className="w-full text-white">{targetText}</span>
           <span className="w-full text-red-800 ">{nativeText}</span>
         </div>
-        {playing ? (
-          <PauseCircleIcon
-            onClick={togglePlayPause}
-            className="h-10 w-10 pl-1"
-          />
-        ) : (
-          <PlayCircleIcon
-            onClick={togglePlayPause}
-            className="h-10 w-10 pl-1"
-          />
-        )}
+        <div className="flex">
+          {playing ? (
+            <PauseCircleIcon onClick={togglePlayPause} className="h-6 w-6" />
+          ) : (
+            <PlayCircleIcon onClick={togglePlayPause} className="h-6 w-6" />
+          )}
+          <ExplainModalButton text={nativeText} />
+        </div>
       </div>
-      <ExplainModalButton  text={nativeText}/>
+
       {audio !== null && (
         <audio ref={audioRef} className="hidden" src={audio}></audio>
       )}

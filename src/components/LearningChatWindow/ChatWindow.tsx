@@ -26,6 +26,8 @@ function ChatWindow({
   const [messages, setMessages] = useState<MessageLearningModelInterface[]>([]);
   const sceneId = searchParams?.get("sceneId");
   const [loading, setLoading] = useState<boolean>(true);
+  const [senderLoading, setSenderLoading] = useState<boolean>(false);
+
   const chatPropmt = getNormalConversationFeedPrompt(
     sceneId,
     nativeLanguage,
@@ -45,7 +47,6 @@ function ChatWindow({
       startChart([...messages, sendObj])
         .then((response) => {
           const res = response as MessageLearningModelInterface;
-          console.log("res.content>>>>>>>", res.content);
           const obj = JSON.parse(
             res.content,
           ) as LearningObjectResponseInterface;
@@ -148,8 +149,13 @@ function ChatWindow({
           {loading && (
             <span className="chatLoader h-10 w-24 border-gray-500 text-black"></span>
           )}
+          {senderLoading && (
+            <div className="flex justify-end">
+              <span className="chatLoader h-10 w-24 border-gray-500 text-black"></span>
+            </div>
+          )}
         </div>
-        <InputFormTag setMessages={setMessages} chatHistory={messages} />
+        <InputFormTag setMessages={setMessages} chatHistory={messages} setSenderLoading={setSenderLoading}/>
       </div>
       <Menu as="div" className="relative hidden text-left md:inline-block">
         <Menu.Button className="ml-2 mt-2">

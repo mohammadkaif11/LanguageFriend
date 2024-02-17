@@ -4,7 +4,8 @@ import { useSession } from "next-auth/react";
 import { PlayCircleIcon } from "@heroicons/react/16/solid";
 import { PauseCircleIcon } from "@heroicons/react/24/solid";
 import { toast } from "sonner";
-import { MessageLearningModelInterface } from "model";
+import { type MessageLearningModelInterface } from "model";
+import ExplainModalButton from "../explainModal/explain-modal-button";
 
 function SenderTag({
   text,
@@ -74,24 +75,21 @@ function SenderTag({
       console.error("error: ", error);
     }
   };
-
   return (
     <div className="mb-4 flex items-center justify-end">
-      <div className="mr-2 flex  max-w-[90%] items-center  justify-end  rounded-3xl bg-blue-400 px-4 py-3 text-white md:max-w-[70%]">
-        {playing ? (
-          <PauseCircleIcon
-            onClick={togglePlayPause}
-            className="h-10 w-10 pr-1"
-          />
-        ) : (
-          <PlayCircleIcon
-            onClick={togglePlayPause}
-            className="h-10 w-10 pr-1"
-          />
-        )}
+      <div className="mr-2 flex max-w-[90%]  flex-col items-start justify-end rounded-3xl bg-blue-400 px-4  py-3 md:max-w-[80%]">
+     
         <div className="flex flex-col">
           <span className="w-full text-white">{nativeText}</span>
           <span className="w-full text-red-800 ">{targetText}</span>
+        </div>
+        <div className="flex">
+          {playing ? (
+            <PauseCircleIcon onClick={togglePlayPause} className="h-6 w-6" />
+          ) : (
+            <PlayCircleIcon onClick={togglePlayPause} className="h-6 w-6" />
+          )}
+          <ExplainModalButton text={nativeText} />
         </div>
       </div>
       <img

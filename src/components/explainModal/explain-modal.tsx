@@ -21,27 +21,20 @@ export default function ExplainModal({
   text: string | null;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const [explainOutputResponse, setExplainOutputResponse] =useState<ExplainOutPutResponse[]>();
+  const [explainOutputResponse, setExplainOutputResponse] = useState<
+    ExplainOutPutResponse[]
+  >([]);
 
   useEffect(() => {
     if (text != null && open) {
-     void getOutputResponse(text);
-    }
-    return ()=>{
-     setExplainOutputResponse([]);
+      void getOutputResponse(text);
     }
   }, [open]);
-  
+
   const getOutputResponse = async (text: string) => {
     try {
-      explainOutput(text)
-        .then((data) => {
-          console.log("-----------explain output response----------", data);
-          setExplainOutputResponse(JSON.parse(data) as ExplainOutPutResponse[]);
-        })
-        .catch((error) => {
-          console.log("error");
-        });
+      const data = await explainOutput(text);
+      setExplainOutputResponse(JSON.parse(data) as ExplainOutPutResponse[]);
     } catch (error) {
       console.error(error);
     }
@@ -73,13 +66,12 @@ export default function ExplainModal({
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
-                <div className="absolute right-0 top-0 hidden pr-4 pt-4 sm:block">
+                <div className="absolute right-0 top-0  pr-4 pt-4 block">
                   <button
                     type="button"
                     className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     onClick={() => setOpen(false)}
                   >
-                    <span className="sr-only">Close</span>
                     <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                   </button>
                 </div>
@@ -91,13 +83,13 @@ export default function ExplainModal({
                     Explaination
                   </Dialog.Title>
                   <div className="flex flex-col gap-2">
-                    {!explainOutputResponse   ? (
+                    {explainOutputResponse.length === 0 ? (
                       <div className="flex justify-center">
                         <VoiceLoadSpiner />
                       </div>
                     ) : (
-                        explainOutputResponse && (
-                          <div className="relative overflow-x-auto">
+                      explainOutputResponse && (
+                        <div className="relative overflow-x-auto">
                           <table className="w-full text-left text-sm text-gray-500 rtl:text-right dark:text-gray-400">
                             <thead className="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
                               <tr>
@@ -108,7 +100,7 @@ export default function ExplainModal({
                                   Explanation
                                 </th>
                                 <th scope="col" className="px-6 py-3">
-                                  Play 
+                                  Play
                                 </th>
                               </tr>
                             </thead>
@@ -132,7 +124,7 @@ export default function ExplainModal({
                             </tbody>
                           </table>
                         </div>
-                        )                      
+                      )
                     )}
                   </div>
                 </div>

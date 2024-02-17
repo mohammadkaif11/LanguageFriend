@@ -4,29 +4,26 @@ import ContentEditable from "react-contenteditable";
 import { startChart } from "~/server/chatGPT/chatgpt";
 import { type LearningObjectResponseInterface, type MessageLearningModelInterface } from "model";
 import MicroPhone from "~/components/speech-text-js/MicroPhone";
-import { useSession } from "next-auth/react";
 import { traslateText } from "~/server/chatGPT/gptHelper";
-interface GPTResponseInterface{
-  text: string;
-}
 
 interface InputFormTagProps {
   setMessages: React.Dispatch<React.SetStateAction<MessageLearningModelInterface[]>>;
   chatHistory: MessageLearningModelInterface[];
+  setSenderLoading:React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function InputFormTag(props: InputFormTagProps) {
   const [message, setMessage] = useState<string>("");
-  const session = useSession();
 
   async function onMessageSend() {
     if (!message) {
       return;
     }
     setMessage("");
-
-
+    props.setSenderLoading(true);
     const targetLanguageText=await traslateText(message);
+    props.setSenderLoading(false);
+
     const userMessage: MessageLearningModelInterface = {
       content: message,
       role: "user",

@@ -1,21 +1,25 @@
 "use client";
-import { ArrowLongRightIcon } from "@heroicons/react/16/solid";
+import { LightBulbIcon } from "@heroicons/react/16/solid";
 import { useState } from "react";
 import React from "react";
 import ExplainModal from "./explain-modal";
 
-function ExplainModalButton({text}:{text:string| null}) {
+function ExplainModalButton({
+  text,
+}: {
+  text: string | null;
+}) {
   const [open, setOpen] = useState(false);
   return (
-    <div>
-      <ArrowLongRightIcon
+    <>
+      <LightBulbIcon
         onClick={() => {
           setOpen(true);
         }}
-        className="h-10  w-10"
-      ></ArrowLongRightIcon>
+        className="h-6 w-6 "
+      ></LightBulbIcon>
       <ExplainModal text={text} open={open} setOpen={setOpen} />
-    </div>
+    </>
   );
 }
 
