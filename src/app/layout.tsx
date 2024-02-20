@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <Script src="https://cdn.lordicon.com/lordicon.js"></Script>
-      <body className={`font-sans ${inter.variable}`}>{children}</body>
+      <body className={`font-sans ${inter.variable} bg-yellow-200 bg-bgImage bg-cover bg-fixed bg-center bg-no-repeat` }>{children}</body>
     </html>
   );
 }

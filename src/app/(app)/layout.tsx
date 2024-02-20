@@ -24,8 +24,7 @@ export default async function ApplicationLayout({
   return (
     <html lang="en">
       <Script src="https://cdn.lordicon.com/lordicon.js"></Script>
-      {/* <body className={`font-sans ${inter.variable} bg-bgImage bg-cover bg-fixed bg-center bg-no-repeat`}> */}
-      <body className={`font-sans ${inter.variable} bg-yellow-200 `}>
+      <body className={`font-sans ${inter.variable}`}>
         <Providers>
           <Navbar></Navbar>
           {children}
