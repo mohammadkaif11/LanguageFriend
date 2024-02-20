@@ -1,227 +1,290 @@
 [
-    {
+  {
+      "id": "1",
       "sceneTitle": "CoffeeTime",
       "sceneDescription": "Enjoying a cup of coffee in a cozy cafe.",
-      "chatbotRole": "Barista",
-      "humanRole": "Customer",
-      "image": "https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-    },
-    {
+      "botRole": "Barista",
+      "yourRole": "Customer",
+      "sceneImage": "./s1.png",
+      "userId": "system123"
+  },
+  {
+      "id": "2",
       "sceneTitle": "FirstDaySchool",
       "sceneDescription": "Navigating the challenges of the first day of school.",
-      "chatbotRole": "Teacher",
-      "humanRole": "Student",
-      "image": "https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-    },
-    {
+      "botRole": "Teacher",
+      "yourRole": "Student",
+      "sceneImage": "./s2.png",
+      "userId": "system123"
+  },
+  {
+      "id": "3",
       "sceneTitle": "BeachVacation",
       "sceneDescription": "Relaxing on the sandy shores during a beach vacation.",
-      "chatbotRole": "Beach Guide",
-      "humanRole": "Tourist",
-      "image": "https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-    },
-    {
+      "botRole": "Beach Guide",
+      "yourRole": "Tourist",
+      "sceneImage": "./s3.png",
+      "userId": "system123"
+  },
+  {
+      "id": "4",
       "sceneTitle": "CityExploration",
       "sceneDescription": "Discovering the vibrant streets of a new city.",
-      "chatbotRole": "City Guide",
-      "humanRole": "Explorer",
-      "image": "https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-    },
-    {
+      "botRole": "City Guide",
+      "yourRole": "Explorer",
+      "sceneImage": "./s4.png",
+      "userId": "system123"
+  },
+  {
+      "id": "5",
       "sceneTitle": "SpaceAdventure",
       "sceneDescription": "Embarking on a thrilling space adventure.",
-      "chatbotRole": "Astronaut Assistant",
-      "humanRole": "Space Traveler",
-      "image": "https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-    },
-    {
+      "botRole": "Astronaut Assistant",
+      "yourRole": "Space Traveler",
+      "sceneImage": "./s5.png",
+      "userId": "system123"
+  },
+  {
+      "id": "6",
       "sceneTitle": "GourmetDinner",
       "sceneDescription": "Indulging in a luxurious gourmet dinner experience.",
-      "chatbotRole": "Chef's Assistant",
-      "humanRole": "Diner",
-      "image": "https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-    },
-    {
+      "botRole": "Chef's Assistant",
+      "yourRole": "Diner",
+      "sceneImage": "./s6.png",
+      "userId": "system123"
+  },
+  {
+      "id": "7",
       "sceneTitle": "ArtGalleryVisit",
       "sceneDescription": "Exploring an exquisite art gallery.",
-      "chatbotRole": "Art Guide",
-      "humanRole": "Art Enthusiast",
-      "image": "https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-    },
-    {
+      "botRole": "Art Guide",
+      "yourRole": "Art Enthusiast",
+      "sceneImage": "./s7.png",
+      "userId": "system123"
+  },
+  {
+      "id": "8",
       "sceneTitle": "MountainRetreat",
       "sceneDescription": "Retreating to a peaceful mountain cabin.",
-      "chatbotRole": "Mountain Guide",
-      "humanRole": "Retreat Guest",
-      "image": "https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-    },
-    {
+      "botRole": "Mountain Guide",
+      "yourRole": "Retreat Guest",
+      "sceneImage": "./s8.png",
+      "userId": "system123"
+  },
+  {
+      "id": "9",
       "sceneTitle": "TechConference",
       "sceneDescription": "Participating in an innovative tech conference.",
-      "chatbotRole": "Conference Assistant",
-      "humanRole": "Attendee",
-      "image": "https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-    },
-    {
+      "botRole": "Conference Assistant",
+      "yourRole": "Attendee",
+      "sceneImage": "./s9.png",
+      "userId": "system123"
+  },
+  {
+      "id": "10",
       "sceneTitle": "MovieNight",
       "sceneDescription": "Enjoying a movie night with friends.",
-      "chatbotRole": "Entertainment Host",
-      "humanRole": "Viewer",
-      "image": "https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-    },
-    {
+      "botRole": "Entertainment Host",
+      "yourRole": "Viewer",
+      "sceneImage": "./s10.png",
+      "userId": "system123"
+  },
+  {
+      "id": "11",
       "sceneTitle": "ShoppingSpree",
       "sceneDescription": "Embarking on a lavish shopping spree.",
-      "chatbotRole": "Personal Shopper",
-      "humanRole": "Shopper",
-      "image": "https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-    },
-    {
+      "botRole": "Personal Shopper",
+      "yourRole": "Shopper",
+      "sceneImage": "./s11.png",
+      "userId": "system123"
+  },
+  {
+      "id": "12",
       "sceneTitle": "AmusementPark",
       "sceneDescription": "Experiencing thrills at an amusement park.",
-      "chatbotRole": "Ride Guide",
-      "humanRole": "Park Visitor",
-      "image": "https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-    },
-    {
+      "botRole": "Ride Guide",
+      "yourRole": "Park Visitor",
+      "sceneImage": "./s12.png",
+      "userId": "system123"
+  },
+  {
+      "id": "13",
       "sceneTitle": "VirtualReality",
       "sceneDescription": "Diving into the world of virtual reality.",
-      "chatbotRole": "VR Guide",
-      "humanRole": "Player",
-      "image": "https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-    },
-    {
+      "botRole": "VR Guide",
+      "yourRole": "Player",
+      "sceneImage": "./s13.png",
+      "userId": "system123"
+  },
+  {
+      "id": "14",
       "sceneTitle": "HistoricalTour",
       "sceneDescription": "Embarking on a historical city tour.",
-      "chatbotRole": "History Guide",
-      "humanRole": "Tourist",
-      "image": "https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-    },
-    {
+      "botRole": "History Guide",
+      "yourRole": "Tourist",
+      "sceneImage": "./s14.png",
+      "userId": "system123"
+  },
+  {
+      "id": "15",
       "sceneTitle": "FitnessChallenge",
       "sceneDescription": "Taking on a fitness challenge.",
-      "chatbotRole": "Fitness Coach",
-      "humanRole": "Participant",
-      "image": "https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-    },
-    {
+      "botRole": "Fitness Coach",
+      "yourRole": "Participant",
+      "sceneImage": "./s15.png",
+      "userId": "system123"
+  },
+  {
+      "id": "16",
       "sceneTitle": "JobInterview",
       "sceneDescription": "Navigating the challenges of a job interview.",
-      "chatbotRole": "Interview Assistant",
-      "humanRole": "Job Applicant",
-      "image": "https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-    },
-    {
+      "botRole": "Interview Assistant",
+      "yourRole": "Job Applicant",
+      "sceneImage": "./s16.png",
+      "userId": "system123"
+  },
+  {
+      "id": "17",
       "sceneTitle": "MusicFestival",
       "sceneDescription": "Immersing in the beats of a music festival.",
-      "chatbotRole": "Festival Guide",
-      "humanRole": "Music Fan",
-      "image": "https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-    },
-    {
+      "botRole": "Festival Guide",
+      "yourRole": "Music Fan",
+      "sceneImage": "./s17.png",
+      "userId": "system123"
+  },
+  {
+      "id": "18",
       "sceneTitle": "ZooVisit",
       "sceneDescription": "Exploring the diverse wildlife at the zoo.",
-      "chatbotRole": "Zoo Guide",
-      "humanRole": "Visitor",
-      "image": "https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-    },
-    {
+      "botRole": "Zoo Guide",
+      "yourRole": "Visitor",
+      "sceneImage": "./s18.png",
+      "userId": "system123"
+  },
+  {
+      "id": "19",
       "sceneTitle": "RoadTrip",
       "sceneDescription": "Embarking on an epic road trip.",
-      "chatbotRole": "Travel Companion",
-      "humanRole": "Road Tripper",
-      "image": "https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-    },
-    {
+      "botRole": "Travel Companion",
+      "yourRole": "Road Tripper",
+      "sceneImage": "./s19.png",
+      "userId": "system123"
+  },
+  {
+      "id": "20",
       "sceneTitle": "MuseumAdventure",
       "sceneDescription": "Discovering treasures in a museum adventure.",
-      "chatbotRole": "Museum Guide",
-      "humanRole": "Explorer",
-      "image": "https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-    },
-    {
+      "botRole": "Museum Guide",
+      "yourRole": "Explorer",
+      "sceneImage": "./s20.png",
+      "userId": "system123"
+  },
+  {
+      "id": "21",
       "sceneTitle": "FashionShow",
       "sceneDescription": "Savoring the glamour of a high-profile fashion show.",
-      "chatbotRole": "Fashion Assistant",
-      "humanRole": "Fashionista",
-      "image": "https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-    },
-    {
+      "botRole": "Fashion Assistant",
+      "yourRole": "Fashionista",
+      "sceneImage": "./s21.png",
+      "userId": "system123"
+  },
+  {
+      "id": "22",
       "sceneTitle": "SportsMatch",
       "sceneDescription": "Cheering for the favorite team at a sports match.",
-      "chatbotRole": "Sports Enthusiast",
-      "humanRole": "Fan",
-      "image": "https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-    },
-    {
+      "botRole": "Sports Enthusiast",
+      "yourRole": "Fan",
+      "sceneImage": "./s22.png",
+      "userId": "system123"
+  },
+  {
+      "id": "23",
       "sceneTitle": "TechStartup",
       "sceneDescription": "Navigating the challenges of launching a tech startup.",
-      "chatbotRole": "Startup Advisor",
-      "humanRole": "Entrepreneur",
-      "image": "https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-    },
-    {
+      "botRole": "Startup Advisor",
+      "yourRole": "Entrepreneur",
+      "sceneImage": "./s23.png",
+      "userId": "system123"
+  },
+  {
+      "id": "24",
       "sceneTitle": "CookingChallenge",
       "sceneDescription": "Competing in a thrilling cooking challenge.",
-      "chatbotRole": "Cooking Coach",
-      "humanRole": "Contestant",
-      "image": "https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-    },
-    {
+      "botRole": "Cooking Coach",
+      "yourRole": "Contestant",
+      "sceneImage": "./s24.png",
+      "userId": "system123"
+  },
+  {
+      "id": "25",
       "sceneTitle": "SpaceStation",
       "sceneDescription": "Living aboard a space station.",
-      "chatbotRole": "Space Station Assistant",
-      "humanRole": "Astronaut",
-      "image": "https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-    },
-    {
+      "botRole": "Space Station Assistant",
+      "yourRole": "Astronaut",
+      "sceneImage": "./s25.png",
+      "userId": "system123"
+  },
+  {
+      "id": "26",
       "sceneTitle": "BookClub",
       "sceneDescription": "Discussing literary masterpieces in a book club.",
-      "chatbotRole": "Book Club Moderator",
-      "humanRole": "Reader",
-      "image": "https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-    },
-    {
+      "botRole": "Book Club Moderator",
+      "yourRole": "Reader",
+      "sceneImage": "./s26.png",
+      "userId": "system123"
+  },
+  {
+      "id": "27",
       "sceneTitle": "FamilyPicnic",
       "sceneDescription": "Enjoying a delightful picnic with family.",
-      "chatbotRole": "Picnic Planner",
-      "humanRole": "Family Member",
-      "image": "https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-    },
-    {
+      "botRole": "Picnic Planner",
+      "yourRole": "Family Member",
+      "sceneImage": "./s27.png",
+      "userId": "system123"
+  },
+  {
+      "id": "28",
       "sceneTitle": "GardeningAdventure",
       "sceneDescription": "Embarking on a gardening adventure.",
-      "chatbotRole": "Gardening Guide",
-      "humanRole": "Gardener",
-      "image": "https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-    },
-    {
+      "botRole": "Gardening Guide",
+      "yourRole": "Gardener",
+      "sceneImage": "./s28.png",
+      "userId": "system123"
+  },
+  {
+      "id": "29",
       "sceneTitle": "DetectiveMystery",
       "sceneDescription": "Solving a thrilling detective mystery.",
-      "chatbotRole": "Detective Assistant",
-      "humanRole": "Sleuth",
-      "image": "https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-    },
-    {
+      "botRole": "Detective Assistant",
+      "yourRole": "Sleuth",
+      "sceneImage": "./s29.png",
+      "userId": "system123"
+  },
+  {
+      "id": "30",
       "sceneTitle": "CulinaryTour",
       "sceneDescription": "Exploring diverse cuisines on a culinary tour.",
-      "chatbotRole": "Culinary Guide",
-      "humanRole": "Foodie",
-      "image": "https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-    },
-    {
+      "botRole": "Culinary Guide",
+      "yourRole": "Foodie",
+      "sceneImage": "./s30.png",
+      "userId": "system123"
+  },
+  {
+      "id": "31",
       "sceneTitle": "HolidayCelebration",
       "sceneDescription": "Participating in festive holiday celebrations.",
-      "chatbotRole": "Holiday Guide",
-      "humanRole": "Celebrant",
-      "image": "https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-    },
-    {
+      "botRole": "Holiday Guide",
+      "yourRole": "Celebrant",
+      "sceneImage": "./s30.png",
+      "userId": "system123"
+  },
+  {
+      "id": "32",
       "sceneTitle": "UnderwaterExploration",
       "sceneDescription": "Diving into the mysteries of underwater exploration.",
-      "chatbotRole": "Underwater Guide",
-      "humanRole": "Explorer",
-      "image": "https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-    }
-  ]
-  
+      "botRole": "Underwater Guide",
+      "yourRole": "Explorer",
+      "sceneImage": "./s30.png",
+      "userId": "system123"
+  }
+]

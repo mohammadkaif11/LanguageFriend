@@ -9,6 +9,9 @@ export default {
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },
+      backgroundImage: {
+        'bgImage': "url('/backgroundImage1.png')",
+      }
     },
   },
   plugins: [],

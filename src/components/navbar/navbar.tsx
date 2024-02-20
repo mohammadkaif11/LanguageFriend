@@ -18,14 +18,14 @@ export default function Navbar() {
 
   return (
     <>
-      <Disclosure as="nav" className="bg-pink-200 ">
+      <Disclosure as="nav" className="bg-yellow-100">
         {({ open }) => (
           <>
             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
               <div className="relative flex h-16 justify-between">
                 <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                   {/* Mobile menu button */}
-                  <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-pink-500 hover:bg-pink-100 hover:text-pink-600 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                  <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-yellow-500 hover:bg-yellow-100 hover:text-yellow-600 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
                     <span className="absolute -inset-0.5" />
                     <span className="sr-only">Open main menu</span>
                     {open ? (
@@ -35,10 +35,10 @@ export default function Navbar() {
                     )}
                   </Disclosure.Button>
                 </div>
-                <div className="flex flex-1 items-center md:justify-between justify-center">
+                <div className="flex flex-1 items-center justify-center md:justify-between">
                   <div className="flex flex-shrink-0 items-center">
                     <Link href="/">
-                      <h4 className="text-2xl font-bold text-pink-500">
+                      <h4 className="text-2xl font-bold text-yellow-500">
                         <span className="text-4xl">L</span>ANGAUGE
                         <span className="text-4xl">F</span>RIEND
                       </h4>
@@ -47,16 +47,17 @@ export default function Navbar() {
                   <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                     <Link
                       href="/scene"
-                      className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-lg			 font-medium text-pink-500"
+                      className="group items-center border-b-2 border-transparent px-1 pt-1 text-lg		 font-bold text-yellow-500 transition duration-300"
                     >
-                      scene
+                      Scene
+                      <span className="block h-0.5 max-w-0 bg-yellow-500 transition-all duration-500 group-hover:max-w-full"></span>
                     </Link>
-
                     <Link
                       href="/subscription"
-                      className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-lg		 font-medium text-pink-500"
+                      className="group items-center border-b-2 border-transparent px-1 pt-1 text-lg		 font-bold text-yellow-500 transition duration-300"
                     >
-                      subscription
+                      Subscription
+                      <span className="block h-0.5 max-w-0 bg-yellow-500 transition-all duration-500 group-hover:max-w-full"></span>
                     </Link>
                   </div>
                 </div>
@@ -64,7 +65,7 @@ export default function Navbar() {
                   {/* Profile dropdown */}
                   <Menu as="div" className="relative ml-3">
                     <div>
-                      <Menu.Button className="relative flex rounded-full bg-pink-200 text-sm focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2">
+                      <Menu.Button className="relative flex rounded-full bg-yellow-200 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2">
                         <span className="absolute -inset-1.5" />
                         <span className="sr-only">Open user menu</span>
                         <img
@@ -86,17 +87,17 @@ export default function Navbar() {
                       leaveFrom="transform opacity-100 scale-100"
                       leaveTo="transform opacity-0 scale-95"
                     >
-                      <Menu.Items className="absolute right-0 z-10 mt-2 w-auto origin-top-right rounded-md bg-pink-200 py-1 shadow-lg ring-1 ring-pink-500 ring-opacity-5 focus:outline-none">
+                      <Menu.Items className="absolute right-0 z-10 mt-2 w-auto origin-top-right rounded-md bg-yellow-200 py-1 shadow-lg ring-1 ring-yellow-500 ring-opacity-5 focus:outline-none">
                         <Menu.Item>
                           {({ active }) => (
                             <button
                               className={classNames(
                                 active ? "bg-pin-200" : "",
-                                "flex flex-col px-4 py-2 text-sm text-pink-800",
+                                "flex flex-col px-4 py-2 text-sm text-yellow-900",
                               )}
                             >
                               {session?.user?.name}
-                              <span className="text-sm text-pink-500">
+                              <span className="text-sm text-yellow-500">
                                 {" "}
                                 {session?.user?.email}
                               </span>
@@ -110,8 +111,8 @@ export default function Navbar() {
                                 setSettingModal(true);
                               }}
                               className={classNames(
-                                active ? "bg-pink-200" : "",
-                                "flex flex-col px-4 py-2 text-sm text-pink-500",
+                                active ? "bg-yellow-200" : "",
+                                "flex flex-col px-4 py-2 text-sm text-yellow-500",
                               )}
                             >
                               Settings
@@ -125,8 +126,8 @@ export default function Navbar() {
                                 void signOut();
                               }}
                               className={classNames(
-                                active ? "bg-pink-200" : "",
-                                "flex flex-col px-4 py-2 text-sm text-pink-500",
+                                active ? "bg-yellow-200" : "",
+                                "flex flex-col px-4 py-2 text-sm text-yellow-500",
                               )}
                             >
                               Sign out
@@ -143,10 +144,10 @@ export default function Navbar() {
             <Disclosure.Panel className="sm:hidden">
               <div className="flex flex-col space-y-1 pb-4 pt-2">
                 {/* Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" */}
-                <Disclosure.Button className="border-trasparent border-l-4 py-2 pl-3 pr-4 text-lg	 font-medium text-pink-500">
+                <Disclosure.Button className="border-trasparent border-l-4 py-2 pl-3 pr-4 text-lg	 font-bold text-yellow-500">
                   <Link href="/scene">Scene</Link>
                 </Disclosure.Button>
-                <Disclosure.Button className="border-trasparent  border-l-4  py-2 pl-3 pr-4 text-lg	 font-medium text-pink-500">
+                <Disclosure.Button className="border-trasparent  border-l-4  py-2 pl-3 pr-4 text-lg	 font-bold text-yellow-500">
                   <Link href="/subscription">Subscription</Link>
                 </Disclosure.Button>
               </div>

@@ -7,9 +7,7 @@ import { getServerAuthSession } from "~/server/auth";
 import { db } from "~/server/db";
 import { notFound, redirect } from "next/navigation";
 
-
 async function page() {
-
   const sessions = await getServerAuthSession();
 
   if (!sessions?.user?.id) {
@@ -33,7 +31,11 @@ async function page() {
               {userScene.map((sceneCard, index) => {
                 return (
                   <div key={sceneCard.sceneTitle} className="p-[5px] lg:p-0">
-                    <SceneCard index={index} isDefault={false} scene={sceneCard} />
+                    <SceneCard
+                      index={index}
+                      isDefault={false}
+                      scene={sceneCard}
+                    />
                   </div>
                 );
               })}
@@ -41,16 +43,20 @@ async function page() {
           </div>
         )}
         <div>
-        <h2 className="my-4">Normal Scenes</h2>
-        <div className=" grid  gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-          {scene.map((sceneCard, index) => {
-            return (
-              <div key={sceneCard.sceneTitle} className="p-[5px] lg:p-0">
-                <SceneCard index={index} isDefault={true} />
-              </div>
-            );
-          })}
+        <div className="mt-2">
+          <span className="inline-block  bg-yellow-100 p-2 text-2xl  font-bold text-yellow-500">
+          Normal Scenes
+          </span>
         </div>
+          <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            {scene.map((sceneCard, index) => {
+              return (
+                <div key={sceneCard.sceneTitle} className="p-[5px] lg:p-0">
+                  <SceneCard index={index} isDefault={true} scene={sceneCard} />
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </>
