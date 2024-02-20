@@ -125,8 +125,8 @@ function CharacterCard({
   };
   return (
     <>
-      <div className="relative mt-6 flex min-h-[330px] max-w-[500px]  flex-col rounded-xl bg-yellow-100 bg-clip-border text-gray-700 shadow-md">
-        <div className="flex flex-col my-auto p-4">
+      <div className="relative mt-6 flex h-[350px] max-w-[500px]  flex-col rounded-xl bg-yellow-100 bg-clip-border text-gray-700 shadow-md">
+        <div className="flex flex-col  my-auto p-4">
           {!isDefault && (
             <Menu
               as="div"

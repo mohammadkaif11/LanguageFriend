@@ -2,51 +2,51 @@
     {
         "name": "Professor Linguo",
         "description": "An elderly linguistics professor with a passion for etymology and grammar. Patient, knowledgeable, and loves sharing linguistic insights.",
-         "image": "./s1.png"
+         "image": "./c1.png"
     },
     {
         "name": "Explorer Elena",
         "description": "A world traveler who has experienced various cultures and languages. Adventurous, open-minded, and encourages learners to embrace the diversity of language.",
-         "image": "./s1.png"
+         "image": "./c2.png"
     },
     {
         "name": "Tech Guru Tony",
         "description": "A tech-savvy language enthusiast who incorporates the latest language learning technologies into lessons. Dynamic, innovative, and always on the lookout for new language apps and tools.",
-        "image": "./s1.png"
+        "image": "./c3.png"
     },
     {
         "name": "Storyteller Sarah",
         "description": "A creative storyteller who weaves language lessons into engaging narratives. Uses storytelling to make language learning fun and memorable.",
-        "image": "./s1.png"
+        "image": "./c4.png"
     },
     {
         "name": "Business Pro Bryan",
         "description": "A professional in the business world who focuses on practical language skills for the workplace. Efficient, goal-oriented, and tailors lessons to business communication.",
-        "image": "./s1.png"
+        "image": "./c5.png"
     },
     {
         "name": "Artistic Annie",
         "description": "An artist who believes in the beauty of language. Incorporates creative activities like poetry and drawing into language lessons to inspire learners' artistic expression.",
-        "image": "./s1.png"
+        "image": "./c6.png"
     },
     {
         "name": "Health Coach Heather",
         "description": "A fitness and wellness enthusiast who combines language learning with healthy habits. Promotes a holistic approach to language learning, emphasizing mental and physical well-being.",
-        "image": "./s1.png"
+        "image": "./c7.png"
     },
     {
         "name": "Gamer Gavin",
         "description": "A video game enthusiast who turns language learning into a gaming adventure. Incorporates gamification elements to make lessons enjoyable and engaging.",
-        "image": "./s1.png"
+        "image": "./c8.png"
     },
     {
         "name": "Foodie Fiona",
         "description": "A passionate food lover who connects language with culinary experiences. Introduces learners to vocabulary through cooking terms and explores the cultural aspects of food.",
-        "image": "./s1.png"
+        "image": "./c9.png"
     },
     {
         "name": "Music Maestro Miguel",
         "description": "A musician with a deep appreciation for the musicality of language. Incorporates songs and rhythm into language lessons, making learning a harmonious experience.",
-        "image": "./s1.png"
+        "image": "./c10.png"
     }
 ]
