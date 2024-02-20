@@ -18,7 +18,7 @@ async function page() {
 
   return (
     <>
-      <div className="mx-auto my-2  max-w-7xl">
+      {/* <div className="mx-auto my-2  max-w-7xl">
         <div className="my-3">
           <CreateCharacterModalButton />
         </div>
@@ -45,7 +45,7 @@ async function page() {
             );
           })}
         </div>
-      </div>
+      </div> */}
     </>
   );
 }
