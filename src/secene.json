@@ -68,7 +68,7 @@
       "sceneDescription": "Retreating to a peaceful mountain cabin.",
       "botRole": "Mountain Guide",
       "yourRole": "Retreat Guest",
-      "sceneImage": "./s8.png",
+      "sceneImage": "./MountainRetreat.png",
       "userId": "system123"
   },
   {
@@ -77,7 +77,7 @@
       "sceneDescription": "Participating in an innovative tech conference.",
       "botRole": "Conference Assistant",
       "yourRole": "Attendee",
-      "sceneImage": "./s9.png",
+      "sceneImage": "./s8.png",
       "userId": "system123"
   },
   {
@@ -86,7 +86,7 @@
       "sceneDescription": "Enjoying a movie night with friends.",
       "botRole": "Entertainment Host",
       "yourRole": "Viewer",
-      "sceneImage": "./s10.png",
+      "sceneImage": "./s9.png",
       "userId": "system123"
   },
   {
@@ -95,7 +95,7 @@
       "sceneDescription": "Embarking on a lavish shopping spree.",
       "botRole": "Personal Shopper",
       "yourRole": "Shopper",
-      "sceneImage": "./s11.png",
+      "sceneImage": "./s10.png",
       "userId": "system123"
   },
   {
@@ -104,7 +104,7 @@
       "sceneDescription": "Experiencing thrills at an amusement park.",
       "botRole": "Ride Guide",
       "yourRole": "Park Visitor",
-      "sceneImage": "./s12.png",
+      "sceneImage": "./s11.png",
       "userId": "system123"
   },
   {
@@ -113,7 +113,7 @@
       "sceneDescription": "Diving into the world of virtual reality.",
       "botRole": "VR Guide",
       "yourRole": "Player",
-      "sceneImage": "./s13.png",
+      "sceneImage": "./s12.png",
       "userId": "system123"
   },
   {
@@ -122,7 +122,7 @@
       "sceneDescription": "Embarking on a historical city tour.",
       "botRole": "History Guide",
       "yourRole": "Tourist",
-      "sceneImage": "./s14.png",
+      "sceneImage": "./s13.png",
       "userId": "system123"
   },
   {
@@ -131,7 +131,7 @@
       "sceneDescription": "Taking on a fitness challenge.",
       "botRole": "Fitness Coach",
       "yourRole": "Participant",
-      "sceneImage": "./s15.png",
+      "sceneImage": "./s14.png",
       "userId": "system123"
   },
   {
@@ -140,7 +140,7 @@
       "sceneDescription": "Navigating the challenges of a job interview.",
       "botRole": "Interview Assistant",
       "yourRole": "Job Applicant",
-      "sceneImage": "./s16.png",
+      "sceneImage": "./s15.png",
       "userId": "system123"
   },
   {
@@ -149,7 +149,7 @@
       "sceneDescription": "Immersing in the beats of a music festival.",
       "botRole": "Festival Guide",
       "yourRole": "Music Fan",
-      "sceneImage": "./s17.png",
+      "sceneImage": "./s16.png",
       "userId": "system123"
   },
   {
@@ -158,7 +158,7 @@
       "sceneDescription": "Exploring the diverse wildlife at the zoo.",
       "botRole": "Zoo Guide",
       "yourRole": "Visitor",
-      "sceneImage": "./s18.png",
+      "sceneImage": "./s17.png",
       "userId": "system123"
   },
   {
@@ -167,7 +167,7 @@
       "sceneDescription": "Embarking on an epic road trip.",
       "botRole": "Travel Companion",
       "yourRole": "Road Tripper",
-      "sceneImage": "./s19.png",
+      "sceneImage": "./s18.png",
       "userId": "system123"
   },
   {
@@ -176,7 +176,7 @@
       "sceneDescription": "Discovering treasures in a museum adventure.",
       "botRole": "Museum Guide",
       "yourRole": "Explorer",
-      "sceneImage": "./s20.png",
+      "sceneImage": "./s19.png",
       "userId": "system123"
   },
   {
@@ -185,7 +185,7 @@
       "sceneDescription": "Savoring the glamour of a high-profile fashion show.",
       "botRole": "Fashion Assistant",
       "yourRole": "Fashionista",
-      "sceneImage": "./s21.png",
+      "sceneImage": "./s20.png",
       "userId": "system123"
   },
   {
@@ -194,7 +194,7 @@
       "sceneDescription": "Cheering for the favorite team at a sports match.",
       "botRole": "Sports Enthusiast",
       "yourRole": "Fan",
-      "sceneImage": "./s22.png",
+      "sceneImage": "./s21.png",
       "userId": "system123"
   },
   {
@@ -203,7 +203,7 @@
       "sceneDescription": "Navigating the challenges of launching a tech startup.",
       "botRole": "Startup Advisor",
       "yourRole": "Entrepreneur",
-      "sceneImage": "./s23.png",
+      "sceneImage": "./s22.png",
       "userId": "system123"
   },
   {
@@ -212,7 +212,7 @@
       "sceneDescription": "Competing in a thrilling cooking challenge.",
       "botRole": "Cooking Coach",
       "yourRole": "Contestant",
-      "sceneImage": "./s24.png",
+      "sceneImage": "./s23.png",
       "userId": "system123"
   },
   {
@@ -221,7 +221,7 @@
       "sceneDescription": "Living aboard a space station.",
       "botRole": "Space Station Assistant",
       "yourRole": "Astronaut",
-      "sceneImage": "./s25.png",
+      "sceneImage": "./s24.png",
       "userId": "system123"
   },
   {
@@ -230,7 +230,7 @@
       "sceneDescription": "Discussing literary masterpieces in a book club.",
       "botRole": "Book Club Moderator",
       "yourRole": "Reader",
-      "sceneImage": "./s26.png",
+      "sceneImage": "./s25.png",
       "userId": "system123"
   },
   {
@@ -239,7 +239,7 @@
       "sceneDescription": "Enjoying a delightful picnic with family.",
       "botRole": "Picnic Planner",
       "yourRole": "Family Member",
-      "sceneImage": "./s27.png",
+      "sceneImage": "./s26.png",
       "userId": "system123"
   },
   {
@@ -248,7 +248,7 @@
       "sceneDescription": "Embarking on a gardening adventure.",
       "botRole": "Gardening Guide",
       "yourRole": "Gardener",
-      "sceneImage": "./s28.png",
+      "sceneImage": "./s27.png",
       "userId": "system123"
   },
   {
@@ -257,7 +257,7 @@
       "sceneDescription": "Solving a thrilling detective mystery.",
       "botRole": "Detective Assistant",
       "yourRole": "Sleuth",
-      "sceneImage": "./s29.png",
+      "sceneImage": "./s28.png",
       "userId": "system123"
   },
   {
@@ -266,7 +266,7 @@
       "sceneDescription": "Exploring diverse cuisines on a culinary tour.",
       "botRole": "Culinary Guide",
       "yourRole": "Foodie",
-      "sceneImage": "./s30.png",
+      "sceneImage": "./s29.png",
       "userId": "system123"
   },
   {
@@ -284,7 +284,7 @@
       "sceneDescription": "Diving into the mysteries of underwater exploration.",
       "botRole": "Underwater Guide",
       "yourRole": "Explorer",
-      "sceneImage": "./s30.png",
+      "sceneImage": "./UnderwaterExploration.png",
       "userId": "system123"
   }
 ]

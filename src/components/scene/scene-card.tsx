@@ -36,7 +36,7 @@ function SceneCard({
   };
   return (
     <>
-      <div className="relative mt-6 flex max-w-[500px]  flex-col  rounded-xl bg-yellow-100 bg-clip-border text-gray-700 shadow-md md:h-[200px]  ">
+      <div className="relative mt-6 flex max-w-[500px]  flex-col  rounded-xl bg-yellow-100 bg-clip-border text-gray-700 shadow-md ">
         <div className="p-4">
           <img
             className="float-left m-2 h-24 w-24  rounded-full"
