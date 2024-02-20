@@ -31,7 +31,7 @@ async function page() {
                 Your Scenes
               </span>
             </div>{" "}
-            <div className=" grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            <div className=" grid justify-items-center gap-4 sm:grid-cols-1 md:grid-cols-2  lg:grid-cols-3">
               {userScene.map((sceneCard, index) => {
                 return (
                   <div key={sceneCard.sceneTitle} className="p-[5px] lg:p-0">
@@ -49,7 +49,7 @@ async function page() {
         <div>
           <div className="m-2">
             <span className="inline-block bg-yellow-100 p-2 text-2xl font-bold text-yellow-500">
-              Normal Scenes
+              Scenes
             </span>
           </div>
           <div className="grid justify-items-center gap-4 sm:grid-cols-1 md:grid-cols-2  lg:grid-cols-3">
