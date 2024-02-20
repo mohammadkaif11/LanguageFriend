@@ -74,7 +74,6 @@ export default async function HomePage() {
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
           {characters.map((character, index) => {
-            if (index <= 5) {
               return (
                 <div key={character.name} className="p-[5px] lg:p-0">
                   <CharacterCard
@@ -86,7 +85,6 @@ export default async function HomePage() {
                   />
                 </div>
               );
-            }
             return null;
           })}
         </div>
