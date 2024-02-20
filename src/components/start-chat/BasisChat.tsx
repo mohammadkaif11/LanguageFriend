@@ -27,7 +27,7 @@ function BasisChat({
   };
 
   return (
-    <div className="relative mt-6 flex max-w-[500px] md:h-[180px]  flex-col rounded-xl bg-yellow-100 bg-clip-border text-gray-700 shadow-md ">
+    <div className="relative mt-6 flex max-w-[500px] flex-col  rounded-xl bg-yellow-100 bg-clip-border text-gray-700 shadow-md ">
       <div className="p-4">
         <img
           className="float-left m-2 h-24 w-24  rounded-full"
@@ -40,50 +40,50 @@ function BasisChat({
         <p className="block font-sans text-base font-light leading-relaxed text-inherit antialiased">
           {description}
         </p>
-          <div className="float-right flex pr-2 pt-2 gap-2">
-            <button
-              onClick={handleChat}
-              className="flex select-none items-center gap-2 rounded-lg px-4 py-2 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:bg-yellow-300 active:bg-yellow-300 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none bg-yellow-500"
-              type="button"
+        <div className="float-right flex gap-2 pr-2 pt-2">
+          <button
+            onClick={handleChat}
+            className="flex select-none items-center gap-2 rounded-lg bg-yellow-500 px-4 py-2 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:bg-yellow-300 active:bg-yellow-300 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            type="button"
+          >
+            Practice Language
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke="currentColor"
+              className="h-4 w-4"
             >
-              Practice Language
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="2"
-                stroke="currentColor"
-                className="h-4 w-4"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-                ></path>
-              </svg>
-            </button>
-            <button
-              onClick={handleLearningChat}
-              className="flex select-none items-center gap-2 rounded-lg px-4 py-2 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:bg-yellow-300 active:bg-yellow-300 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none bg-yellow-500 "
-              type="button"
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
+              ></path>
+            </svg>
+          </button>
+          <button
+            onClick={handleLearningChat}
+            className="flex select-none items-center gap-2 rounded-lg bg-yellow-500 px-4 py-2 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:bg-yellow-300 active:bg-yellow-300 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none "
+            type="button"
+          >
+            Learn Language
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke="currentColor"
+              className="h-4 w-4"
             >
-              Learn Language
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="2"
-                stroke="currentColor"
-                className="h-4 w-4"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-                ></path>
-              </svg>
-            </button>
-          </div>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
+              ></path>
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -11,7 +11,7 @@ function CreateSceneModalButton() {
         onClick={() => {
           setOpen(true);
         }}
-        className="block rounded-md bg-gray-800 px-4 py-2 text-sm text-white"
+        className="block rounded-md bg-yellow-500 px-4 py-2 text-sm font-bold text-gray-900"
       >
         Create Custom scene
       </button>

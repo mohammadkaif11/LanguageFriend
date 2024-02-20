@@ -7,6 +7,8 @@ import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
 import SettingModal from "../modals/setting-modal";
 import Link from "next/link";
+import { PhotoIcon, CurrencyDollarIcon } from "@heroicons/react/16/solid";
+import {Cog6ToothIcon,ArrowRightEndOnRectangleIcon} from "@heroicons/react/24/solid";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -49,14 +51,23 @@ export default function Navbar() {
                       href="/scene"
                       className="group items-center border-b-2 border-transparent px-1 pt-1 text-lg		 font-bold text-yellow-500 transition duration-300"
                     >
-                      Scene
+                      <span className="flex items-center gap-2">
+                        {" "}
+                        Scene <PhotoIcon className="h-6 w-6 text-yellow-600" />
+                      </span>
+
                       <span className="block h-0.5 max-w-0 bg-yellow-500 transition-all duration-500 group-hover:max-w-full"></span>
                     </Link>
                     <Link
                       href="/subscription"
                       className="group items-center border-b-2 border-transparent px-1 pt-1 text-lg		 font-bold text-yellow-500 transition duration-300"
                     >
-                      Subscription
+                      <span className="flex items-center gap-2">
+                        {" "}
+                        Subscription{" "}
+                        <CurrencyDollarIcon className="h-6 w-6 text-yellow-600" />
+                      </span>
+
                       <span className="block h-0.5 max-w-0 bg-yellow-500 transition-all duration-500 group-hover:max-w-full"></span>
                     </Link>
                   </div>
@@ -87,7 +98,7 @@ export default function Navbar() {
                       leaveFrom="transform opacity-100 scale-100"
                       leaveTo="transform opacity-0 scale-95"
                     >
-                      <Menu.Items className="absolute right-0 z-10 mt-2 w-auto origin-top-right rounded-md bg-yellow-200 py-1 shadow-lg ring-1 ring-yellow-500 ring-opacity-5 focus:outline-none">
+                      <Menu.Items className="absolute right-0 z-10 mt-2 w-auto origin-top-right rounded-md bg-yellow-100 py-1 shadow-lg ring-1 ring-yellow-200 ring-opacity-5 focus:outline-none">
                         <Menu.Item>
                           {({ active }) => (
                             <button
@@ -97,7 +108,7 @@ export default function Navbar() {
                               )}
                             >
                               {session?.user?.name}
-                              <span className="text-sm text-yellow-500">
+                              <span className="text-sm font-bold text-yellow-500">
                                 {" "}
                                 {session?.user?.email}
                               </span>
@@ -112,10 +123,15 @@ export default function Navbar() {
                               }}
                               className={classNames(
                                 active ? "bg-yellow-200" : "",
-                                "flex flex-col px-4 py-2 text-sm text-yellow-500",
+                                "flex flex-col px-4 py-2 text-sm font-bold text-yellow-500",
                               )}
                             >
-                              Settings
+                               <span className="flex items-center gap-2">
+                        {" "}
+                        Settings
+ <Cog6ToothIcon className="h-6 w-6 text-yellow-600" />
+                      </span>
+
                             </button>
                           )}
                         </Menu.Item>
@@ -127,10 +143,15 @@ export default function Navbar() {
                               }}
                               className={classNames(
                                 active ? "bg-yellow-200" : "",
-                                "flex flex-col px-4 py-2 text-sm text-yellow-500",
+                                "flex flex-col px-4 py-2 text-sm font-bold text-yellow-500",
                               )}
                             >
-                              Sign out
+                                <span className="flex items-center gap-2">
+                        {" "}
+                        Sign out
+ <ArrowRightEndOnRectangleIcon className="h-6 w-6 text-yellow-600" />
+                      </span>
+                              
                             </button>
                           )}
                         </Menu.Item>
@@ -145,10 +166,17 @@ export default function Navbar() {
               <div className="flex flex-col space-y-1 pb-4 pt-2">
                 {/* Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" */}
                 <Disclosure.Button className="border-trasparent border-l-4 py-2 pl-3 pr-4 text-lg	 font-bold text-yellow-500">
-                  <Link href="/scene">Scene</Link>
+                  <Link href="/scene"><span className="flex items-center gap-2">
+                        {" "}
+                        Scene <PhotoIcon className="h-6 w-6 text-yellow-600" />
+                      </span></Link>
                 </Disclosure.Button>
                 <Disclosure.Button className="border-trasparent  border-l-4  py-2 pl-3 pr-4 text-lg	 font-bold text-yellow-500">
-                  <Link href="/subscription">Subscription</Link>
+                  <Link href="/subscription"> <span className="flex items-center gap-2">
+                        {" "}
+                        Subscription{" "}
+                        <CurrencyDollarIcon className="h-6 w-6 text-yellow-600" />
+                      </span></Link>
                 </Disclosure.Button>
               </div>
             </Disclosure.Panel>

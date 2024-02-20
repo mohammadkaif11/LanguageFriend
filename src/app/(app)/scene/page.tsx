@@ -21,13 +21,17 @@ async function page() {
   return (
     <>
       <div className="mx-auto my-2  max-w-7xl">
-        <div className="my-3">
+        <div className="m-2">
           <CreateSceneModalButton />
         </div>
         {userScene.length > 0 && (
           <div className="my-4">
-            <h2>Your Scenes</h2>
-            <div className=" grid  gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+            <div className="m-2">
+              <span className="inline-block  bg-yellow-100 p-2 text-2xl font-bold text-yellow-500">
+                Your Scenes
+              </span>
+            </div>{" "}
+            <div className=" grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
               {userScene.map((sceneCard, index) => {
                 return (
                   <div key={sceneCard.sceneTitle} className="p-[5px] lg:p-0">
@@ -43,12 +47,12 @@ async function page() {
           </div>
         )}
         <div>
-        <div className="mt-2">
-          <span className="inline-block  bg-yellow-100 p-2 text-2xl  font-bold text-yellow-500">
-          Normal Scenes
-          </span>
-        </div>
-          <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          <div className="m-2">
+            <span className="inline-block bg-yellow-100 p-2 text-2xl font-bold text-yellow-500">
+              Normal Scenes
+            </span>
+          </div>
+          <div className="grid justify-items-center gap-4 sm:grid-cols-1 md:grid-cols-2  lg:grid-cols-3">
             {scene.map((sceneCard, index) => {
               return (
                 <div key={sceneCard.sceneTitle} className="p-[5px] lg:p-0">
