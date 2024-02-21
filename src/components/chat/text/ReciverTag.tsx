@@ -6,6 +6,7 @@ import { PauseCircleIcon } from "@heroicons/react/24/solid";
 import { generateAudio } from "~/server/chatGPT/chatgpt";
 import { type MessageInterface } from "model";
 import VoiceLoadSpiner from "~/components/loader/voice-load-spinner";
+import Markdown from "react-markdown";
 
 function ReciverTag({
   text,
@@ -100,19 +101,15 @@ function ReciverTag({
         className="ml-2 flex max-w-[90%] flex-col items-end justify-end rounded-3xl px-4 py-3 md:max-w-[80%]"
         style={{ backgroundColor: "#6ba76b" }}
       >
-        <span className="w-full">{text}</span>
+        <span className="w-full">
+          <Markdown>{text}</Markdown>
+        </span>
         {loader ? (
           <VoiceLoadSpiner />
         ) : playing ? (
-          <PauseCircleIcon
-            onClick={togglePlayPause}
-            className="h-6 w-6"
-          />
+          <PauseCircleIcon onClick={togglePlayPause} className="h-6 w-6" />
         ) : (
-          <PlayCircleIcon
-            onClick={togglePlayPause}
-            className="h-6 w-6"
-          />
+          <PlayCircleIcon onClick={togglePlayPause} className="h-6 w-6" />
         )}
       </div>
       {audio !== null && (

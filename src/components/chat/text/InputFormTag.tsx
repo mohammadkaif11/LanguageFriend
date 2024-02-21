@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { PaperAirplaneIcon } from "@heroicons/react/16/solid";
 import ContentEditable from "react-contenteditable";
-
 import { startChart } from "~/server/chatGPT/chatgpt";
 import { type MessageInterface } from "model";
 import MicroPhone from "~/components/speech-text-js/MicroPhone";
-import { useSession } from "next-auth/react";
 
 interface InputFormTagProps {
   setMessages: React.Dispatch<React.SetStateAction<MessageInterface[]>>;
@@ -14,7 +12,6 @@ interface InputFormTagProps {
 
 function InputFormTag(props: InputFormTagProps) {
   const [message, setMessage] = useState<string>();
-  const session = useSession();
 
   async function onMessageSend() {
     if (!message) {
@@ -40,13 +37,9 @@ function InputFormTag(props: InputFormTagProps) {
       ];
       props.setMessages(updatedChatHistoryWithResponse);
     } catch (errors) {
-      console.log("error", errors);
+      console.error("error", errors);
     }
   }
-
-  useEffect(() => {
-    console.log("message changed", message);
-  }, [message]);
 
   return (
     <div
@@ -60,14 +53,14 @@ function InputFormTag(props: InputFormTagProps) {
           onChange={(e) => {
             setMessage(e.target.value);
           }}
-          className=" w-full p-4 text-xl text-black"
+          className=" w-full p-4 text-xl text-black " 
         />
         <button
           onClick={onMessageSend}
           className="flex w-20 items-center justify-center rounded-md  bg-yellow-200 text-xl text-black "
         >
           Send
-          <PaperAirplaneIcon className="h-8 w-8" />{" "}
+          <PaperAirplaneIcon className="h-6 w-6" />{" "}
         </button>
       </div>
       <div className="absolute left-[42%] top-[-32px]">

@@ -3,75 +3,111 @@ import React, { useRef, useState } from "react";
 import { useSession } from "next-auth/react";
 import { PlayCircleIcon } from "@heroicons/react/16/solid";
 import { PauseCircleIcon } from "@heroicons/react/24/solid";
+import Markdown from "react-markdown";
+import { generateAudio } from "~/server/chatGPT/chatgpt";
+import { type MessageInterface } from "model";
+import VoiceLoadSpiner from "~/components/loader/voice-load-spinner";
 import { toast } from "sonner";
 
-function SenderTag({ text }: { text: string }) {
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+function SenderTag({
+  text,
+  audioUrl,
+  setMessages,
+  index,
+}: {
+  text: string;
+  audioUrl: string | null;
+  setMessages: React.Dispatch<React.SetStateAction<MessageInterface[]>>;
+  index: number;
+}) {
   const { data: session } = useSession();
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [audio, setAudio] = useState<string | null>(audioUrl);
   const [playing, setPlaying] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState<string>("en-US");
-  const [selectedVoice, setSelectedVoice] =useState<SpeechSynthesisVoice | null>(null);
+  const [loader, setLoader] = useState(false);
 
-  const togglePlayPause = async () => {
+  const playAudio = async () => {
     try {
-      if ("speechSynthesis" in window) {
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = selectedLanguage;
-
-        if (selectedVoice) {
-          utterance.voice = selectedVoice;
-        }
-
-        // Event handler for pause
-        utterance.onpause = () => {
-          console.log("Speech paused");
-        };
-
-        // Event handler for resume
-        utterance.onresume = () => {
-          speechSynthesis.cancel();
-          console.log("Speech resumed");
-        };
-
-        utterance.onend = () => {
-          console.log("Speech ended");
-          speechSynthesis.cancel();
-          setPlaying(false);
-        };
-
-        // Toggle between play and pause
-        if (playing) {
-          speechSynthesis.pause();
-        } else {
-          speechSynthesis.resume();
-        }
-
-        setPlaying(!playing);
-        speechSynthesis.speak(utterance);
-      } else {
-        toast.error("SpeechSynthesis not supported in your browser");
-        console.error("SpeechSynthesis is not supported in this browser.");
+      if (audioRef.current) {
+        await audioRef.current.play();
+        setPlaying(true);
       }
     } catch (error) {
-      console.error("error: ", error);
+      console.error("Error playing audio:", error);
     }
+  };
+
+  const pauseAudio = () => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+      setPlaying(false);
+    }
+  };
+
+  const loadAndPlayGeneratedAudio = async () => {
+    try {
+      setLoader(true);
+      const bufferAudio = await generateAudio(text);
+      const base64DecodedAudio = Buffer.from(bufferAudio, "base64");
+      const blob = new Blob([base64DecodedAudio], { type: "audio/mp3" });
+      const audiourl = URL.createObjectURL(blob);
+
+      setAudio(audiourl);
+      updateMessageVoiceUrl(index, audiourl);
+      setLoader(false);
+      await playAudio();
+    } catch (error) {
+      console.error("Error loading and playing generated audio:", error);
+    }
+  };
+
+  const togglePlayPause = async () => {
+    // try {
+    //   if (audioRef.current) {
+    //     playing ? pauseAudio() : await playAudio();
+    //   } else {
+    //     await loadAndPlayGeneratedAudio();
+    //   }
+    // } catch (error) {
+    //   console.error("Error toggling play/pause:", error);
+    // }
+    console.log("Toggling play/pause");
+  };
+
+  const updateMessageVoiceUrl = (index: number, voiceUrl: string) => {
+    setMessages((prevMessages) => {
+      const updatedMessages = [...prevMessages];
+      if (
+        index >= 0 &&
+        index < updatedMessages.length &&
+        updatedMessages[index]?.role === "assistant"
+      ) {
+        updatedMessages[index] = {
+          role: updatedMessages[index]?.role ?? "assistant",
+          voiceUrl: voiceUrl,
+          content: updatedMessages[index]?.content ?? "",
+        };
+      }
+      return updatedMessages;
+    });
   };
 
   return (
     <div className="mb-4 flex items-center justify-end">
       <div
-        className="mr-2 flex max-w-[90%]  flex-col items-start justify-end rounded-3xl px-4  py-3 md:max-w-[80%]"
+        className="ml-2 flex max-w-[90%] flex-col items-end justify-end rounded-3xl px-4 py-3 md:max-w-[80%]"
         style={{ backgroundColor: "#c35a5a" }}
       >
-        <span className="w-full">{text}</span>
-
-        {playing ? (
-          <PauseCircleIcon onClick={togglePlayPause} className="mt-2 h-6 w-6" />
+        <span className="w-full">
+          <Markdown>{text}</Markdown>
+        </span>
+        {loader ? (
+          <VoiceLoadSpiner />
+        ) : playing ? (
+          <PauseCircleIcon onClick={togglePlayPause} className="h-6 w-6" />
         ) : (
-          <PlayCircleIcon
-            onClick={togglePlayPause}
-            className="mr-2 mt-1 h-6 w-6"
-          />
+          <PlayCircleIcon onClick={togglePlayPause} className="h-6 w-6" />
         )}
       </div>
       <img

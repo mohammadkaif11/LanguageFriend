@@ -58,7 +58,7 @@ function MicroPhone(props) {
           onClick={() => {
             stopListening();
           }}
-          className="h-16 w-16 text-black"
+          className="h-16 w-16 text-black micloader"
         ></PauseIcon>
       )}
       {!recordingstart && (
