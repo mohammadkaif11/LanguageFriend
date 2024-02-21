@@ -49,15 +49,18 @@ function InputFormTag(props: InputFormTagProps) {
   }, [message]);
 
   return (
-    <div className="relative flex h-[30%] w-full items-center justify-center rounded-t-[25%]" style={{background:"#93bfc9"}}>
-      <div className="relative flex flex-col justify-center items-center gap-2 ">
+    <div
+      className="relative flex h-[25%] w-full items-center justify-center rounded-t-[25%]"
+      style={{ background: "#93bfc9" }}
+    >
+      <div className="relative flex flex-col items-center justify-center gap-2 ">
         <ContentEditable
           tagName="div"
           html={message ?? "Hello!"}
           onChange={(e) => {
             setMessage(e.target.value);
           }}
-          className=" text-black text-xl p-4 w-full"
+          className=" w-full p-4 text-xl text-black"
         />
         <button
           onClick={onMessageSend}

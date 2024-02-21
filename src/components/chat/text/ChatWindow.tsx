@@ -1,7 +1,7 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useRef } from "react";
 import SenderTag from "./SenderTag";
-import ReciverTag from "./ReciverTagV2";
+import ReciverTag from "./ReciverTag";
 import InputFormTag from "./InputFormTag";
 import { useSearchParams } from "next/navigation";
 import { startChart } from "~/server/chatGPT/chatgpt";
@@ -14,13 +14,16 @@ import { Menu, Transition } from "@headlessui/react";
 
 function ChatWindow() {
   const searchParams = useSearchParams();
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const loaderRef = useRef<HTMLDivElement>(null);
+
   const session = useSession();
   const [open, setOpen] = useState(false);
   const [isLearningMode, setIsLearningMode] = useState(false);
   const [messages, setMessages] = useState<MessageInterface[]>([]);
   const sceneId = searchParams?.get("sceneId");
   const characterId = searchParams?.get("characterId");
-  const [loading, setLoading] = useState<boolean>(true);
+  const [reciverloading, setReciverLoading] = useState<boolean>(true);
   const nativeLanguageCode = session?.data?.user?.nativeLanguageSetting
     ? session?.data?.user?.nativeLanguageSetting
     : "en-US";
@@ -58,19 +61,26 @@ function ChatWindow() {
     if (messages.length > 0) {
       const lastMessage = messages[messages.length - 1];
       if (lastMessage && lastMessage.role === "user") {
-        setLoading(true);
+        setReciverLoading(true);
       } else if (lastMessage && lastMessage.role === "assistant") {
-        setLoading(false);
+        setReciverLoading(false);
       }
-      console.log("Last message:", lastMessage);
+    }
+    if (scrollRef.current) {
+      scrollRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages]);
 
+  useEffect(() => {
+    if (reciverloading && loaderRef.current) {
+      loaderRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [reciverloading]);
   return (
     <div className="flex h-screen flex-row justify-center">
-      <div className="flex w-full flex-col justify-between  md:w-[550px]">
+      <div className="flex w-full flex-col justify-between gap-12  md:w-[550px]">
         <div
-          className="mt-5 flex flex-col overflow-y-scroll px-2"
+          className="mt-5 flex h-[75%] flex-col overflow-y-scroll px-2"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
           <Menu as="div" className="inline-block text-left md:hidden">
@@ -114,7 +124,7 @@ function ChatWindow() {
             </Transition>
           </Menu>
           {messages?.map((data: MessageInterface, index: number) => (
-            <div key={index}>
+            <div key={index} ref={index === messages.length - 1 ? scrollRef : null}>
               {data.role === "user" && <SenderTag text={data.content} />}
               {data.role === "assistant" && (
                 <ReciverTag
@@ -126,8 +136,10 @@ function ChatWindow() {
               )}
             </div>
           ))}
-          {loading && (
-            <span className="chatLoader h-10 w-24 border-gray-500 text-black"></span>
+            {reciverloading && (
+            <div ref={loaderRef} className="flex justify-start">
+              <span className="chatLoader h-10 w-24 border-gray-500 text-black"></span>
+            </div>
           )}
         </div>
         <InputFormTag setMessages={setMessages} chatHistory={messages} />

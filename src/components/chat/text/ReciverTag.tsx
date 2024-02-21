@@ -24,7 +24,6 @@ function ReciverTag({
   const [loader, setLoader] = useState(false);
 
   const playAudio = async () => {
-    console.log('audio play');
     try {
       if (audioRef.current) {
         await audioRef.current.play();
@@ -36,7 +35,6 @@ function ReciverTag({
   };
 
   const pauseAudio = () => {
-    console.log('audio pause');
     if (audioRef.current) {
       audioRef.current.pause();
       setPlaying(false);
@@ -45,7 +43,7 @@ function ReciverTag({
 
   const loadAndPlayGeneratedAudio = async () => {
     try {
-      setLoader(true)
+      setLoader(true);
       const bufferAudio = await generateAudio(text);
       const base64DecodedAudio = Buffer.from(bufferAudio, "base64");
       const blob = new Blob([base64DecodedAudio], { type: "audio/mp3" });
@@ -53,7 +51,7 @@ function ReciverTag({
 
       setAudio(audiourl);
       updateMessageVoiceUrl(index, audiourl);
-      setLoader(false)
+      setLoader(false);
       await playAudio();
     } catch (error) {
       console.error("Error loading and playing generated audio:", error);
@@ -61,16 +59,16 @@ function ReciverTag({
   };
 
   const togglePlayPause = async () => {
-    console.log('togglePlayPause');
-    try {
-      if (audioRef.current) {
-        playing ? pauseAudio() : await playAudio();
-      } else {
-        await loadAndPlayGeneratedAudio();
-      }
-    } catch (error) {
-      console.error("Error toggling play/pause:", error);
-    }
+    // try {
+    //   if (audioRef.current) {
+    //     playing ? pauseAudio() : await playAudio();
+    //   } else {
+    //     await loadAndPlayGeneratedAudio();
+    //   }
+    // } catch (error) {
+    //   console.error("Error toggling play/pause:", error);
+    // }
+    console.log("Toggling play/pause");
   };
 
   const updateMessageVoiceUrl = (index: number, voiceUrl: string) => {
@@ -98,19 +96,22 @@ function ReciverTag({
         className="h-8 w-8 rounded-full object-cover"
         alt=""
       />
-      <div className="ml-2 flex max-w-[90%] items-center justify-end rounded-3xl bg-gray-400 px-4  py-3 text-white md:max-w-[50%]">
+      <div
+        className="ml-2 flex max-w-[90%] flex-col items-end justify-end rounded-3xl px-4 py-3 md:max-w-[80%]"
+        style={{ backgroundColor: "#6ba76b" }}
+      >
         <span className="w-full">{text}</span>
         {loader ? (
-          <VoiceLoadSpiner/>
+          <VoiceLoadSpiner />
         ) : playing ? (
           <PauseCircleIcon
             onClick={togglePlayPause}
-            className="h-10 w-10 pl-1"
+            className="h-6 w-6"
           />
         ) : (
           <PlayCircleIcon
             onClick={togglePlayPause}
-            className="h-10 w-10 pl-1"
+            className="h-6 w-6"
           />
         )}
       </div>

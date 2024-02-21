@@ -10,8 +10,7 @@ function SenderTag({ text }: { text: string }) {
   const { data: session } = useSession();
   const [playing, setPlaying] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState<string>("en-US");
-  const [selectedVoice, setSelectedVoice] =
-    useState<SpeechSynthesisVoice | null>(null);
+  const [selectedVoice, setSelectedVoice] =useState<SpeechSynthesisVoice | null>(null);
 
   const togglePlayPause = async () => {
     try {
@@ -60,19 +59,20 @@ function SenderTag({ text }: { text: string }) {
 
   return (
     <div className="mb-4 flex items-center justify-end">
-      <div className="mr-2 flex  max-w-[90%] items-center  justify-end  rounded-3xl  px-4 py-3 text-white md:max-w-[70%]" style={{backgroundColor:"#c35a5a"}}>
+      <div
+        className="mr-2 flex max-w-[90%]  flex-col items-start justify-end rounded-3xl px-4  py-3 md:max-w-[80%]"
+        style={{ backgroundColor: "#c35a5a" }}
+      >
+        <span className="w-full">{text}</span>
+
         {playing ? (
-          <PauseCircleIcon
-            onClick={togglePlayPause}
-            className="h-10 w-10 pr-1"
-          />
+          <PauseCircleIcon onClick={togglePlayPause} className="mt-2 h-6 w-6" />
         ) : (
           <PlayCircleIcon
             onClick={togglePlayPause}
-            className="h-10 w-10 pr-1"
+            className="mr-2 mt-1 h-6 w-6"
           />
         )}
-        <span className="w-full">{text}</span>
       </div>
       <img
         src={
