@@ -60,7 +60,7 @@ function SenderTag({ text }: { text: string }) {
 
   return (
     <div className="mb-4 flex items-center justify-end">
-      <div className="mr-2 flex  max-w-[90%] items-center  justify-end  rounded-3xl bg-blue-400 px-4 py-3 text-white md:max-w-[70%]">
+      <div className="mr-2 flex  max-w-[90%] items-center  justify-end  rounded-3xl  px-4 py-3 text-white md:max-w-[70%]" style={{backgroundColor:"#c35a5a"}}>
         {playing ? (
           <PauseCircleIcon
             onClick={togglePlayPause}

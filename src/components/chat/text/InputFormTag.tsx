@@ -13,14 +13,13 @@ interface InputFormTagProps {
 }
 
 function InputFormTag(props: InputFormTagProps) {
-  const [message, setMessage] = useState<string>("");
+  const [message, setMessage] = useState<string>();
   const session = useSession();
 
   async function onMessageSend() {
     if (!message) {
       return;
     }
-    setMessage("");
 
     const userMessage: MessageInterface = {
       content: message,
@@ -50,19 +49,19 @@ function InputFormTag(props: InputFormTagProps) {
   }, [message]);
 
   return (
-    <div className="relative flex h-[30%] w-full items-center justify-center rounded-t-[25%] bg-slate-400">
+    <div className="relative flex h-[30%] w-full items-center justify-center rounded-t-[25%]" style={{background:"#93bfc9"}}>
       <div className="relative flex flex-col justify-center items-center gap-2 ">
         <ContentEditable
           tagName="div"
-          html={message!=="" ? message : "Type Your Message here!"  }
+          html={message ?? "Hello!"}
           onChange={(e) => {
             setMessage(e.target.value);
           }}
-          className=" text-white text-xl p-4 w-full"
+          className=" text-black text-xl p-4 w-full"
         />
         <button
           onClick={onMessageSend}
-          className="flex w-20 items-center justify-center rounded-md border-2 border-white bg-white text-xl text-black "
+          className="flex w-20 items-center justify-center rounded-md  bg-yellow-200 text-xl text-black "
         >
           Send
           <PaperAirplaneIcon className="h-8 w-8" />{" "}

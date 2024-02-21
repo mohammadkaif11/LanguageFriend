@@ -19,7 +19,8 @@ function ReciverTagV2({
 }) {
   const [selectedLanguage, setSelectedLanguage] = useState<string>("en-US");
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
-  const [selectedVoice, setSelectedVoice] =useState<SpeechSynthesisVoice | null>(null);
+  const [selectedVoice, setSelectedVoice] =
+    useState<SpeechSynthesisVoice | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [audio, setAudio] = useState<string | null>(audioUrl);
   const [playing, setPlaying] = useState(false);
@@ -76,7 +77,7 @@ function ReciverTagV2({
         className="h-8 w-8 rounded-full object-cover"
         alt=""
       />
-      <div className="ml-2 flex max-w-[90%] items-center justify-end rounded-3xl bg-gray-400 px-4  py-3 text-white md:max-w-[80%]">
+      <div className="ml-2 flex max-w-[90%] items-center justify-end rounded-3xl  px-4 py-3 text-white md:max-w-[80%]" style={{backgroundColor:"#6ba76b"}}>
         <span className="w-full">{text}</span>
         {playing ? (
           <PauseCircleIcon

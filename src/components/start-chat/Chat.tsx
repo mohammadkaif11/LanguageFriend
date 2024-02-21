@@ -10,16 +10,7 @@ function Chat({ title, description }: { title: string; description: string }) {
     const id = uid();
     router.push(`/chat/${id}`);
   };
-
-  const handleLearningChat = () => {
-    const id = uid();
-    router.push(`/learning-chat/${id}`);
-  };
-  const handlePracticeChat = () => {
-    const id = uid();
-    router.push(`/learning-chat/${id}`);
-  };
-
+  
   return (
     <div className="relative mt-6 flex max-w-[500px] flex-col rounded-xl bg-yellow-100 bg-clip-border text-gray-700 shadow-md">
       <div className="p-4">

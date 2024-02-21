@@ -67,32 +67,32 @@ function ChatWindow() {
   }, [messages]);
 
   return (
-    <div className="flex h-screen flex-row justify-center bg-green-400">
-      <div className="flex w-full flex-col justify-between  bg-gray-600 md:w-[550px]">
+    <div className="flex h-screen flex-row justify-center">
+      <div className="flex w-full flex-col justify-between  md:w-[550px]">
         <div
           className="mt-5 flex flex-col overflow-y-scroll px-2"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
           <Menu as="div" className="inline-block text-left md:hidden">
-              <Menu.Button>
-                {open ? (
-                  <XMarkIcon
-                    className="block h-8 w-8"
-                    aria-hidden="true"
-                    onClick={() => {
-                      setOpen(!open);
-                    }}
-                  />
-                ) : (
-                  <Bars3Icon
-                    className="block h-8 w-8"
-                    aria-hidden="true"
-                    onClick={() => {
-                      setOpen(!open);
-                    }}
-                  />
-                )}
-              </Menu.Button>
+            <Menu.Button>
+              {open ? (
+                <XMarkIcon
+                  className="block h-8 w-8"
+                  aria-hidden="true"
+                  onClick={() => {
+                    setOpen(!open);
+                  }}
+                />
+              ) : (
+                <Bars3Icon
+                  className="block h-8 w-8"
+                  aria-hidden="true"
+                  onClick={() => {
+                    setOpen(!open);
+                  }}
+                />
+              )}
+            </Menu.Button>
             <Transition
               as={Fragment}
               enter="transition ease-out duration-100"
@@ -127,32 +127,31 @@ function ChatWindow() {
             </div>
           ))}
           {loading && (
-            <span className="h-10 w-24 border-gray-500 text-black chatLoader">
-            </span>
+            <span className="chatLoader h-10 w-24 border-gray-500 text-black"></span>
           )}
         </div>
         <InputFormTag setMessages={setMessages} chatHistory={messages} />
       </div>
       <Menu as="div" className="relative hidden text-left md:inline-block">
-          <Menu.Button className="ml-2 mt-2">
-            {open ? (
-              <XMarkIcon
-                className="block h-8 w-8"
-                aria-hidden="true"
-                onClick={() => {
-                  setOpen(!open);
-                }}
-              />
-            ) : (
-              <Bars3Icon
-                className="block h-8 w-8"
-                aria-hidden="true"
-                onClick={() => {
-                  setOpen(!open);
-                }}
-              />
-            )}
-          </Menu.Button>
+        <Menu.Button className="ml-2 mt-2">
+          {open ? (
+            <XMarkIcon
+              className="block h-8 w-8"
+              aria-hidden="true"
+              onClick={() => {
+                setOpen(!open);
+              }}
+            />
+          ) : (
+            <Bars3Icon
+              className="block h-8 w-8"
+              aria-hidden="true"
+              onClick={() => {
+                setOpen(!open);
+              }}
+            />
+          )}
+        </Menu.Button>
         <Transition
           as={Fragment}
           enter="transition ease-out duration-100"
@@ -169,7 +168,6 @@ function ChatWindow() {
                   Back
                 </button>
               </Menu.Item>
-              
             </div>
           </Menu.Items>
         </Transition>

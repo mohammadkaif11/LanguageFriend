@@ -52,7 +52,7 @@ function MicroPhone(props) {
   };
 
   return (
-    <div className="bg-white rounded-full p-2">
+    <div className="bg-yellow-200 rounded-full p-2">
       {recordingstart && (
         <PauseIcon
           onClick={() => {
