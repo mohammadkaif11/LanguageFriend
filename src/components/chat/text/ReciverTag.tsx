@@ -98,8 +98,7 @@ function ReciverTag({
         alt=""
       />
       <div
-        className="ml-2 flex max-w-[90%] flex-col items-end justify-end rounded-3xl px-4 py-3 md:max-w-[80%]"
-        style={{ backgroundColor: "#6ba76b" }}
+        className="ml-2 flex max-w-[90%] flex-col items-end justify-end rounded-3xl px-4 py-3 md:max-w-[80%] bg-green-400"
       >
         <span className="w-full">
           <Markdown>{text}</Markdown>

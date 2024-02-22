@@ -5,7 +5,7 @@ function page() {
   return (
     <div className="container mx-auto rounded-lg shadow-lg">
       <div className="flex flex-row justify-between bg-white">
-        <ChatWindow/>
+        {/* <ChatWindow/> */}
       </div>
     </div>
   );

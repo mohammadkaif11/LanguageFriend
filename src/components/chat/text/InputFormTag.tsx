@@ -42,19 +42,15 @@ function InputFormTag(props: InputFormTagProps) {
   }
 
   return (
-    <div
-      className="relative flex h-[25%] w-full items-center justify-center rounded-t-[25%]"
-      style={{ background: "#93bfc9" }}
-    >
-      <div className="relative flex flex-col items-center justify-center gap-2 ">
-        <ContentEditable
-          tagName="div"
-          html={message ?? "Hello!"}
-          onChange={(e) => {
-            setMessage(e.target.value);
-          }}
-          className=" w-full p-4 text-xl text-black " 
-        />
+    <div className="relative flex h-[25%] w-full items-center justify-center rounded-t-[25%] bg-teal-200">
+      <div className="relative flex flex-col items-center justify-center gap-2 p-4">
+        <textarea
+          rows={3}
+          onChange={(e)=>{setMessage(e.target.value)}}
+          cols={60}
+          className="mt-[40px] block w-full rounded-lg border-2 border-gray-500  bg-transparent p-4 text-xl text-black"
+          placeholder="Your message..."
+        ></textarea>
         <button
           onClick={onMessageSend}
           className="flex w-20 items-center justify-center rounded-md  bg-yellow-200 text-xl text-black "

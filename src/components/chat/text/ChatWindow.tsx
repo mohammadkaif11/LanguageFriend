@@ -66,7 +66,7 @@ function ChatWindow({ nativeLanguageCode }: { nativeLanguageCode: string }) {
 
   return (
     <div className="flex h-screen flex-row justify-center">
-      <div className="flex w-full flex-col justify-between gap-12  md:w-[600px]">
+      <div className="flex w-full flex-col justify-between gap-12  md:w-[550px]">
         <div
           className="mt-5 flex h-[75%] flex-col overflow-y-scroll px-2"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
