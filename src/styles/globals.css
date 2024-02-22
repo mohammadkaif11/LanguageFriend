@@ -54,8 +54,8 @@
 }
 
 body {
-  background-image: url('/backgroundImage1.png');
-  background-size: cover;
+  background-image: url('/bg4.png');
+  background-size:cover;
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
