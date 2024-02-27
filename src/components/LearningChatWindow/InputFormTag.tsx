@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { PaperAirplaneIcon } from "@heroicons/react/16/solid";
-import ContentEditable from "react-contenteditable";
 import { startChart } from "~/server/chatGPT/chatgpt";
 import {
+  MessageInterface,
   type LearningObjectResponseInterface,
   type MessageLearningModelInterface,
 } from "model";
@@ -10,10 +10,8 @@ import MicroPhone from "~/components/speech-text-js/MicroPhone";
 import { traslateText } from "~/server/chatGPT/gptHelper";
 
 interface InputFormTagProps {
-  setMessages: React.Dispatch<
-    React.SetStateAction<MessageLearningModelInterface[]>
-  >;
-  chatHistory: MessageLearningModelInterface[];
+  setMessages: React.Dispatch< React.SetStateAction<MessageInterface[]> >;
+  chatHistory: MessageInterface[];
   setSenderLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 

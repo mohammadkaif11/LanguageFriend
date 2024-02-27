@@ -1,5 +1,5 @@
 import { type Session } from "next-auth";
-import { User } from "@prisma/client";
+import { type User } from "@prisma/client";
 
 export interface MessageInterface {
   role: "system" | "user" | "assistant";

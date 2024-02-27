@@ -1,15 +1,11 @@
 "use client";
 import React, { useEffect, useState, useRef } from "react";
-import SenderTag from "./SenderTag";
-import ReciverTag from "./ReciverTag";
-import InputFormTag from "./InputFormTag";
+import ReciverTag from "../chat/text/ReciverTag";
+import SenderTag from "../chat/text/SenderTag";
+import InputFormTag from "../chat/text/InputFormTag";
 import { useSearchParams } from "next/navigation";
 import { startChart } from "~/server/chatGPT/chatgpt";
-import {
-  type MessageLearningModelInterface,
-  type LearningObjectResponseInterface,
-} from "model";
-import { getNormalConversationFeedPrompt } from "~/server/prompt/prompt";
+import { type MessageInterface } from "model";
 import { HomeIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/navigation";
 
@@ -25,35 +21,22 @@ function ChatWindow({
   const senderLoadingRef = useRef<HTMLDivElement>(null);
   const loaderRef = useRef<HTMLDivElement>(null);
   const searchParams = useSearchParams();
-  const [open, setOpen] = useState(false);
-  const [messages, setMessages] = useState<MessageLearningModelInterface[]>([]);
+  const [messages, setMessages] = useState<MessageInterface[]>([]);
   const sceneId = searchParams?.get("sceneId");
   const [reciverloading, setReciverLoading] = useState<boolean>(true);
-  const [senderLoading, setSenderLoading] = useState<boolean>(false);
-  const chatPropmt = getNormalConversationFeedPrompt(
-    sceneId,
-    nativeLanguage,
-    targetLanguage,
-  );
+  const chatPropmt = "You are ai chat bot";
 
   useEffect(() => {
-    const sendObj: MessageLearningModelInterface = {
+    const sendObj: MessageInterface = {
       role: "system",
       content: chatPropmt,
-      nativeLanguage: null,
-      targetLanguage: null,
       voiceUrl: null,
     };
     setMessages((prevMessages) => [...prevMessages, sendObj]);
     if (messages.length === 0) {
       startChart([...messages, sendObj])
         .then((response) => {
-          const res = response as MessageLearningModelInterface;
-          const obj = JSON.parse(
-            res.content,
-          ) as LearningObjectResponseInterface;
-          res.nativeLanguage = obj.inNativeLanguage ?? "";
-          res.targetLanguage = obj.inTargetLanguage ?? "";
+          const res = response as MessageInterface;
           res.voiceUrl = null;
           setMessages((prevMessages) => [...prevMessages, res]);
         })
@@ -82,10 +65,7 @@ function ChatWindow({
     if (reciverloading && loaderRef.current) {
       loaderRef.current.scrollIntoView({ behavior: "smooth" });
     }
-    if (senderLoading && senderLoadingRef.current) {
-      senderLoadingRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [reciverloading, senderLoading]);
+  }, [reciverloading]);
 
   return (
     <div className="flex h-screen flex-row justify-center">
@@ -103,51 +83,36 @@ function ChatWindow({
               }}
             />
           </div>
-          {messages?.map(
-            (data: MessageLearningModelInterface, index: number) => (
-              <div
-                key={index}
-                ref={index === messages.length - 1 ? scrollRef : null}
-              >
-                {data.role === "user" && (
-                  <SenderTag
-                    text={data.content}
-                    audioUrl={data.voiceUrl}
-                    index={index}
-                    nativeText={data.nativeLanguage}
-                    targetText={data.targetLanguage}
-                    setMessages={setMessages}
-                  />
-                )}
-                {data.role === "assistant" && (
-                  <ReciverTag
-                    text={data.content}
-                    audioUrl={data.voiceUrl}
-                    index={index}
-                    nativeText={data.nativeLanguage}
-                    targetText={data.targetLanguage}
-                    setMessages={setMessages}
-                  />
-                )}
-              </div>
-            ),
-          )}
+          {messages?.map((data: MessageInterface, index: number) => (
+            <div
+              key={index}
+              ref={index === messages.length - 1 ? scrollRef : null}
+            >
+              {data.role === "user" && (
+                <SenderTag
+                  text={data.content}
+                  audioUrl={data.voiceUrl}
+                  index={index}
+                  setMessages={setMessages}
+                />
+              )}
+              {data.role === "assistant" && (
+                <ReciverTag
+                  text={data.content}
+                  audioUrl={data.voiceUrl}
+                  index={index}
+                  setMessages={setMessages}
+                />
+              )}
+            </div>
+          ))}
           {reciverloading && (
             <div ref={loaderRef} className="flex justify-start">
               <span className="chatLoader h-10 w-24 border-gray-500 text-black"></span>
             </div>
           )}
-          {senderLoading && (
-            <div ref={senderLoadingRef} className="flex justify-end">
-              <span className="chatLoader h-10 w-24 border-gray-500 text-black"></span>
-            </div>
-          )}
         </div>
-        <InputFormTag
-          setMessages={setMessages}
-          chatHistory={messages}
-          setSenderLoading={setSenderLoading}
-        />
+        <InputFormTag setMessages={setMessages} chatHistory={messages} />
       </div>
       <div className="relative hidden text-left md:inline-block">
         <div className="ml-2 mt-2">
