@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { PaperAirplaneIcon } from "@heroicons/react/16/solid";
-import ContentEditable from "react-contenteditable";
 import { startChart } from "~/server/chatGPT/chatgpt";
 import { type MessageInterface } from "model";
 import MicroPhone from "~/components/speech-text-js/MicroPhone";

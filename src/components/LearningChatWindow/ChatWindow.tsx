@@ -10,9 +10,8 @@ import {
   type LearningObjectResponseInterface,
 } from "model";
 import { getNormalConversationFeedPrompt } from "~/server/prompt/prompt";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { Fragment } from "react";
-import { Menu, Transition } from "@headlessui/react";
+import { HomeIcon } from "@heroicons/react/24/solid";
+import { useRouter } from "next/navigation";
 
 function ChatWindow({
   nativeLanguage,
@@ -21,10 +20,10 @@ function ChatWindow({
   nativeLanguage: string;
   targetLanguage: string;
 }) {
+  const router = useRouter();
   const scrollRef = useRef<HTMLDivElement>(null);
   const senderLoadingRef = useRef<HTMLDivElement>(null);
   const loaderRef = useRef<HTMLDivElement>(null);
-
   const searchParams = useSearchParams();
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<MessageLearningModelInterface[]>([]);
@@ -87,53 +86,23 @@ function ChatWindow({
       senderLoadingRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [reciverloading, senderLoading]);
+
   return (
-    <div className="flex h-screen flex-row justify-center bg-green-400">
-      <div className="flex w-full flex-col justify-between gap-12  bg-gray-600 md:w-[550px]">
+    <div className="flex h-screen flex-row justify-center">
+      <div className="flex w-full flex-col justify-between gap-12  md:w-[550px]">
         <div
-          className="mt-5 flex h-[70%] flex-col overflow-y-scroll px-2"
+          className="mt-5 flex h-[75%] flex-col overflow-y-scroll px-2"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
-          <Menu as="div" className="inline-block text-left md:hidden">
-            <Menu.Button>
-              {open ? (
-                <XMarkIcon
-                  className="block h-8 w-8"
-                  aria-hidden="true"
-                  onClick={() => {
-                    setOpen(!open);
-                  }}
-                />
-              ) : (
-                <Bars3Icon
-                  className="block h-8 w-8"
-                  aria-hidden="true"
-                  onClick={() => {
-                    setOpen(!open);
-                  }}
-                />
-              )}
-            </Menu.Button>
-            <Transition
-              as={Fragment}
-              enter="transition ease-out duration-100"
-              enterFrom="transform opacity-0 scale-95"
-              enterTo="transform opacity-100 scale-100"
-              leave="transition ease-in duration-75"
-              leaveFrom="transform opacity-100 scale-100"
-              leaveTo="transform opacity-0 scale-95"
-            >
-              <Menu.Items className="absolute left-2 z-10 w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                <div className="py-1">
-                  <Menu.Item>
-                    <button className="block px-4 py-2 text-sm text-gray-700">
-                      Back
-                    </button>
-                  </Menu.Item>
-                </div>
-              </Menu.Items>
-            </Transition>
-          </Menu>
+          <div className="inline-block text-left md:hidden">
+            <HomeIcon
+              className="block h-8 w-8"
+              aria-hidden="true"
+              onClick={() => {
+                router.push("/");
+              }}
+            />
+          </div>
           {messages?.map(
             (data: MessageLearningModelInterface, index: number) => (
               <div
@@ -180,46 +149,17 @@ function ChatWindow({
           setSenderLoading={setSenderLoading}
         />
       </div>
-      <Menu as="div" className="relative hidden text-left md:inline-block">
-        <Menu.Button className="ml-2 mt-2">
-          {open ? (
-            <XMarkIcon
-              className="block h-8 w-8"
-              aria-hidden="true"
-              onClick={() => {
-                setOpen(!open);
-              }}
-            />
-          ) : (
-            <Bars3Icon
-              className="block h-8 w-8"
-              aria-hidden="true"
-              onClick={() => {
-                setOpen(!open);
-              }}
-            />
-          )}
-        </Menu.Button>
-        <Transition
-          as={Fragment}
-          enter="transition ease-out duration-100"
-          enterFrom="transform opacity-0 scale-95"
-          enterTo="transform opacity-100 scale-100"
-          leave="transition ease-in duration-75"
-          leaveFrom="transform opacity-100 scale-100"
-          leaveTo="transform opacity-0 scale-95"
-        >
-          <Menu.Items className="absolute right-0  z-10  w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-            <div className="py-1">
-              <Menu.Item>
-                <button className="block px-4 py-2 text-sm text-gray-700">
-                  Back
-                </button>
-              </Menu.Item>
-            </div>
-          </Menu.Items>
-        </Transition>
-      </Menu>
+      <div className="relative hidden text-left md:inline-block">
+        <div className="ml-2 mt-2">
+          <HomeIcon
+            className="block h-8 w-8"
+            aria-hidden="true"
+            onClick={() => {
+              router.push("/");
+            }}
+          />
+        </div>
+      </div>
     </div>
   );
 }

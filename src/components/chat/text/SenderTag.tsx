@@ -96,7 +96,7 @@ function SenderTag({
   return (
     <div className="mb-4 flex items-center justify-end">
       <div
-        className="ml-2 flex max-w-[90%] flex-col items-end justify-end rounded-3xl px-4 py-3 md:max-w-[80%] bg-red-400"
+        className="mr-2 flex max-w-[90%] flex-col items-end justify-end rounded-3xl px-4 py-3 md:max-w-[80%] bg-red-400"
         
       >
         <span className="w-full">
