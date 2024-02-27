@@ -1,8 +1,8 @@
 "use client";
 import React, { useEffect, useState, useRef } from "react";
-import SenderTag from "./SenderTag";
-import ReciverTag from "./ReciverTag";
-import InputFormTag from "./InputFormTag";
+import SenderTag from "./text/SenderTag";
+import ReciverTag from "./text/ReciverTag";
+import InputFormTag from "./text/InputFormTag";
 import { startChart } from "~/server/chatGPT/chatgpt";
 import { type MessageInterface } from "model";
 import { extractNativeLanguageByLanguageCode } from "~/server/utils/helper";

@@ -3,7 +3,7 @@ import { Fragment, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
-import VoiceLoadSpiner from "../loader/voice-load-spinner";
+import VoiceLoadSpiner from "../../loader/voice-load-spinner";
 import { explainOutput } from "~/server/chatGPT/gptHelper";
 export const maxDuration = 300;
 
