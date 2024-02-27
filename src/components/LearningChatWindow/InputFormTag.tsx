@@ -2,14 +2,19 @@ import React, { useState, useEffect } from "react";
 import { PaperAirplaneIcon } from "@heroicons/react/16/solid";
 import ContentEditable from "react-contenteditable";
 import { startChart } from "~/server/chatGPT/chatgpt";
-import { type LearningObjectResponseInterface, type MessageLearningModelInterface } from "model";
+import {
+  type LearningObjectResponseInterface,
+  type MessageLearningModelInterface,
+} from "model";
 import MicroPhone from "~/components/speech-text-js/MicroPhone";
 import { traslateText } from "~/server/chatGPT/gptHelper";
 
 interface InputFormTagProps {
-  setMessages: React.Dispatch<React.SetStateAction<MessageLearningModelInterface[]>>;
+  setMessages: React.Dispatch<
+    React.SetStateAction<MessageLearningModelInterface[]>
+  >;
   chatHistory: MessageLearningModelInterface[];
-  setSenderLoading:React.Dispatch<React.SetStateAction<boolean>>;
+  setSenderLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function InputFormTag(props: InputFormTagProps) {
@@ -21,14 +26,14 @@ function InputFormTag(props: InputFormTagProps) {
     }
     setMessage("");
     props.setSenderLoading(true);
-    const targetLanguageText=await traslateText(message);
+    const targetLanguageText = await traslateText(message);
     props.setSenderLoading(false);
 
     const userMessage: MessageLearningModelInterface = {
       content: message,
       role: "user",
       voiceUrl: null,
-      nativeLanguage:message,
+      nativeLanguage: message,
       targetLanguage: targetLanguageText,
     };
 
@@ -52,25 +57,24 @@ function InputFormTag(props: InputFormTagProps) {
     }
   }
 
-  
-
   return (
-    <div className="relative flex h-[30%] w-full items-center justify-center rounded-t-[25%] bg-slate-400">
-      <div className="relative flex flex-col justify-center items-center gap-2 ">
-        <ContentEditable
-          tagName="div"
-          html={message!=="" ? message : "Type Your Message here!"  }
+    <div className="relative flex h-[25%] w-full items-center justify-center rounded-t-[25%] bg-teal-200">
+      <div className="relative flex flex-col items-center justify-center gap-2 p-4">
+        <textarea
+          rows={3}
           onChange={(e) => {
             setMessage(e.target.value);
           }}
-          className=" text-white text-xl p-4 w-full"
-        />
+          cols={60}
+          className="mt-[40px] block w-full rounded-lg border-2 border-gray-500  bg-transparent p-4 text-xl text-black"
+          placeholder="Your message..."
+        ></textarea>
         <button
           onClick={onMessageSend}
-          className="flex w-20 items-center justify-center rounded-md border-2 border-white bg-white text-xl text-black "
+          className="flex w-20 items-center justify-center rounded-md  bg-yellow-200 text-xl text-black "
         >
           Send
-          <PaperAirplaneIcon className="h-8 w-8" />{" "}
+          <PaperAirplaneIcon className="h-6 w-6" />{" "}
         </button>
       </div>
       <div className="absolute left-[42%] top-[-32px]">
