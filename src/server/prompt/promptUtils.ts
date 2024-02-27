@@ -10,7 +10,6 @@ export const getBasisPrompt=(target_languageCode:string,native_languageCode:stri
     return base_prompt_refactor;
 }
 
-
 export const getBasisPromptForLearning=(target_languageCode:string,native_languageCode:string)=>{
     const target_language=targetLanguageSetting.find(language => language.code===target_languageCode)?.language ?? "English";
     const native_language=nativeLanguageSetting.find(language => language.code===native_languageCode)?.language ?? "English";
