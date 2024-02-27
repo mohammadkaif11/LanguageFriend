@@ -1,5 +1,5 @@
 import React from "react";
-import ChatWindow from "~/components/LearningChatWindow/ChatWindow";
+import ChatWindow from "~/components/LearningChatWindow/learning-chat-window";
 import { getServerAuthSession } from "~/server/auth";
 import { redirect } from "next/navigation";
 async function page() {
@@ -7,8 +7,9 @@ async function page() {
   if (!sessions?.user?.id) {
     redirect("/login");
   }
+
   return (
-      <ChatWindow nativeLanguage={sessions.user.nativeLanguageSetting}  targetLanguage={sessions.user.targetLanguageSetting}/>
+      <ChatWindow nativeLanguage={sessions.user.nativeLanguageSetting} targetLanguage={sessions.user.targetLanguageSetting}/>
   );
 }
 

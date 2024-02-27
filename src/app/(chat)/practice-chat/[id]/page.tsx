@@ -1,5 +1,6 @@
 import React from "react";
-import ChatWindow from "~/components/LearningChatWindow/ChatWindow";
+import ChatWindow from "~/components/PracticeChatWindow/practice-chat-window";
+
 import { getServerAuthSession } from "~/server/auth";
 import { redirect } from "next/navigation";
 async function page() {

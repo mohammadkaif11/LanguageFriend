@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import {type ReactNode } from "react";
 import { Providers } from "~/components/providers/Providerts";
 
 export default function chatLayout({ children }: { children: ReactNode }) {

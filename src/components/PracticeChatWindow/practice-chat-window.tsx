@@ -8,8 +8,9 @@ import { startChart } from "~/server/chatGPT/chatgpt";
 import { type MessageInterface } from "model";
 import { HomeIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/navigation";
+import { getPracticeFeedPrompt } from "~/server/prompt/prompt";
 
-function ChatWindow({
+function PracticeChatWindow({
   nativeLanguage,
   targetLanguage,
 }: {
@@ -18,13 +19,14 @@ function ChatWindow({
 }) {
   const router = useRouter();
   const scrollRef = useRef<HTMLDivElement>(null);
-  const senderLoadingRef = useRef<HTMLDivElement>(null);
   const loaderRef = useRef<HTMLDivElement>(null);
   const searchParams = useSearchParams();
   const [messages, setMessages] = useState<MessageInterface[]>([]);
-  const sceneId = searchParams?.get("sceneId");
   const [reciverloading, setReciverLoading] = useState<boolean>(true);
-  const chatPropmt = "You are ai chat bot";
+  const sceneId = searchParams?.get("sceneId");
+  const characterId = searchParams?.get("characterId");
+  const userScene=searchParams?.get("userScene");
+  const chatPropmt = getPracticeFeedPrompt(sceneId,userScene,characterId,targetLanguage,nativeLanguage);
 
   useEffect(() => {
     const sendObj: MessageInterface = {
@@ -129,4 +131,4 @@ function ChatWindow({
   );
 }
 
-export default ChatWindow;
+export default PracticeChatWindow;
