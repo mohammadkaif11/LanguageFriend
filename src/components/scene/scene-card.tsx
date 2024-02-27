@@ -30,51 +30,62 @@ function SceneCard({
     setIsDeleteOpen(true);
   };
 
-  const handleChat = () => {
+  const handleLearningChat = () => {
     const id = uid();
-    router.push(`/chat/${id}`);
+    router.push(`/learning-chat/${id}`);
   };
+
+  const handlePracticeChat = () => {
+    const id = uid();
+    router.push(`/practice-chat/${id}`);
+  };
+  
   return (
     <>
       <div className="relative mt-6 flex max-w-[500px]  flex-col  rounded-xl bg-yellow-100 bg-clip-border text-gray-700 shadow-md ">
         <div className="p-4">
-        {!isDefault && (<Menu as="div" className="relative float-end inline-block text-left">
-            <div>
-              <Menu.Button>
-                <Bars4Icon className="mb-4 h-6 w-6 text-gray-900" />
-              </Menu.Button>
-            </div>
-            <Transition
-              as={Fragment}
-              enter="transition ease-out duration-100"
-              enterFrom="transform opacity-0 scale-95"
-              enterTo="transform opacity-100 scale-100"
-              leave="transition ease-in duration-75"
-              leaveFrom="transform opacity-100 scale-100"
-              leaveTo="transform opacity-0 scale-95"
+          {!isDefault && (
+            <Menu
+              as="div"
+              className="relative float-end inline-block text-left"
             >
-              <Menu.Items className="absolute right-0  z-10  w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                <div className="py-1">
-                  <Menu.Item>
-                    <button
-                      className="block px-4 py-2 text-sm text-gray-700"
-                      onClick={handleOpenEditModal}
-                    >
-                      Edit
-                    </button>
-                  </Menu.Item>
-                  <Menu.Item>
-                    <button
-                      className="block px-4 py-2 text-sm text-gray-700"
-                      onClick={handleOpenDeleteModal}
-                    >
-                      Delete
-                    </button>
-                  </Menu.Item>
-                </div>
-              </Menu.Items>
-            </Transition>
-          </Menu> )}
+              <div>
+                <Menu.Button>
+                  <Bars4Icon className="mb-4 h-6 w-6 text-gray-900" />
+                </Menu.Button>
+              </div>
+              <Transition
+                as={Fragment}
+                enter="transition ease-out duration-100"
+                enterFrom="transform opacity-0 scale-95"
+                enterTo="transform opacity-100 scale-100"
+                leave="transition ease-in duration-75"
+                leaveFrom="transform opacity-100 scale-100"
+                leaveTo="transform opacity-0 scale-95"
+              >
+                <Menu.Items className="absolute right-0  z-10  w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  <div className="py-1">
+                    <Menu.Item>
+                      <button
+                        className="block px-4 py-2 text-sm text-gray-700"
+                        onClick={handleOpenEditModal}
+                      >
+                        Edit
+                      </button>
+                    </Menu.Item>
+                    <Menu.Item>
+                      <button
+                        className="block px-4 py-2 text-sm text-gray-700"
+                        onClick={handleOpenDeleteModal}
+                      >
+                        Delete
+                      </button>
+                    </Menu.Item>
+                  </div>
+                </Menu.Items>
+              </Transition>
+            </Menu>
+          )}
           <img
             className="float-left m-2 h-24 w-24  rounded-full"
             src={scene?.sceneImage}
@@ -88,7 +99,7 @@ function SceneCard({
           </p>
           <div className="float-right flex gap-2 pr-2 pt-2">
             <button
-              onClick={handleChat}
+              onClick={handlePracticeChat}
               className="flex select-none items-center gap-2 rounded-lg bg-yellow-500 px-4 py-2 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:bg-yellow-300 active:bg-yellow-300 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
               type="button"
             >
@@ -109,7 +120,7 @@ function SceneCard({
               </svg>
             </button>
             <button
-              onClick={handleChat}
+              onClick={handleLearningChat}
               className="flex select-none items-center gap-2 rounded-lg bg-yellow-500 px-4 py-2 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:bg-yellow-300 active:bg-yellow-300 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none "
               type="button"
             >

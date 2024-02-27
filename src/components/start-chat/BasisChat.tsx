@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { useRouter } from "next/navigation";
 import { uid } from "uid";
 function BasisChat({
@@ -12,18 +12,14 @@ function BasisChat({
 }) {
   const router = useRouter();
 
-  const handleChat = () => {
-    const id = uid();
-    router.push(`/chat/${id}`);
-  };
-
   const handleLearningChat = () => {
     const id = uid();
     router.push(`/learning-chat/${id}`);
   };
+
   const handlePracticeChat = () => {
     const id = uid();
-    router.push(`/learning-chat/${id}`);
+    router.push(`/practice-chat/${id}`);
   };
 
   return (
@@ -42,7 +38,7 @@ function BasisChat({
         </p>
         <div className="float-right flex gap-2 pr-2 pt-2">
           <button
-            onClick={handleChat}
+            onClick={handlePracticeChat}
             className="flex select-none items-center gap-2 rounded-lg bg-yellow-500 px-4 py-2 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:bg-yellow-300 active:bg-yellow-300 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
             type="button"
           >
