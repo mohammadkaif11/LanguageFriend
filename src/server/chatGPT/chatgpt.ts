@@ -9,7 +9,7 @@ export const startChart = async (data: MessageInterface[]) => {
   const inputParams = extractContentAndRole(data);
   const completion = await openai.chat.completions.create({
     messages: inputParams,
-    model: "gpt-4",
+    model: "gpt-3.5-turbo",
   });
   return completion.choices[0]?.message;
 };
